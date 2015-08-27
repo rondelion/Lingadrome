@@ -1,0 +1,27 @@
+{
+"Objects" : [{
+"Name" : "LanguageLearner",
+"Type" : "LL",
+"Position" : [1, 1],
+"Direction" : 0,
+"Comment" : "The Language Learner"
+},
+{
+"Name" : "CareTaker",
+"Type" : "LU",
+"Position" : [1, 0],
+"Direction" : 1,
+"Comment" : "A care taker"
+},
+{
+"Name" : "Ball1",
+"Type" : "Item",
+"Position" : [2, 2],
+"Color" : [255,0,0],
+"Shape" : "Sphere",
+"Size" : [0.1,0,0],
+"Comment" : "A red ball"
+}
+],
+"Walls" : [[[5,5],[5,-5],[-5,-5],[-5,5]]]
+}

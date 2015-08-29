@@ -13,9 +13,10 @@ class WorldObject(object):
     __mass=1.0            # Mass
     __staticCOF=1.0       # Static Coefficient of Friction
     __kineticCOF=1.0      # Kinetic Coefficient of Friction
-    __direction=0.0       # Motion direction
-    __velocity=0.0        # Velocity for the motion direction
-    __acceleration=0.0    # Acceleration in the direction of orientation
+    __thrust=0.0          # Degree of thrust forward
+    __steeringOrientation=0.0 # [-1,+1]
+    __velocity=0.0
+    __acceleration=0.0
 
     def __init__(self, mass=1, kineticCOF=1, staticCOF=1):
         '''
@@ -55,6 +56,20 @@ class WorldObject(object):
     def setKineticCOF(self, kineticCOF):
         self.__kineticCOF = kineticCOF
 
+    def getSteeringOrientation(self):
+        return(self.__steeringOrientation)
+
+    def setSteeringOrientation(self, orientation):
+        # Actual orientation is determined by the physics engine used
+        self.__steeringOrientation = orientation
+        
+    def getThrust(self):
+        return(self.__thrust)
+
+    def setThrust(self, thrust):
+        # Actual orientation is determined by the physics engine used
+        self.__thrust = thrust
+        
     def thrust(self, force, time):
         if self.__velocity==0.0 and force<=self.__staticCOF:
                 self.__acceleration = 0
@@ -65,7 +80,5 @@ class WorldObject(object):
                 self.__acceleration = force/self.__mass + self.__kineticCOF
         # TODO: Collision handling?
     
-    def rotate(self, angle):
-        self.__orientation = self.__orientation + angle
     
     

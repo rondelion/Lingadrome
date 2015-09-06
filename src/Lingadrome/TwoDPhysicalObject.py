@@ -12,10 +12,9 @@ class TwoDPhysicalObject(object):
     __radius=0.1          # Radius (m)
     __staticCOF=1.0       # Static Coefficient of Friction
     __kineticCOF=1.0      # Kinetic Coefficient of Friction
-    __location=(0.0,0.0)  # Object location (meter^2)
-    __orientation=0.0     # radian
-    __velocity=0.0        # m/s
-    __acceleration=0.0    # m/s^2
+    __location=(0.0,0.0)  # Object location (meter,meter)
+    __velocity=(0.0,0.0)  # (m/s,m/s)
+    __acceleration=(0.0,0.0)    # (m/s^2,m/s^2)
     __angularVelocity=0.0 # radian/s
 
     def __init__(self, mass=1, kineticCOF=1, staticCOF=1):
@@ -55,12 +54,6 @@ class TwoDPhysicalObject(object):
     
     def setLocation(self, location):
         self.__location = location
-
-    def getOrientation(self):
-        return(self.__orientation)
-    
-    def setOrientation(self, orientation):
-        self.__orientation = orientation
 
     def getVelocity(self):
         return(self.__velocity)

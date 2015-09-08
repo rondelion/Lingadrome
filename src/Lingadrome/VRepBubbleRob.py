@@ -1,11 +1,10 @@
 '''
-Created on 2015/08/28
+Created on 2015/09/08
 
 @author: rondelion
 '''
-from Lingadrome import WorldObject
 
-class WorldAgent(WorldObject):
+class VRepBubbleRob(object):
     '''
     classdocs
     '''
@@ -53,3 +52,4 @@ class WorldAgent(WorldObject):
     
     def setAttentionWidth(self, width):
         pass
+    

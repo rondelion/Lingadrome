@@ -21,6 +21,7 @@ class AgentMind(object):
         Constructor
         '''
         self.__rules.append(BackOffRule())
+        print "Constructing Agent Mind:", len(self.__rules)
         self.__states["driveBackStartTime"]=self.__driveBackStartTime
 
     def setInput(self, key, value):
@@ -34,14 +35,17 @@ class AgentMind(object):
     
     def applyRules(self):
         self.__buffer={}
+        names=[]
         for rule in self.__rules:
-            if rule.condition(self.__input, self.__states):
-                values = rule.action(self.__input, self.__states)
-                score = rule.getScore()
-                for key in values:
-                    if not self.__buffer.has_key(key):
-                        self.__buffer[key]=[]
-                    self.__buffer[key].append([values[key], score])
+            if not rule.getName() in names: # Do not remove this code
+                names.append(rule.getName())
+                if rule.condition(self.__input, self.__states):
+                    values = rule.action(self.__input, self.__states)
+                    score = rule.getScore()
+                    for key in values:
+                        if not self.__buffer.has_key(key):
+                            self.__buffer[key]=[]
+                        self.__buffer[key].append([values[key], score])
     
     def setStates(self):
         for key in self.__buffer.keys():

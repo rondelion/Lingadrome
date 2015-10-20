@@ -27,6 +27,7 @@ class VRepBRSimulator(object):
     classdocs
     '''
     __robs=[]
+    __cnt=0
 
     def __init__(self):
         '''
@@ -39,10 +40,11 @@ class VRepBRSimulator(object):
     
     def loop(self, interval):
         while True:
+            self.__cnt=self.__cnt+1
             for rob in self.__robs:
                 if vrep.simxGetConnectionId(rob.getClientID())!=-1:
                     rob.loop()
-                    # self.robPerception(rob)
+                    self.robPerception(rob)
                     # print rob.getName(), rob.getPosition()
                 else:
                     print >> sys.stderr,  "Fatal: cannot connect with a Bubble Rob."
@@ -63,8 +65,10 @@ class VRepBRSimulator(object):
                         item["orientation"]=math.atan2(pos2[1]-pos1[1], pos2[0]-pos1[0])-orientation
                         item["distance"]=math.sqrt((pos1[0]-pos2[0])**2 + (pos1[1]-pos2[1])**2)
                         items.append(item)
-                        if rob.getName()=="BubbleRob#0":
-                           print item
+                        # TODO: 確度の正規化
+                        if self.__cnt % 100==0 and rob.getName()=="BubbleRob#0":
+                            print "orientation:", orientation*180.0/math.pi
+                            print item["orientation"]*180.0/math.pi
                     else:
                         print >> sys.stderr, "No orientation for " + br.getName()
         else:

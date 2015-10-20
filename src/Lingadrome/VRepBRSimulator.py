@@ -1,17 +1,15 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 '''
-Created on 2015/09/08
+Created on 2015/10/12
 
 @author: rondelion
 '''
-
-# Make sure to have the server side running in V-REP!
-# Start the server from a child script with following command:
-# simExtRemoteApiStart(portNumber) -- starts a remote API server service on the specified port
-
 import sys
 import time
+import math
+from VRepAgent import VRepAgent
+from VRepBubbleRob import VRepBubbleRob
 try:
     import vrep
 except:
@@ -23,46 +21,87 @@ except:
     print ('--------------------------------------------------------------')
     print ('')
     exit(-1)
-    '''
-try:
-    import vrepConst
-except:
-    print ('"vrepConst.py" could not be imported.')
-    exit(-1)
-    '''
 
 class VRepBRSimulator(object):
     '''
     classdocs
     '''
+    __robs=[]
 
-
-    def __init__(self, params):
+    def __init__(self):
         '''
         Constructor
         '''
         pass
+
+    def addRob(self, rob):
+        self.__robs.append(rob)
     
+    def loop(self, interval):
+        while True:
+            for rob in self.__robs:
+                if vrep.simxGetConnectionId(rob.getClientID())!=-1:
+                    rob.loop()
+                    # self.robPerception(rob)
+                    # print rob.getName(), rob.getPosition()
+                else:
+                    print >> sys.stderr,  "Fatal: cannot connect with a Bubble Rob."
+                    time.sleep(1)
+                    exit()
+            time.sleep(interval)        
+    
+    def robPerception(self, rob):
+        items=[]
+        pos1=rob.getPosition()
+        if pos1!=None:
+            orientation=rob.getOrientation()
+            for br in self.__robs:
+                if br!=rob:
+                    pos2=br.getPosition()
+                    if pos2!=None:
+                        item={}
+                        item["orientation"]=math.atan2(pos2[1]-pos1[1], pos2[0]-pos1[0])-orientation
+                        item["distance"]=math.sqrt((pos1[0]-pos2[0])**2 + (pos1[1]-pos2[1])**2)
+                        items.append(item)
+                        if rob.getName()=="BubbleRob#0":
+                           print item
+                    else:
+                        print >> sys.stderr, "No orientation for " + br.getName()
+        else:
+            print >> sys.stderr, "No position for " + rob.getName()
+        rob.setPerceivedItems(items)
+
+filepath=""
+
 if __name__ == '__main__':
     argvs = sys.argv
     argc = len(argvs)
-    if argc>=3:
-        portNb=int(argvs[1])
-        worldFileName=argvs[2]
+    if argc>=2:
+        filepath=argvs[1]
     else:
-        print('Indicate following arguments: "portNumber"!')
+        print('Indicate following arguments: "file path"!')
         time.sleep(1)
         exit()
-    # Read the World file
-    # Create the World object
-    # world=World(worldFileName)
-    # relate world objects to V-Rep objects 
-    clientID=vrep.simxStart("127.0.0.1",portNb,True,True,2000,5)
-    if clientID!=-1:
-        driveBackStartTime=-99000
-        while vrep.simxGetConnectionId(clientID)!=-1:
-            time.sleep(0.005)
-            # Get information from V-Rep
-            # Send information to V-Rep
-        vrep.simxFinish(clientID)
-
+    vsim = VRepBRSimulator()
+    robs = []   # List of Robs
+    fp=open(filepath,'r')
+    lines = fp.readlines() # 1行毎にファイル終端まで全て読む(改行文字も含まれる)
+    fp.close()
+    for line in lines:
+        items = line.split(",")
+        for x in items:
+            params = x.split(":")
+            if len(params)>3:
+                try:
+                    portNb = int(params[1])
+                    clientID=vrep.simxStart("127.0.0.1",portNb,True,True,2000,5)
+                    if clientID!=-1:
+                        rob = VRepAgent(params[0], clientID, int(params[2]), int(params[3]))
+                        vsim.addRob(rob)
+                    else:
+                        print >> sys.stderr,  "Fatal: No client ID while creating a Bubble Rob."
+                except ValueError:
+                    print >> sys.stderr,  "Fatal: non integer value while creating a Bubble Rob."
+                    time.sleep(1)
+                    exit()
+    vsim.loop(0.0025)

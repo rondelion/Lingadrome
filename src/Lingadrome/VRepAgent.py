@@ -5,6 +5,7 @@ Created on 2015/09/08
 @author: rondelion
 '''
 import sys
+from AgentMind import AgentMind
 try:
     import vrep
 except:
@@ -17,7 +18,7 @@ except:
     print ('')
     exit(-1)
 
-class VRepBubbleRob(object):
+class VRepAgent(object):
     '''
     classdocs
     '''
@@ -35,11 +36,13 @@ class VRepBubbleRob(object):
     __position=None
     __initLoop=True
     __perceivedItems={}
+    __mind=None
 
     def __init__(self, name, clientID, sensorHandle, bodyHandle):
         '''
         Constructor
         '''
+        self.__mind=AgentMind()
         self.__name=name
         self.__clientID=clientID
         self.__sensorHandle=sensorHandle
@@ -65,37 +68,30 @@ class VRepBubbleRob(object):
             self.__orientation=orientation[2]  #Z
         else:
             self.__orientation = None
-            print >> sys.stderr, "Error in VRepBubbleRob.getOrientation()"
+            # print >> sys.stderr, "Error in VRepBubbleRob.getOrientation()"
         returnCode, position = vrep.simxGetObjectPosition(self.__clientID, self.__bodyHandle, -1, operationMode)
         if returnCode==vrep.simx_return_ok:
             self.__position=[0.0,0.0]
             self.__position[0]=position[0]  #X
             self.__position[1]=position[1]  #Y
         else:
-            print >> sys.stderr, "Error in VRepBubbleRob.getPosition()"
             self.__position=None
+            # print >> sys.stderr, "Error in VRepBubbleRob.getPosition()"
         returnCode, sensorTrigger, dp, doh, dsnv = vrep.simxReadProximitySensor(self.__clientID, self.__sensorHandle, operationMode)
         if returnCode==vrep.simx_return_ok:
             # We succeeded at reading the proximity sensor
-            simulationTime=vrep.simxGetLastCmdTime(self.__clientID)
-            thrust=0.0
-            steering=0.0
-            if simulationTime-self.__driveBackStartTime<3000:
-                # driving backwards while slightly turning:
-                thrust=-1.0
-                steering=-1.0
-            else:
-                # going forward:
-                thrust=1.0
-                steering=0.0
-                if sensorTrigger:
-                    self.__driveBackStartTime=simulationTime # We detected something, and start the backward mode
-            self.setSteering(steering)
-            self.setThrust(thrust)
+            self.__mind.setInput("lastProximitySensorTime", vrep.simxGetLastCmdTime(self.__clientID))
+            self.__mind.setInput("sensorTrigger", sensorTrigger)
+        self.__mind.applyRules()
+        self.__mind.setStates()
+        if self.__mind.getOutput("steering")!=None:
+            self.setSteering(self.__mind.getOutput("steering"))
+        if self.__mind.getOutput("thrust")!=None:
+            self.setThrust(self.__mind.getOutput("thrust"))
         getSignalReturnCode, dMessage = vrep.simxGetStringSignal(self.__clientID, "Debug", vrep.simx_opmode_streaming)
         if dMessage!="":
             print("Debug:"+dMessage)
-    
+            
     def setSteering(self, steering):
         # Steering value [-1,1]
         self.__steering = steering

@@ -62,10 +62,12 @@ class VRepBRSimulator(object):
                     pos2=br.getPosition()
                     if pos2!=None:
                         item={}
-                        item["orientation"]=math.atan2(pos2[1]-pos1[1], pos2[0]-pos1[0])-orientation
+                        ori2=math.atan2(pos2[1]-pos1[1], pos2[0]-pos1[0])-orientation
+                        if ori2>math.pi:
+                            ori2=ori2-2.0*math.pi
+                        item["orientation"]=ori2
                         item["distance"]=math.sqrt((pos1[0]-pos2[0])**2 + (pos1[1]-pos2[1])**2)
                         items.append(item)
-                        # TODO: 確度の正規化
                         if self.__cnt % 100==0 and rob.getName()=="BubbleRob#0":
                             print "orientation:", orientation*180.0/math.pi
                             print item["orientation"]*180.0/math.pi

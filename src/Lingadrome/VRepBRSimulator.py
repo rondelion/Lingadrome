@@ -44,7 +44,7 @@ class VRepBRSimulator(object):
             for rob in self.__robs:
                 if vrep.simxGetConnectionId(rob.getClientID())!=-1:
                     rob.loop()
-                    self.robPerception(rob)
+                    # self.robPerception(rob)
                     # print rob.getName(), rob.getPosition()
                 else:
                     print >> sys.stderr,  "Fatal: cannot connect with a Bubble Rob."

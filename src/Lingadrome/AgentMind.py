@@ -5,23 +5,25 @@ Created on 2015/10/19
 '''
 
 from BackOffRule import BackOffRule
+from GoStraightRule import GoStraightRule
 
 class AgentMind(object):
     '''
     classdocs
     '''
-    __input={}
-    __buffer={}
-    __states={}
-    __rules=[]
-    __driveBackStartTime=-99000
 
     def __init__(self):
         '''
         Constructor
         '''
+        self.__rules=[]
+        self.__states={}
+        self.__input={}
+        self.__buffer={}
+        self.__driveBackStartTime=-99000
         self.__rules.append(BackOffRule())
-        print "Constructing Agent Mind:", len(self.__rules)
+        self.__rules.append(GoStraightRule())
+        # print "Constructing Agent Mind:", len(self.__rules)
         self.__states["driveBackStartTime"]=self.__driveBackStartTime
 
     def setInput(self, key, value):

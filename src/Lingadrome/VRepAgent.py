@@ -5,6 +5,7 @@ Created on 2015/09/08
 @author: rondelion
 '''
 import sys
+import math
 from AgentMind import AgentMind
 try:
     import vrep
@@ -22,34 +23,26 @@ class VRepAgent(object):
     '''
     classdocs
     '''
-    __name=""
-    __clientID=0          # Client ID of the V-Rep agent
-    __sensorHandle=0      # Proximity sensor handle of the V-Rep agent
-    __bodyHandle=0        # BubbleRob body handle
-    __velocity=0.0        # m/s
-    __angularVelocity=0.0 # radian/s
-    __orientation=None    # π radian
-    __emotion=0
-    __steering=0.0    # Steering value [-1,1]
-    __thrust=1.0      # Degree of thrust forward [-1,1]
-    __driveBackStartTime=-99000
-    __position=None
-    __initLoop=True
-    __perceivedItems={}
-    __mind=None
 
     def __init__(self, name, clientID, sensorHandle, bodyHandle):
         '''
         Constructor
         '''
+        self.__velocity=0.0        # m/s
+        self.__angularVelocity=0.0 # radian/s
+        self.__orientation=None    # π radian
+        self.__steering=0.0        # Steering value [-1,1]
+        self.__thrust=1.0          # Accelerator value [-1,1]
+        self.__emotion=0
+        self.__position=None
+        self.__initLoop=True
+        self.__perceivedItems={}
         self.__mind=AgentMind()
         self.__name=name
-        self.__clientID=clientID
-        self.__sensorHandle=sensorHandle
-        self.__bodyHandle=bodyHandle
+        self.__clientID=clientID          # Client ID of the V-Rep agent
+        self.__sensorHandle=sensorHandle  # Proximity sensor handle of the V-Rep agent
+        self.__bodyHandle=bodyHandle      # BubbleRob body handle
         self.__driveBackStartTime=-99000
-        self.__steering=0.0         # Steering value [-1,1]
-        self.__thrust=1.0     # Accelerator value [-1,1]
    
     def getClientID(self):
         return self.__clientID
@@ -77,6 +70,13 @@ class VRepAgent(object):
         else:
             self.__position=None
             # print >> sys.stderr, "Error in VRepBubbleRob.getPosition()"
+        returnCode, linearVelocity, angularVelocity = vrep.simxGetObjectVelocity(self.__clientID, self.__bodyHandle, operationMode)
+        if returnCode==vrep.simx_return_ok:
+            self.__velocity=linearVelocity[0]*math.cos(self.__orientation)+linearVelocity[1]*math.sin(self.__orientation)
+            self.__mind.setInput("velocity", self.__velocity)
+        else:
+            self.__velocity=None
+            # print >> sys.stderr, "Error in VRepBubbleRob.getPosition()"
         returnCode, sensorTrigger, dp, doh, dsnv = vrep.simxReadProximitySensor(self.__clientID, self.__sensorHandle, operationMode)
         if returnCode==vrep.simx_return_ok:
             # We succeeded at reading the proximity sensor
@@ -96,6 +96,7 @@ class VRepAgent(object):
         # Steering value [-1,1]
         self.__steering = steering
         vrep.simxSetFloatSignal(self.__clientID, self.__name+":Steering", self.__steering, vrep.simx_opmode_oneshot)
+        # print self.__clientID, self.__name+":Steering", self.__steering
         
     def setThrust(self, thrust):
         # Average wheel speed
@@ -110,7 +111,6 @@ class VRepAgent(object):
     
     def getVelocity(self):
         return self.__velocity
-        # simxGetObjectVelocity
 
     def getAngularVelocity(self):
         return self.__angularVelocity

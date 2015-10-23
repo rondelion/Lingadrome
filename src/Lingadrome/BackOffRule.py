@@ -18,7 +18,16 @@ class BackOffRule(Rule):
         pass
     
     def condition(self, inputBuffer, stateBuffer):
-        return True
+        if inputBuffer.has_key("sensorTrigger") and inputBuffer["sensorTrigger"]:
+            return True
+        if inputBuffer.has_key("lastProximitySensorTime") and stateBuffer.has_key("driveBackStartTime"):
+            lastProximitySensorTime=inputBuffer["lastProximitySensorTime"]
+            if lastProximitySensorTime-stateBuffer["driveBackStartTime"]<3000:
+                return True
+            else:
+                return False
+        else:
+            return False
     
     def action(self, inputBuffer, stateBuffer):
         thrust=0.0
@@ -31,9 +40,6 @@ class BackOffRule(Rule):
                 thrust=-1.0
                 steering=-1.0
             else:
-            # going forward:
-                thrust=1.0
-                steering=0.0
                 if inputBuffer.has_key("sensorTrigger") and inputBuffer["sensorTrigger"]:
                     # We detected something, and start the backward mode
                     values["driveBackStartTime"]=lastProximitySensorTime

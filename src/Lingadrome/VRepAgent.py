@@ -74,6 +74,8 @@ class VRepAgent(object):
         if returnCode==vrep.simx_return_ok:
             self.__velocity=linearVelocity[0]*math.cos(self.__orientation)+linearVelocity[1]*math.sin(self.__orientation)
             self.__mind.setInput("velocity", self.__velocity)
+            # if self.__name=="BubbleRob#1":
+            #    print self.__velocity, linearVelocity[0], math.cos(self.__orientation), linearVelocity[1], math.sin(self.__orientation)
         else:
             self.__velocity=None
             # print >> sys.stderr, "Error in VRepBubbleRob.getPosition()"
@@ -132,3 +134,4 @@ class VRepAgent(object):
     def setPerceivedItems(self, items):
         # set a list of perceived items
         self.__perceivedItems=items
+        # TODO: pass it to the Mind

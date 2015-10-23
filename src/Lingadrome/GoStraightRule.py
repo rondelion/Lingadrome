@@ -18,14 +18,13 @@ class GoStraightRule(Rule):
         pass
     
     def condition(self, inputBuffer, stateBuffer):
-        if inputBuffer.has_key("velocity") and inputBuffer["velocity"]<0.2:
-            return True
-        else:
-            return False
+        return True
     
     def action(self, inputBuffer, stateBuffer):
         thrust=1.0
         steering=0.0
+        if inputBuffer.has_key("velocity") and inputBuffer["velocity"]>0.03:
+            thrust=0.0
         values={}
         values["steering"]=steering
         values["thrust"]=thrust

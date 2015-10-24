@@ -7,6 +7,7 @@ Created on 2015/09/08
 import sys
 import math
 from AgentMind import AgentMind
+from pygame.examples.aliens import SCORE
 try:
     import vrep
 except:
@@ -23,6 +24,7 @@ class VRepAgent(object):
     '''
     classdocs
     '''
+    __DistanceSalienceAttenuationCoefficient=-1.0
 
     def __init__(self, name, clientID, sensorHandle, bodyHandle):
         '''
@@ -72,10 +74,13 @@ class VRepAgent(object):
             # print >> sys.stderr, "Error in VRepBubbleRob.getPosition()"
         returnCode, linearVelocity, angularVelocity = vrep.simxGetObjectVelocity(self.__clientID, self.__bodyHandle, operationMode)
         if returnCode==vrep.simx_return_ok:
-            self.__velocity=linearVelocity[0]*math.cos(self.__orientation)+linearVelocity[1]*math.sin(self.__orientation)
-            self.__mind.setInput("velocity", self.__velocity)
-            # if self.__name=="BubbleRob#1":
-            #    print self.__velocity, linearVelocity[0], math.cos(self.__orientation), linearVelocity[1], math.sin(self.__orientation)
+            try:
+                self.__velocity=linearVelocity[0]*math.cos(self.__orientation)+linearVelocity[1]*math.sin(self.__orientation)
+                self.__mind.setInput("velocity", self.__velocity)
+            except TypeError:
+                pass
+                # if self.__name=="BubbleRob#1":
+                #    print self.__velocity, linearVelocity[0], math.cos(self.__orientation), linearVelocity[1], math.sin(self.__orientation)
         else:
             self.__velocity=None
             # print >> sys.stderr, "Error in VRepBubbleRob.getPosition()"
@@ -97,6 +102,8 @@ class VRepAgent(object):
     def setSteering(self, steering):
         # Steering value [-1,1]
         self.__steering = steering
+        #if self.getName()=="BubbleRob#1":
+        #    print self.getName(), steering
         vrep.simxSetFloatSignal(self.__clientID, self.__name+":Steering", self.__steering, vrep.simx_opmode_oneshot)
         # print self.__clientID, self.__name+":Steering", self.__steering
         
@@ -134,4 +141,17 @@ class VRepAgent(object):
     def setPerceivedItems(self, items):
         # set a list of perceived items
         self.__perceivedItems=items
-        # TODO: pass it to the Mind
+        self.__visualSalience()
+        self.__mind.setInput("perceivedItems", self.__perceivedItems)
+
+    def __visualSalience(self):
+        # give the score to perceived items
+        for item in self.__perceivedItems:
+            score=0.0
+            if item.has_key("orientation") and item.has_key("distance"):
+                orientation=item["orientation"]
+                if -0.5*math.pi<orientation and orientation<0.5*math.pi:
+                    # FOV: [-90,90] degrees
+                    score=math.cos(orientation)*math.exp(VRepAgent.__DistanceSalienceAttenuationCoefficient*item["distance"])
+            item["score"]=score
+

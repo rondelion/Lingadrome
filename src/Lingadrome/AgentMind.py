@@ -6,6 +6,8 @@ Created on 2015/10/19
 
 from BackOffRule import BackOffRule
 from GoStraightRule import GoStraightRule
+from FollowMostSalientRule import FollowMostSalientRule
+from Finder.Finder_items import item
 
 class AgentMind(object):
     '''
@@ -23,11 +25,15 @@ class AgentMind(object):
         self.__driveBackStartTime=-99000
         self.__rules.append(BackOffRule())
         self.__rules.append(GoStraightRule())
+        self.__rules.append(FollowMostSalientRule())
         # print "Constructing Agent Mind:", len(self.__rules)
         self.__states["driveBackStartTime"]=self.__driveBackStartTime
 
     def setInput(self, key, value):
         self.__input[key]=value
+        maxSalient=self.__selectMostSalient()
+        if maxSalient!=None:
+            self.__input["mostSalient"]=maxSalient
         
     def __getInput(self, key):
         if self.__input.has_key(key):
@@ -66,4 +72,15 @@ class AgentMind(object):
             return self.__states[key]
         else:
             return None
+
+    def __selectMostSalient(self):
+        maxScore=-1.0
+        maxItem=None
+        if self.__input.has_key("perceivedItems"):
+            for item in self.__input["perceivedItems"]:
+                if item.has_key("score"):
+                    if item["score"]>maxScore:
+                        maxItem=item
+                        maxScore=item["score"]
+        return maxItem
 

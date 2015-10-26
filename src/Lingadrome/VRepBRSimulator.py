@@ -62,19 +62,22 @@ class VRepBRSimulator(object):
                     pos2=br.getPosition()
                     if pos2!=None:
                         item={}
-                        ori2=math.atan2(pos2[1]-pos1[1], pos2[0]-pos1[0])-orientation
-                        if ori2>math.pi:
-                            ori2=ori2-2.0*math.pi
-                        if ori2<-1.0*math.pi:
-                            ori2=2.0*math.pi+ori2
+                        direction=math.atan2(pos2[1]-pos1[1], pos2[0]-pos1[0])-orientation
+                        if direction>math.pi:
+                            direction=direction-2.0*math.pi
+                        if direction<-1.0*math.pi:
+                            direction=2.0*math.pi+direction
                         #if rob.getName()=="BubbleRob#1":
-                        #    print ori2, math.atan2(pos2[1]-pos1[1], pos2[0]-pos1[0]), orientation
-                        item["orientation"]=ori2
+                        #    print direction, math.atan2(pos2[1]-pos1[1], pos2[0]-pos1[0]), orientation
+                        item["direction"]=direction
                         item["distance"]=math.sqrt((pos1[0]-pos2[0])**2 + (pos1[1]-pos2[1])**2)
                         item["name"]=br.getName()
+                        brOri=br.getOrientation()
+                        if brOri!=None:
+                            item["orientation"]=brOri
                         items.append(item)
                         # if self.__cnt % 100==0 and rob.getName()=="BubbleRob#1":
-                        #    print "self-orientation:", orientation, "diff-orientation:", ori2
+                        #    print "self-orientation:", orientation, "diff-orientation:", direction
                     else:
                         print >> sys.stderr, "No orientation for " + br.getName()
         else:

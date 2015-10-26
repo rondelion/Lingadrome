@@ -29,10 +29,10 @@ class FollowMostSalientRule(Rule):
         if inputBuffer.has_key("mostSalient"):
             mostSalient=inputBuffer["mostSalient"]
             if mostSalient!=None:
-                if mostSalient.has_key("orientation"):
+                if mostSalient.has_key("direction"):
                     #if mostSalient["name"]=="BubbleRob#1":
                     #    print mostSalient["name"], mostSalient["orientation"], mostSalient["score"], inputBuffer["orientation"]
-                    if mostSalient["orientation"]<0:
+                    if mostSalient["direction"]<0:
                         steering=0.1
                     else:
                         steering=-0.1

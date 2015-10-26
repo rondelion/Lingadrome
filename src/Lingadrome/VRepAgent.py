@@ -152,10 +152,10 @@ class VRepAgent(object):
         # give the score to perceived items
         for item in self.__perceivedItems:
             score=0.0
-            if item.has_key("orientation") and item.has_key("distance"):
-                orientation=item["orientation"]
-                if -0.5*math.pi<orientation and orientation<0.5*math.pi:
+            if item.has_key("direction") and item.has_key("distance"):
+                direction=item["direction"]
+                if -0.5*math.pi<direction and direction<0.5*math.pi:
                     # FOV: [-90,90] degrees
-                    score=math.cos(orientation)*math.exp(VRepAgent.__DistanceSalienceAttenuationCoefficient*item["distance"])
+                    score=math.cos(direction)*math.exp(VRepAgent.__DistanceSalienceAttenuationCoefficient*item["distance"])
             item["score"]=score
 

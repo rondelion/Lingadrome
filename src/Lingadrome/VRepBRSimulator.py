@@ -67,6 +67,8 @@ class VRepBRSimulator(object):
                             ori2=ori2-2.0*math.pi
                         if ori2<-1.0*math.pi:
                             ori2=2.0*math.pi+ori2
+                        #if rob.getName()=="BubbleRob#1":
+                        #    print ori2, math.atan2(pos2[1]-pos1[1], pos2[0]-pos1[0]), orientation
                         item["orientation"]=ori2
                         item["distance"]=math.sqrt((pos1[0]-pos2[0])**2 + (pos1[1]-pos2[1])**2)
                         item["name"]=br.getName()

@@ -3,6 +3,7 @@ Created on 2015/10/20
 
 @author: rondelion
 '''
+import math
 from Lingadrome.Rule import Rule
 
 class FollowMostSalientRule(Rule):
@@ -27,15 +28,18 @@ class FollowMostSalientRule(Rule):
             thrust=0.0
         if inputBuffer.has_key("mostSalient"):
             mostSalient=inputBuffer["mostSalient"]
-            if mostSalient.has_key("orientation"):
-                # print mostSalient["name"], mostSalient["orientation"], mostSalient["score"]
-                if mostSalient["orientation"]<0:
-                    steering=0.1
-                else:
-                    steering=-0.1
-        else:
-            thrust=0.0
-            steering=0.5
+            if mostSalient!=None:
+                if mostSalient.has_key("orientation"):
+                    #if mostSalient["name"]=="BubbleRob#1":
+                    #    print mostSalient["name"], mostSalient["orientation"], mostSalient["score"], inputBuffer["orientation"]
+                    if mostSalient["orientation"]<0:
+                        steering=0.1
+                    else:
+                        steering=-0.1
+                if mostSalient.has_key("distance"):
+                    thrust=thrust*(1.0-2.0*math.exp(-1.0*mostSalient["distance"]))
+                    #if thrust<0:
+                    #    print inputBuffer["name"], thrust
         values={}
         values["steering"]=steering
         values["thrust"]=thrust

@@ -7,7 +7,6 @@ Created on 2015/09/08
 import sys
 import math
 from AgentMind import AgentMind
-from pygame.examples.aliens import SCORE
 try:
     import vrep
 except:
@@ -45,6 +44,9 @@ class VRepAgent(object):
         self.__sensorHandle=sensorHandle  # Proximity sensor handle of the V-Rep agent
         self.__bodyHandle=bodyHandle      # BubbleRob body handle
         self.__driveBackStartTime=-99000
+        self.__firstOrientation=None
+        self.__cnt=0
+        self.__mind.setInput("name", name)
    
     def getClientID(self):
         return self.__clientID
@@ -60,10 +62,11 @@ class VRepAgent(object):
             operationMode=vrep.simx_opmode_buffer
         returnCode, orientation = vrep.simxGetObjectOrientation(self.__clientID, self.__bodyHandle, -1, operationMode)
         if returnCode==vrep.simx_return_ok:
-            self.__orientation=orientation[2]  #Z
+            self.__orientation=orientation[2]
         else:
             self.__orientation = None
             # print >> sys.stderr, "Error in VRepBubbleRob.getOrientation()"
+        self.__mind.setInput("orientation", self.__orientation)
         returnCode, position = vrep.simxGetObjectPosition(self.__clientID, self.__bodyHandle, -1, operationMode)
         if returnCode==vrep.simx_return_ok:
             self.__position=[0.0,0.0]
@@ -98,6 +101,7 @@ class VRepAgent(object):
         getSignalReturnCode, dMessage = vrep.simxGetStringSignal(self.__clientID, "Debug", vrep.simx_opmode_streaming)
         if dMessage!="":
             print("Debug:"+dMessage)
+        self.__cnt=self.__cnt+1
             
     def setSteering(self, steering):
         # Steering value [-1,1]

@@ -7,12 +7,15 @@ Created on 2015/10/19
 from BackOffRule import BackOffRule
 from GoStraightRule import GoStraightRule
 from FollowMostSalientRule import FollowMostSalientRule
-from Finder.Finder_items import item
+from LostTrackRule import LostTrackRule
 
 class AgentMind(object):
     '''
     classdocs
     '''
+    __thresholdSalience=0.0
+    __driveBackStartTime=-99000
+    __lostTrackTurnStartTime=-99000
 
     def __init__(self):
         '''
@@ -22,18 +25,17 @@ class AgentMind(object):
         self.__states={}
         self.__input={}
         self.__buffer={}
-        self.__driveBackStartTime=-99000
         self.__rules.append(BackOffRule())
         self.__rules.append(GoStraightRule())
         self.__rules.append(FollowMostSalientRule())
+        self.__rules.append(LostTrackRule())
         # print "Constructing Agent Mind:", len(self.__rules)
-        self.__states["driveBackStartTime"]=self.__driveBackStartTime
+        self.__states["driveBackStartTime"]=AgentMind.__driveBackStartTime
+        self.__states["__lostTrackTurnStartTime"]=AgentMind.__lostTrackTurnStartTime
 
     def setInput(self, key, value):
         self.__input[key]=value
-        maxSalient=self.__selectMostSalient()
-        if maxSalient!=None:
-            self.__input["mostSalient"]=maxSalient
+        self.__input["mostSalient"]=self.__selectMostSalient()
         
     def __getInput(self, key):
         if self.__input.has_key(key):
@@ -82,5 +84,8 @@ class AgentMind(object):
                     if item["score"]>maxScore:
                         maxItem=item
                         maxScore=item["score"]
-        return maxItem
+        if maxScore>AgentMind.__thresholdSalience:
+            return maxItem
+        else:
+            return None
 

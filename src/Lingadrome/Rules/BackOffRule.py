@@ -3,7 +3,7 @@ Created on 2015/10/20
 
 @author: rondelion
 '''
-from Lingadrome.Rule import Rule
+from Rule import Rule
 
 class BackOffRule(Rule):
     '''

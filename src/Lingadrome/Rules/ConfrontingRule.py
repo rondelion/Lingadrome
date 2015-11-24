@@ -4,8 +4,9 @@ Created on 2015/10/20
 @author: rondelion
 '''
 import math
+from Rule import Rule
 
-class ConfrontingRule(object):
+class ConfrontingRule(Rule):
     '''
     Detecting the most salient Agent facing each other
     '''

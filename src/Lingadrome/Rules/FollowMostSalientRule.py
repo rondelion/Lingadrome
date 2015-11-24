@@ -4,7 +4,7 @@ Created on 2015/10/20
 @author: rondelion
 '''
 import math
-from Lingadrome.Rule import Rule
+from Rule import Rule
 
 class FollowMostSalientRule(Rule):
     '''

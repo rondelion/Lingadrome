@@ -3,35 +3,33 @@ Created on 2015/10/20
 
 @author: rondelion
 '''
-from Lingadrome.Rule import Rule
+from Rule import Rule
 
-class GoStraightRule(Rule):
+class LostTrackRule(Rule):
     '''
     classdocs
     '''
-    __score=5
+    __score=15
 
     def __init__(self):
         '''
         Constructor
         '''
-        pass
+        self.__turnDuration=1500
     
     def condition(self, inputBuffer, stateBuffer):
-        return True
+        if inputBuffer.has_key("mostSalient") and inputBuffer["mostSalient"]==None:
+            return True
+        else:
+            return False
     
     def action(self, inputBuffer, stateBuffer):
-        thrust=1.0
-        steering=0.0
-        if inputBuffer.has_key("velocity") and inputBuffer["velocity"]>0.03:
-            thrust=0.0
         values={}
-        values["steering"]=steering
-        values["thrust"]=thrust
+        values["steering"]=0.1
         return values
     
     def getName(self):
-        return "GoStraight"
+        return "LostTrack"
     
     def getScore(self):
         return self.__score

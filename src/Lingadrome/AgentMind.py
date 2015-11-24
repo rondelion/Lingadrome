@@ -4,11 +4,11 @@ Created on 2015/10/19
 @author: rondelion
 '''
 
-from BackOffRule import BackOffRule
-from GoStraightRule import GoStraightRule
-from FollowMostSalientRule import FollowMostSalientRule
-from LostTrackRule import LostTrackRule
-from ConfrontingRule import ConfrontingRule
+from Rules.BackOffRule import BackOffRule
+from Rules.GoStraightRule import GoStraightRule
+from Rules.FollowMostSalientRule import FollowMostSalientRule
+from Rules.LostTrackRule import LostTrackRule
+from Rules.ConfrontingRule import ConfrontingRule
 
 class AgentMind(object):
     '''

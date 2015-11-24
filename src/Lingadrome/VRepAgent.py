@@ -98,6 +98,14 @@ class VRepAgent(object):
             self.setSteering(self.__mind.getOutput("steering"))
         if self.__mind.getOutput("thrust")!=None:
             self.setThrust(self.__mind.getOutput("thrust"))
+        if self.__mind.getOutput("reward")!=None:
+            if self.__mind.getOutput("reward")>0.5:
+                self.setEmotionalExpression(1)
+                print self.__name + " smiles."
+            if self.__mind.getOutput("reward")<-0.5:
+                self.setEmotionalExpression(-1)
+            else:
+                self.setEmotionalExpression(0)
         getSignalReturnCode, dMessage = vrep.simxGetStringSignal(self.__clientID, "Debug", vrep.simx_opmode_streaming)
         if dMessage!="":
             print("Debug:"+dMessage)

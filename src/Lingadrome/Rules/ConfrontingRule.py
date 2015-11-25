@@ -14,7 +14,7 @@ class ConfrontingRule(Rule):
     __distanceRange=1.0
     __orientationRange=0.1
     __directionRange=0.1
-    __dampingCoefficient=0.8
+    __dampingCoefficient=0.997
 
     def __init__(self):
         '''

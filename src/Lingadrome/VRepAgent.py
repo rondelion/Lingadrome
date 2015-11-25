@@ -101,8 +101,7 @@ class VRepAgent(object):
         if self.__mind.getOutput("reward")!=None:
             if self.__mind.getOutput("reward")>0.5:
                 self.setEmotionalExpression(1)
-                print self.__name + " smiles."
-            if self.__mind.getOutput("reward")<-0.5:
+            elif self.__mind.getOutput("reward")<-0.5:
                 self.setEmotionalExpression(-1)
             else:
                 self.setEmotionalExpression(0)
@@ -139,6 +138,8 @@ class VRepAgent(object):
 
     def setEmotionalExpression(self, emotion):
         self.__emotion=emotion
+        vrep.simxSetIntegerSignal(self.__clientID, self.__name+":Emotion", self.__emotion, vrep.simx_opmode_oneshot)
+        ok, val = vrep.simxGetIntegerSignal(self.__clientID, self.__name+":Emotion", vrep.simx_opmode_streaming)
     
     def detectNearestItem(self):
         pass

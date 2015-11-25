@@ -9,7 +9,6 @@ import sys
 import time
 import math
 from VRepAgent import VRepAgent
-from VRepBubbleRob import VRepBubbleRob
 try:
     import vrep
 except:
@@ -67,7 +66,7 @@ class VRepBRSimulator(object):
                             direction=direction-2.0*math.pi
                         if direction<-1.0*math.pi:
                             direction=2.0*math.pi+direction
-                        #if rob.getName()=="BubbleRob#1":
+                        # if rob.getName()=="BubbleRob#1":
                         #    print direction, math.atan2(pos2[1]-pos1[1], pos2[0]-pos1[0]), orientation
                         item["direction"]=direction
                         item["distance"]=math.sqrt((pos1[0]-pos2[0])**2 + (pos1[1]-pos2[1])**2)

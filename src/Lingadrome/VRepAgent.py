@@ -4,7 +4,7 @@ Created on 2015/09/08
 
 @author: rondelion
 '''
-import sys
+# import sys
 import math
 from AgentMind import AgentMind
 try:
@@ -139,7 +139,6 @@ class VRepAgent(object):
     def setEmotionalExpression(self, emotion):
         self.__emotion=emotion
         vrep.simxSetIntegerSignal(self.__clientID, self.__name+":Emotion", self.__emotion, vrep.simx_opmode_oneshot)
-        ok, val = vrep.simxGetIntegerSignal(self.__clientID, self.__name+":Emotion", vrep.simx_opmode_streaming)
     
     def detectNearestItem(self):
         pass

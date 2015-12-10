@@ -15,6 +15,7 @@ class ConfrontingRule(Rule):
     __orientationRange=0.1
     __directionRange=0.1
     __dampingCoefficient=0.997
+    __emotionRewardCoefficient=1.0
 
     def __init__(self):
         '''
@@ -22,6 +23,8 @@ class ConfrontingRule(Rule):
         '''
         self.__current=False
         self.__previous=False
+        self.__currentDetectedEmotion=0
+        self.__previousDetectedEmotion=0
         self.__reward=0.0
     
     def condition(self, inputBuffer, stateBuffer):
@@ -56,7 +59,11 @@ class ConfrontingRule(Rule):
         values["reward"]=self.__reward
         if inputBuffer.has_key("mostSalient"):
             mostSalient=inputBuffer["mostSalient"]
-            # print "Confronting to ", mostSalient["name"]
+            msEmotion=mostSalient["emotion"]
+            if msEmotion!=self.__previousDetectedEmotion:
+                self.__reward=self.__reward + msEmotion * self.__emotionRewardCoefficient
+                # print "Modifying reward with emotion:" , msEmotion, "for " + mostSalient["name"]
+            self.__previousDetectedEmotion = msEmotion
         return values
     
     def getName(self):

@@ -51,6 +51,13 @@ class VRepBRSimulator(object):
                     exit()
             time.sleep(interval)        
     
+    def getEmotion(self, rob):
+        ok, val = vrep.simxGetIntegerSignal(rob.getClientID(), rob.getName()+":Emotion", vrep.simx_opmode_streaming)
+        if ok==vrep.simx_return_ok:
+            return val
+        else:
+            return 0    # neutral emotion
+
     def robPerception(self, rob):
         items=[]
         pos1=rob.getPosition()
@@ -58,9 +65,9 @@ class VRepBRSimulator(object):
             orientation=rob.getOrientation()
             for br in self.__robs:
                 if br!=rob:
+                    item={}
                     pos2=br.getPosition()
                     if pos2!=None:
-                        item={}
                         direction=math.atan2(pos2[1]-pos1[1], pos2[0]-pos1[0])-orientation
                         if direction>math.pi:
                             direction=direction-2.0*math.pi
@@ -74,11 +81,12 @@ class VRepBRSimulator(object):
                         brOri=br.getOrientation()
                         if brOri!=None:
                             item["orientation"]=brOri
-                        items.append(item)
                         # if self.__cnt % 100==0 and rob.getName()=="BubbleRob#1":
                         #    print "self-orientation:", orientation, "diff-orientation:", direction
                     else:
                         print >> sys.stderr, "No orientation for " + br.getName()
+                    item["emotion"]=self.getEmotion(br)
+                    items.append(item)
         else:
             print >> sys.stderr, "No position for " + rob.getName()
         rob.setPerceivedItems(items)

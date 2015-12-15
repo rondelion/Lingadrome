@@ -9,6 +9,7 @@ from Rules.GoStraightRule import GoStraightRule
 from Rules.FollowMostSalientRule import FollowMostSalientRule
 from Rules.LostTrackRule import LostTrackRule
 from Rules.ConfrontingRule import ConfrontingRule
+from Rules.SpontaneousPromenadeRule import SpontaneousPromenadeRule
 
 class AgentMind(object):
     '''
@@ -31,6 +32,7 @@ class AgentMind(object):
         self.__rules.append(FollowMostSalientRule())
         self.__rules.append(LostTrackRule())
         self.__rules.append(ConfrontingRule())
+        self.__rules.append(SpontaneousPromenadeRule())
         # print "Constructing Agent Mind:", len(self.__rules)
         self.__states["driveBackStartTime"]=AgentMind.__driveBackStartTime
         self.__states["__lostTrackTurnStartTime"]=AgentMind.__lostTrackTurnStartTime

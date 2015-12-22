@@ -91,35 +91,56 @@ class VRepBRSimulator(object):
             print >> sys.stderr, "No position for " + rob.getName()
         rob.setPerceivedItems(items)
 
-filepath=""
+robParts=""
+dummyPath=""
+dummyID=-1
 
 if __name__ == '__main__':
     argvs = sys.argv
     argc = len(argvs)
-    if argc>=2:
-        filepath=argvs[1]
+    if argc>=3:
+        dummyPath=argvs[1]
+        robParts=argvs[2]
     else:
-        print('Indicate following arguments: "file path"!')
+        print('Specify following arguments: "dummyPath robParts"!')
         time.sleep(1)
         exit()
     vsim = VRepBRSimulator()
-    robs = []   # List of Robs
-    fp=open(filepath,'r')
+    items=[]    # List of Items
+    fp=open(dummyPath,'r')
     lines = fp.readlines() # 1行毎にファイル終端まで全て読む(改行文字も含まれる)
     fp.close()
     for line in lines:
         items = line.split(",")
         for x in items:
+            print x
             params = x.split(":")
-            if len(params)>3:
+            if len(params)>=2:
+                name=params[0]
                 try:
                     portNb = int(params[1])
-                    clientID=vrep.simxStart("127.0.0.1",portNb,True,True,2000,5)
-                    if clientID!=-1:
-                        rob = VRepAgent(params[0], clientID, int(params[2]), int(params[3]))
-                        vsim.addRob(rob)
+                    dummyID=vrep.simxStart("127.0.0.1",portNb,True,True,2000,5)
+                    if dummyID!=-1:
+                        returnCode, handle = vrep.simxGetObjectHandle(dummyID, "Dummy", vrep.simx_opmode_oneshot_wait)
+                        print dummyID, returnCode, handle
                     else:
-                        print >> sys.stderr,  "Fatal: No client ID while creating a Bubble Rob."
+                        print >> sys.stderr,  "Fatal: No client ID while creating Dummy Communicator."
+                except ValueError:
+                    print >> sys.stderr,  "Fatal: non integer value while creating Dummy Communicator."
+                    time.sleep(1)
+                    exit()
+    robs = []   # List of Robs
+    fp=open(robParts,'r')
+    lines = fp.readlines() # 1行毎にファイル終端まで全て読む(改行文字も含まれる)
+    fp.close()
+    for line in lines:
+        buf = line.split(",")
+        for x in buf:
+            params = x.split(":")
+            if len(params)>2:
+                try:
+                    rob = VRepAgent(params[0], dummyID, int(params[1]), int(params[2]))
+                    vsim.addRob(rob)
                 except ValueError:
                     print >> sys.stderr,  "Fatal: non integer value while creating a Bubble Rob."
                     time.sleep(1)

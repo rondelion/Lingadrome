@@ -111,24 +111,24 @@ if __name__ == '__main__':
     lines = fp.readlines() # 1行毎にファイル終端まで全て読む(改行文字も含まれる)
     fp.close()
     for line in lines:
-        items = line.split(",")
-        for x in items:
-            print x
+        buf = line.split(",")
+        for x in buf:
             params = x.split(":")
             if len(params)>=2:
                 name=params[0]
                 try:
                     portNb = int(params[1])
                     dummyID=vrep.simxStart("127.0.0.1",portNb,True,True,2000,5)
-                    if dummyID!=-1:
-                        returnCode, handle = vrep.simxGetObjectHandle(dummyID, "Dummy", vrep.simx_opmode_oneshot_wait)
-                        print dummyID, returnCode, handle
-                    else:
+                    if dummyID==-1:
                         print >> sys.stderr,  "Fatal: No client ID while creating Dummy Communicator."
                 except ValueError:
                     print >> sys.stderr,  "Fatal: non integer value while creating Dummy Communicator."
                     time.sleep(1)
                     exit()
+            else:
+                name=params[0]
+                returnCode, handle = vrep.simxGetObjectHandle(dummyID, "Dummy", vrep.simx_opmode_oneshot_wait)
+                print name, returnCode, handle
     robs = []   # List of Robs
     fp=open(robParts,'r')
     lines = fp.readlines() # 1行毎にファイル終端まで全て読む(改行文字も含まれる)

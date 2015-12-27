@@ -9,6 +9,7 @@ import sys
 import time
 import math
 from VRepAgent import VRepAgent
+from VRepItem import VRepItem
 try:
     import vrep
 except:
@@ -26,22 +27,32 @@ class VRepBRSimulator(object):
     classdocs
     '''
     __robs=[]
+    __items=[]
     __cnt=0
 
     def __init__(self):
         '''
         Constructor
         '''
-        pass
+        self.__clientID=0
 
+    def setClientID(self, clientID):
+        self.__clientID=clientID
+        
+    def getClientID(self):
+        return self.__clientID
+        
     def addRob(self, rob):
         self.__robs.append(rob)
     
+    def addItem(self, item):
+        self.__items.append(item)
+        
     def loop(self, interval):
         while True:
             self.__cnt=self.__cnt+1
             for rob in self.__robs:
-                if vrep.simxGetConnectionId(rob.getClientID())!=-1:
+                if vrep.simxGetConnectionId(self.getClientID())!=-1:
                     rob.loop()
                     self.robPerception(rob)
                     # print rob.getName(), rob.getPosition()
@@ -59,13 +70,14 @@ class VRepBRSimulator(object):
             return 0    # neutral emotion
 
     def robPerception(self, rob):
-        items=[]
+        vrobjs=[]
         pos1=rob.getPosition()
         if pos1!=None:
             orientation=rob.getOrientation()
+            #TODO: item perception
             for br in self.__robs:
                 if br!=rob:
-                    item={}
+                    vrobj={}
                     pos2=br.getPosition()
                     if pos2!=None:
                         direction=math.atan2(pos2[1]-pos1[1], pos2[0]-pos1[0])-orientation
@@ -75,21 +87,21 @@ class VRepBRSimulator(object):
                             direction=2.0*math.pi+direction
                         # if rob.getName()=="BubbleRob#1":
                         #    print direction, math.atan2(pos2[1]-pos1[1], pos2[0]-pos1[0]), orientation
-                        item["direction"]=direction
-                        item["distance"]=math.sqrt((pos1[0]-pos2[0])**2 + (pos1[1]-pos2[1])**2)
-                        item["name"]=br.getName()
+                        vrobj["direction"]=direction
+                        vrobj["distance"]=math.sqrt((pos1[0]-pos2[0])**2 + (pos1[1]-pos2[1])**2)
+                        vrobj["name"]=br.getName()
                         brOri=br.getOrientation()
                         if brOri!=None:
-                            item["orientation"]=brOri
+                            vrobj["orientation"]=brOri
                         # if self.__cnt % 100==0 and rob.getName()=="BubbleRob#1":
                         #    print "self-orientation:", orientation, "diff-orientation:", direction
                     else:
-                        print >> sys.stderr, "No orientation for " + br.getName()
-                    item["emotion"]=self.getEmotion(br)
-                    items.append(item)
+                        print >> sys.stderr, "No position obtained for " + br.getName()
+                    vrobj["emotion"]=self.getEmotion(br)
+                    vrobjs.append(vrobj)
         else:
             print >> sys.stderr, "No position for " + rob.getName()
-        rob.setPerceivedItems(items)
+        rob.setPerceivedItems(vrobjs)
 
 robParts=""
 dummyPath=""
@@ -106,7 +118,7 @@ if __name__ == '__main__':
         time.sleep(1)
         exit()
     vsim = VRepBRSimulator()
-    items=[]    # List of Items
+    # LingadromeDummy.txt
     fp=open(dummyPath,'r')
     lines = fp.readlines() # 1行毎にファイル終端まで全て読む(改行文字も含まれる)
     fp.close()
@@ -121,15 +133,22 @@ if __name__ == '__main__':
                     dummyID=vrep.simxStart("127.0.0.1",portNb,True,True,2000,5)
                     if dummyID==-1:
                         print >> sys.stderr,  "Fatal: No client ID while creating Dummy Communicator."
+                    else:
+                        vsim.setClientID(dummyID)
                 except ValueError:
                     print >> sys.stderr,  "Fatal: non integer value while creating Dummy Communicator."
                     time.sleep(1)
                     exit()
             else:
                 name=params[0]
-                returnCode, handle = vrep.simxGetObjectHandle(dummyID, "Dummy", vrep.simx_opmode_oneshot_wait)
-                print name, returnCode, handle
-    robs = []   # List of Robs
+                returnCode, handle = vrep.simxGetObjectHandle(dummyID, name, vrep.simx_opmode_oneshot_wait)
+                if returnCode!=vrep.simx_return_ok:
+                    print >> sys.stderr,  "Fatal: Error obtaining a handle for " + name + "!"
+                else:
+                    print name, handle
+                    item = VRepItem(name, dummyID, handle)
+                    vsim.addItem(item)
+    # RobParts.txt
     fp=open(robParts,'r')
     lines = fp.readlines() # 1行毎にファイル終端まで全て読む(改行文字も含まれる)
     fp.close()

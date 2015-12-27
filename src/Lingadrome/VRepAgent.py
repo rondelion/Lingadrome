@@ -7,6 +7,7 @@ Created on 2015/09/08
 # import sys
 import math
 from AgentMind import AgentMind
+from VRepObject import VRepObject
 try:
     import vrep
 except:
@@ -19,7 +20,7 @@ except:
     print ('')
     exit(-1)
 
-class VRepAgent(object):
+class VRepAgent(VRepObject):
     '''
     classdocs
     '''
@@ -40,7 +41,7 @@ class VRepAgent(object):
         self.__perceivedItems={}
         self.__mind=AgentMind()
         self.__name=name
-        self.__clientID=clientID          # Client ID of the V-Rep agent
+        self.__clientID=clientID          # Client ID of the Dummy object
         self.__sensorHandle=sensorHandle  # Proximity sensor handle of the V-Rep agent
         self.__bodyHandle=bodyHandle      # BubbleRob body handle
         self.__driveBackStartTime=-99000
@@ -48,12 +49,12 @@ class VRepAgent(object):
         self.__cnt=0
         self.__mind.setInput("name", name)
    
-    def getClientID(self):
-        return self.__clientID
-
     def getName(self):
         return self.__name
 
+    def getClientID(self):
+        return self.__clientID
+        
     def loop(self):
         operationMode=vrep.simx_opmode_streaming
         if self.__initLoop:

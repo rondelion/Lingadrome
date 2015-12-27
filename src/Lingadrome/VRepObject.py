@@ -1,10 +1,11 @@
+# -*- coding: utf-8 -*-
 '''
 Created on 2015/08/28
 
 @author: rondelion
 '''
 
-class WorldObject(object):
+class VRepObject(object):
     '''
     classdocs
     '''
@@ -13,10 +14,6 @@ class WorldObject(object):
     __thrust=0.0          # Degree of thrust forward
     __steeringOrientation=0.0 # [-1,+1]
 
-    def __init__(self, params):
-        '''
-        Constructor
-        '''
 
     def getLocation(self):
         return(self.__location)

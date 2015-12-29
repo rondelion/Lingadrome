@@ -52,9 +52,9 @@ class VRepAgent(VRepObject):
     def getName(self):
         return self.__name
 
-    def getClientID(self):
-        return self.__clientID
-        
+    def getType(self):
+        return "Agent"
+
     def loop(self):
         operationMode=vrep.simx_opmode_streaming
         if self.__initLoop:

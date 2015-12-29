@@ -33,7 +33,7 @@ class ConfrontingRule(Rule):
         if inputBuffer.has_key("orientation"):
             if inputBuffer.has_key("mostSalient"):
                 mostSalient=inputBuffer["mostSalient"]
-                if mostSalient!=None and mostSalient.has_key("direction") and mostSalient.has_key("distance"):
+                if mostSalient!=None and mostSalient.has_key("direction") and mostSalient.has_key("distance") and mostSalient.has_key("orientation"):
                     msdir=mostSalient["direction"]
                     msdst=mostSalient["distance"]
                     msori=mostSalient["orientation"]

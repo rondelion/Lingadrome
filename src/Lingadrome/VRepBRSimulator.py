@@ -49,56 +49,66 @@ class VRepBRSimulator(object):
         self.__items.append(item)
         
     def loop(self, interval):
-        while True:
+        while vrep.simxGetConnectionId(self.getClientID())!=-1:
             self.__cnt=self.__cnt+1
             for rob in self.__robs:
-                if vrep.simxGetConnectionId(self.getClientID())!=-1:
-                    rob.loop()
-                    self.robPerception(rob)
-                    # print rob.getName(), rob.getPosition()
-                else:
-                    print >> sys.stderr,  "Fatal: cannot connect with a Bubble Rob."
-                    time.sleep(1)
-                    exit()
-            time.sleep(interval)        
+                rob.loop()
+                self.robPerception(rob)
+                # print rob.getName(), rob.getPosition()
+            for item in self.__items:
+                item.loop()
+            time.sleep(interval)
+        print >> sys.stderr,  "Disconnected: Exiting from the main loop!"
+        time.sleep(1)
+        exit()
     
     def getEmotion(self, rob):
-        ok, val = vrep.simxGetIntegerSignal(rob.getClientID(), rob.getName()+":Emotion", vrep.simx_opmode_streaming)
+        ok, val = vrep.simxGetIntegerSignal(self.getClientID(), rob.getName()+":Emotion", vrep.simx_opmode_streaming)
         if ok==vrep.simx_return_ok:
             return val
         else:
             return 0    # neutral emotion
 
+    def __getDirection(self, pos1, pos2, orientation):
+        direction=math.atan2(pos2[1]-pos1[1], pos2[0]-pos1[0])-orientation
+        if direction>math.pi:
+            direction=direction-2.0*math.pi
+        if direction<-1.0*math.pi:
+            direction=2.0*math.pi+direction
+        return direction
+        
     def robPerception(self, rob):
         vrobjs=[]
         pos1=rob.getPosition()
         if pos1!=None:
             orientation=rob.getOrientation()
-            #TODO: item perception
+            # other agent perception
             for br in self.__robs:
                 if br!=rob:
                     vrobj={}
                     pos2=br.getPosition()
                     if pos2!=None:
-                        direction=math.atan2(pos2[1]-pos1[1], pos2[0]-pos1[0])-orientation
-                        if direction>math.pi:
-                            direction=direction-2.0*math.pi
-                        if direction<-1.0*math.pi:
-                            direction=2.0*math.pi+direction
-                        # if rob.getName()=="BubbleRob#1":
-                        #    print direction, math.atan2(pos2[1]-pos1[1], pos2[0]-pos1[0]), orientation
-                        vrobj["direction"]=direction
+                        vrobj["direction"]=self.__getDirection(pos1, pos2, orientation)
                         vrobj["distance"]=math.sqrt((pos1[0]-pos2[0])**2 + (pos1[1]-pos2[1])**2)
                         vrobj["name"]=br.getName()
                         brOri=br.getOrientation()
                         if brOri!=None:
                             vrobj["orientation"]=brOri
-                        # if self.__cnt % 100==0 and rob.getName()=="BubbleRob#1":
-                        #    print "self-orientation:", orientation, "diff-orientation:", direction
                     else:
                         print >> sys.stderr, "No position obtained for " + br.getName()
                     vrobj["emotion"]=self.getEmotion(br)
                     vrobjs.append(vrobj)
+            # item perception
+            for item in self.__items:
+                vrobj={}
+                pos2=item.getPosition()
+                if pos2!=None:
+                    vrobj["direction"]=self.__getDirection(pos1, pos2, orientation)
+                    vrobj["distance"]=math.sqrt((pos1[0]-pos2[0])**2 + (pos1[1]-pos2[1])**2)
+                    vrobj["name"]=item.getName()
+                else:
+                    print >> sys.stderr, "No position obtained for " + item.getName()
+                vrobjs.append(vrobj)
         else:
             print >> sys.stderr, "No position for " + rob.getName()
         rob.setPerceivedItems(vrobjs)

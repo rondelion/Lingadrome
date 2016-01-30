@@ -5,11 +5,13 @@ Created on 2015/10/19
 '''
 
 from Rules.BackOffRule import BackOffRule
+from Rules.BackOffRule2 import BackOffRule2
 from Rules.GoStraightRule import GoStraightRule
-from Rules.FollowMostSalientRule import FollowMostSalientRule
+# from Rules.FollowMostSalientRule import FollowMostSalientRule
 from Rules.LostTrackRule import LostTrackRule
 from Rules.ConfrontingRule import ConfrontingRule
 from Rules.SpontaneousPromenadeRule import SpontaneousPromenadeRule
+from Rules.ItemCarryingRule import ItemCarryingRule
 
 class AgentMind(object):
     '''
@@ -28,11 +30,13 @@ class AgentMind(object):
         self.__input={}
         self.__buffer={}
         self.__rules.append(BackOffRule())
+        self.__rules.append(BackOffRule2())
         self.__rules.append(GoStraightRule())
-        self.__rules.append(FollowMostSalientRule())
+        # self.__rules.append(FollowMostSalientRule())
         self.__rules.append(LostTrackRule())
         self.__rules.append(ConfrontingRule())
         self.__rules.append(SpontaneousPromenadeRule())
+        self.__rules.append(ItemCarryingRule())
         # print "Constructing Agent Mind:", len(self.__rules)
         self.__states["driveBackStartTime"]=AgentMind.__driveBackStartTime
         self.__states["__lostTrackTurnStartTime"]=AgentMind.__lostTrackTurnStartTime

@@ -6,6 +6,7 @@ Created on 2015/10/12
 @author: rondelion
 '''
 import sys
+import os
 import time
 import math
 from VRepAgent import VRepAgent
@@ -77,6 +78,17 @@ class VRepBRSimulator(object):
             direction=2.0*math.pi+direction
         return direction
         
+    def waitForDummyPathUpdate(self, path):
+        cnt=0
+        mtime = os.stat(path).st_mtime
+        while os.stat(path).st_mtime==mtime:
+            time.sleep(0.1)
+            cnt=cnt+1
+            if cnt>100:
+                print >> sys.stderr,  "Aborted! Did not detect server activity within 10 seconds."
+                time.sleep(1)
+                exit()
+        
     def robPerception(self, rob):
         vrobjs=[]
         pos1=rob.getPosition()
@@ -128,6 +140,7 @@ if __name__ == '__main__':
         time.sleep(1)
         exit()
     vsim = VRepBRSimulator()
+    vsim.waitForDummyPathUpdate(dummyPath)
     # LingadromeDummy.txt
     fp=open(dummyPath,'r')
     lines = fp.readlines() # 1行毎にファイル終端まで全て読む(改行文字も含まれる)

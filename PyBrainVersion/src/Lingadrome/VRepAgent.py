@@ -105,6 +105,7 @@ class VRepAgent(VRepObject):
             # We succeeded at reading the proximity sensor
             self.__mind.setInput("lastProximitySensorTime", vrep.simxGetLastCmdTime(self.__clientID))
             self.__mind.setInput("sensorTrigger", sensorTrigger)
+        self.__mind.integrateObservation(self.__pybrainTask.getObservation())
         self.__mind.applyRules()
         self.__mind.setStates()
         if self.__mind.getOutput("steering")!=None:
@@ -122,8 +123,6 @@ class VRepAgent(VRepObject):
         if dMessage!="":
             print("Debug:"+dMessage)
         # pyBrain related code
-        self.__mind.integrateObservation(self.__pybrainTask.getObservation())
-        self.__pybrainTask.performAction(self.__mind.getAction())
         reward = self.__pybrainTask.getReward()
         self.__mind.giveReward(reward)
         # increment counter

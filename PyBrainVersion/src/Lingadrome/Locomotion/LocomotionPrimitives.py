@@ -27,11 +27,10 @@ class LocomotionPrimitives(Rule):
     def chooseFrom(self, alt):
         return int(random.random()*alt)
         
-    def selectAction(self):
+    def setValues(self, action):
         values={}
         thrust=0.0
         steering=0.0
-        action = self.chooseFrom(5)
         if action==0:   # go straight
             thrust=1.0
         elif action==1: # steer to right
@@ -53,16 +52,17 @@ class LocomotionPrimitives(Rule):
     def action(self, inputBuffer, stateBuffer):
         # set a new action for each interval
         values={}
+        action = inputBuffer["action"]
+        print "action=", action
         current = datetime.datetime.now()
         if self.__prevTime!=None:
             elapsed = current - self.__prevTime
             if elapsed.microseconds > self.__Interval:
-                values=self.selectAction()
+                values=self.setValues(action)
                 self.__prevTime = current
         else:
-            values=self.selectAction()
+            values=self.setValues(action)
             self.__prevTime = current
-        print "LocomotionPrimitives in action"
         return values
 
     def getName(self):

@@ -28,19 +28,11 @@ class AgentMind(LearningAgent):
         # self.__rules.append(BackOffRule())
         self.__rules.append(BackOffRule2())
         self.__rules.append(LocomotionPrimitives())
-        # self.__rules.append(GoStraightRule())
-        # self.__rules.append(FollowMostSalientRule())
-        # self.__rules.append(LostTrackRule())
-        # self.__rules.append(ConfrontingRule())
-        # self.__rules.append(SpontaneousPromenadeRule())
-        # self.__rules.append(ItemCarryingRule())
-        # print "Constructing Agent Mind:", len(self.__rules)
         self.__states["driveBackStartTime"]=AgentMind.__driveBackStartTime
         self.__states["__lostTrackTurnStartTime"]=AgentMind.__lostTrackTurnStartTime
 
     def setInput(self, key, value):
         self.__input[key]=value
-        self.__input["mostSalient"]=self.__selectMostSalient()
         
     def __getInput(self, key):
         if self.__input.has_key(key):
@@ -51,6 +43,8 @@ class AgentMind(LearningAgent):
     def applyRules(self):
         self.__buffer={}
         names=[]
+        self.__input["mostSalient"]=self.__selectMostSalient()
+        self.__input["action"]=int(self.getAction())
         for rule in self.__rules:
             if not rule.getName() in names: # Do not remove this code
                 names.append(rule.getName())
@@ -64,8 +58,6 @@ class AgentMind(LearningAgent):
     
     def setStates(self):
         for key in self.__buffer.keys():
-            #if key=="thrust":
-            #    print "thrust:", self.__buffer[key]
             maxScore = -1
             value = None
             for item in self.__buffer[key]:
@@ -94,8 +86,5 @@ class AgentMind(LearningAgent):
         else:
             return None
 
-    def getAction(self):    # TODO: dummy for LearningAgent
-        return 1
-    
     def giveReward(self, reward):    # TODO: dummy for LearningAgent
         pass

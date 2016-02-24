@@ -37,6 +37,7 @@ class VRepAgent(VRepObject):
         Constructor
         '''
         self.__velocity=0.0        # m/s
+        self.__linearVelocity=None # vector
         self.__angularVelocity=0.0 # radian/s
         self.__orientation=None    # π radian
         self.__steering=0.0        # Steering value [-1,1]
@@ -59,6 +60,7 @@ class VRepAgent(VRepObject):
         self.__mind.setInput("name", name)
         self.__pybrainEnvironment = LocomotionEnvironment()
         self.__pybrainTask = LocomotionTask(self.__pybrainEnvironment)
+        self.__carryingDirection = 0
    
     def getName(self):
         return self.__name
@@ -93,6 +95,7 @@ class VRepAgent(VRepObject):
                 # self.__velocity=linearVelocity[0]*math.cos(self.__orientation)+linearVelocity[1]*math.sin(self.__orientation)
                 self.__velocity=math.sqrt(linearVelocity[0]**2+linearVelocity[1]**2)
                 self.__mind.setInput("velocity", self.__velocity)
+                self.__linearVelocity=linearVelocity
             except TypeError:
                 pass
                 # if self.__name=="BubbleRob#1":
@@ -122,9 +125,8 @@ class VRepAgent(VRepObject):
         getSignalReturnCode, dMessage = vrep.simxGetStringSignal(self.__clientID, "Debug", vrep.simx_opmode_streaming)
         if dMessage!="":
             print("Debug:"+dMessage)
-        # pyBrain related code
-        reward = self.__pybrainTask.getReward()
-        self.__mind.giveReward(reward)
+        # Reward related code
+        self.__setCarryingReward()
         # increment counter
         self.__cnt=self.__cnt+1
             
@@ -185,3 +187,24 @@ class VRepAgent(VRepObject):
                     score=math.cos(direction)*math.exp(VRepAgent.__DistanceSalienceAttenuationCoefficient*item["distance"])
             item["score"]=score
 
+    def __setCarryingReward(self):
+        reward = 0
+        # calculate reward of carrying the most salient item for the task
+        mostSalient = self.__mind.getMostSalient()
+        if mostSalient!=None:
+            velocityDirection = math.atan2(self.__linearVelocity[1], self.__linearVelocity[0])
+            # TODO: normalization
+            reward = math.cos(velocityDirection - self.__carryingDirection)
+            # print "velocityDirection=",velocityDirection,"carryingD=", self.__carryingDirection, "RW=", reward
+            # reward = self.__pybrainTask.getReward()
+            self.__mind.giveReward(reward)
+        
+    def pybrainLearn(self):
+        self.__mind.learn() # episodes=1 by default
+    
+    def pybrainReset(self):
+        self.__mind.reset()
+    
+    def setCarryingDirection(self, direction):
+        print "setCarryingDirection:", direction 
+        self.__carryingDirection = direction

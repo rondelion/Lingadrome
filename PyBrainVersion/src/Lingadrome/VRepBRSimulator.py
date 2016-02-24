@@ -2,13 +2,14 @@
 # -*- coding: utf-8 -*-
 '''
 Created on 2015/10/12
-
+PyBrain version 2016-02-11
 @author: rondelion
 '''
 import sys
 import os
 import time
 import math
+import random
 from VRepAgent import VRepAgent
 from VRepItem import VRepItem
 try:
@@ -49,8 +50,19 @@ class VRepBRSimulator(object):
     def addItem(self, item):
         self.__items.append(item)
         
-    def loop(self, interval):
-        while vrep.simxGetConnectionId(self.getClientID())!=-1:
+    def learningLoop(self, maxLoop, learnLoop):
+        cnt=0
+        while cnt<maxLoop:
+            self.loop(0.0025, True, learnLoop)
+            for rob in self.__robs:
+                rob.setCarryingDirection(random.random()*2.0) # radian
+                rob.pybrainLearn()
+                rob.pybrainReset()                
+            cnt+=1
+
+    def loop(self, interval, learning, learnLoop):
+        cnt=0
+        while vrep.simxGetConnectionId(self.getClientID())!=-1 and ((not learning) or cnt<learnLoop):
             self.__cnt=self.__cnt+1
             for rob in self.__robs:
                 rob.loop()
@@ -59,9 +71,11 @@ class VRepBRSimulator(object):
             for item in self.__items:
                 item.loop()
             time.sleep(interval)
-        print >> sys.stderr,  "Disconnected: Exiting from the main loop!"
-        time.sleep(1)
-        exit()
+            cnt+=1
+        if vrep.simxGetConnectionId(self.getClientID())==-1:
+            print >> sys.stderr,  "Disconnected: Exiting from the main loop!"
+            time.sleep(1)
+            exit()
     
     def getEmotion(self, rob):
         ok, val = vrep.simxGetIntegerSignal(self.getClientID(), rob.getName()+":Emotion", vrep.simx_opmode_streaming)
@@ -117,6 +131,7 @@ class VRepBRSimulator(object):
                 if pos2!=None:
                     vrobj["direction"]=self.__getDirection(pos1, pos2, orientation)
                     vrobj["distance"]=math.sqrt((pos1[0]-pos2[0])**2 + (pos1[1]-pos2[1])**2)
+                    vrobj["velocity"]=item.getVelocity()
                     vrobj["name"]=item.getName()
                 else:
                     print >> sys.stderr, "No position obtained for " + item.getName()
@@ -128,15 +143,19 @@ class VRepBRSimulator(object):
 robParts=""
 dummyPath=""
 dummyID=-1
+maxLoop=100
+learnLoop=100
 
 if __name__ == '__main__':
     argvs = sys.argv
     argc = len(argvs)
-    if argc>=3:
+    if argc>=5:
         dummyPath=argvs[1]
         robParts=argvs[2]
+        maxLoop=int(argvs[3])
+        learnLoop=int(argvs[4])
     else:
-        print('Specify following arguments: "dummyPath robParts"!')
+        print('Specify following arguments: "dummyPath robParts maxLoop learnLoop"!')
         time.sleep(1)
         exit()
     vsim = VRepBRSimulator()
@@ -187,4 +206,4 @@ if __name__ == '__main__':
                     print >> sys.stderr,  "Fatal: non integer value while creating a Bubble Rob."
                     time.sleep(1)
                     exit()
-    vsim.loop(0.0025)
+    vsim.learningLoop(maxLoop, learnLoop)

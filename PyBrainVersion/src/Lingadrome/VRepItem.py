@@ -76,3 +76,6 @@ class VRepItem(VRepObject):
     
     def getPosition(self):
         return self.__position
+
+    def getVelocity(self):
+        return self.__velocity

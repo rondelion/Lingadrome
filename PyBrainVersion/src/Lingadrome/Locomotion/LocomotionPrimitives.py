@@ -53,7 +53,7 @@ class LocomotionPrimitives(Rule):
         # set a new action for each interval
         values={}
         action = inputBuffer["action"]
-        print "action=", action
+        # print "action=", action
         current = datetime.datetime.now()
         if self.__prevTime!=None:
             elapsed = current - self.__prevTime

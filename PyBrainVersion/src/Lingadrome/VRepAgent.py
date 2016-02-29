@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 '''
 Created on 2015/09/08
-
+PyBrain version 2016-02-11
 @author: rondelion
 '''
 # import sys
@@ -31,6 +31,12 @@ class VRepAgent(VRepObject):
     classdocs
     '''
     __DistanceSalienceAttenuationCoefficient=-1.0
+    ItemContactLimit=0.02
+    ItemNearLimit=1.0
+    ItemDirectionAhead=0.1
+    BlockJudgeCount=500
+    RelativeTranslation=0.0001
+    DirectionAhead=0.01
 
     def __init__(self, name, clientID, sensorHandle, bodyHandle):
         '''
@@ -61,6 +67,10 @@ class VRepAgent(VRepObject):
         self.__pybrainEnvironment = LocomotionEnvironment()
         self.__pybrainTask = LocomotionTask(self.__pybrainEnvironment)
         self.__carryingDirection = 0
+        self.__thrustIntegral=0.0
+        self.__thrustHistory = [0]*self.BlockJudgeCount
+        self.__positionHistory = [[0.0,0.0]]*self.BlockJudgeCount   # May cause a bug
+        self.__blocked=False
    
     def getName(self):
         return self.__name
@@ -108,9 +118,15 @@ class VRepAgent(VRepObject):
             # We succeeded at reading the proximity sensor
             self.__mind.setInput("lastProximitySensorTime", vrep.simxGetLastCmdTime(self.__clientID))
             self.__mind.setInput("sensorTrigger", sensorTrigger)
-        self.__mind.integrateObservation(self.__pybrainTask.getObservation())
+        self.blocked()  # judge if blocked
+        self.__pybrainObservation()
         self.__mind.applyRules()
         self.__mind.setStates()
+        self.output()
+        # increment counter
+        self.__cnt=self.__cnt+1
+            
+    def output(self):
         if self.__mind.getOutput("steering")!=None:
             self.setSteering(self.__mind.getOutput("steering"))
         if self.__mind.getOutput("thrust")!=None:
@@ -125,11 +141,7 @@ class VRepAgent(VRepObject):
         getSignalReturnCode, dMessage = vrep.simxGetStringSignal(self.__clientID, "Debug", vrep.simx_opmode_streaming)
         if dMessage!="":
             print("Debug:"+dMessage)
-        # Reward related code
-        self.__setCarryingReward()
-        # increment counter
-        self.__cnt=self.__cnt+1
-            
+        
     def setSteering(self, steering):
         # Steering value [-1,1]
         self.__steering = steering
@@ -197,8 +209,15 @@ class VRepAgent(VRepObject):
             reward = math.cos(velocityDirection - self.__carryingDirection)
             # print "velocityDirection=",velocityDirection,"carryingD=", self.__carryingDirection, "RW=", reward
             # reward = self.__pybrainTask.getReward()
-            self.__mind.giveReward(reward)
+        return reward
         
+    def setRewards(self):
+        reward = 0.5 # self.__setCarryingReward()
+        # print "carryingReward, blocked", reward, self.getBlockedStatus()
+        reward = reward - self.getBlockedStatus()
+        # print "reward=", reward
+        self.__mind.giveReward(reward)
+    
     def pybrainLearn(self):
         self.__mind.learn() # episodes=1 by default
     
@@ -208,3 +227,76 @@ class VRepAgent(VRepObject):
     def setCarryingDirection(self, direction):
         print "setCarryingDirection:", direction 
         self.__carryingDirection = direction
+    
+    def __pybrainObservation(self):
+        mostSalient=self.__mind.getMostSalient()
+        self.__pybrainTask.setItemDistance(self.getMostSalientItemDistance(mostSalient))
+        self.__pybrainTask.setItemDirection(self.getMostSalientItemDirection(mostSalient))
+        self.__pybrainTask.setRelativeCarryingDirection(self.getRelativeCarryingDirection())
+        self.__pybrainTask.setBlockedStatus(self.getBlockedStatus())
+        self.__mind.integrateObservation(self.__pybrainTask.getObservation())
+
+    def getMostSalientItemDistance(self, item):
+        distance=2
+        if item!=None and item.has_key("distance"):
+            d = item["distance"]
+            if d<self.ItemContactLimit:
+                distance=0
+            elif d<self.ItemNearLimit:
+                distance=1
+        return distance
+    
+    def getMostSalientItemDirection(self, item):
+        direction=0
+        if item!=None and item.has_key("direction"):
+            d = item["direction"]
+            if math.fabs(d)>self.DirectionAhead:
+                if d>0:
+                    if d<0.5*math.pi:
+                        direction=2 # Left forward
+                    else:
+                        direction=4 # Left backward
+                else:
+                    if d>-0.5*math.pi:
+                        direction=1 # Right forward
+                    else:
+                        direction=3 # Right backward
+        return direction
+    
+    def getRelativeCarryingDirection(self):
+        direction=0
+        if self.__orientation!=None and self.__carryingDirection!=None:
+            d = self.__carryingDirection - self.__orientation
+            if math.fabs(d)>self.DirectionAhead:
+                if d>0:
+                    if d<0.5*math.pi:
+                        direction=2 # Left forward
+                    else:
+                        direction=4 # Left backward
+                else:
+                    if d>-0.5*math.pi:
+                        direction=1 # Right forward
+                    else:
+                        direction=3 # Right backward
+        return direction
+    
+    def getBlockedStatus(self):
+        status = 0
+        if self.__blocked:
+            status = 1
+        return status
+    
+    def blocked(self):
+        # Judge blocked iff translation for a period is fractional relative to thrust integration
+        self.__blocked = False
+        pointer=self.__cnt % self.BlockJudgeCount
+        pLast=(self.__cnt+1) % self.BlockJudgeCount
+        self.__thrustHistory[pointer]=self.__thrust
+        self.__thrustIntegral=self.__thrustIntegral+self.__thrust-self.__thrustHistory[pLast]
+        self.__positionHistory[pointer]=self.__position
+        if self.__cnt>=self.BlockJudgeCount and self.__thrustIntegral!=0.0 and self.__positionHistory[pLast]!=None:
+            d = math.sqrt((self.__position[0]-self.__positionHistory[pLast][0])**2 + \
+                          (self.__position[1]-self.__positionHistory[pLast][1])**2)
+            if d/self.__thrustIntegral < self.RelativeTranslation:
+                self.__blocked = True
+                # print "blocked!", d, self.__thrustIntegral, d/self.__thrustIntegral

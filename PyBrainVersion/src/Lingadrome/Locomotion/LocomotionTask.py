@@ -25,9 +25,26 @@ class LocomotionTask(Task):
     def getReward(self):
         return 1.0
 
+    def setItemDistance(self, distance):
+        self.__observationArray[0]=distance  # 0:Contact, 1:Near, 2:Far
+    
+    def setItemDirection(self, direction):
+        self.__observationArray[1]=direction # 0:Ahead, 1:RightForward, 2:LeftForward, 3:RightBackward, 4:LeftBackward
+    
+    def setRelativeCarryingDirection(self, direction):
+        self.__observationArray[2]=direction # 0:Ahead, 1:RightForward, 2:LeftForward, 3:RightBackward, 4:LeftBackward
+    
+    def setBlockedStatus(self, status):
+        self.__observationArray[3]=status    # 0:Free, 1:Blocked
+    
     def getObservation(self):
-        obs = array([((self.__observationArray[0]*self.SalientItemDirectionNumber + \
-                       self.__observationArray[1])*self.HeadingDirectionNumber + \
-                       self.__observationArray[2])*self.BlockedStatusNumber + \
+        #obs = array([((self.__observationArray[0]*self.SalientItemDirectionNumber + \
+        #               self.__observationArray[1])*self.HeadingDirectionNumber + \
+        #               self.__observationArray[2])*self.BlockedStatusNumber + \
+        #               self.__observationArray[3]])
+        obs = array([((0*self.SalientItemDirectionNumber + \
+                       0)*self.HeadingDirectionNumber + \
+                       0)*self.BlockedStatusNumber + \
                        self.__observationArray[3]])
+        # print "Observation=", obs
         return obs

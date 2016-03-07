@@ -91,6 +91,3 @@ class AgentMind(LearningAgent):
             return self.__input["mostSalient"]
         else:
             return None
-
-    def giveReward(self, reward):    # TODO: dummy for LearningAgent
-        pass

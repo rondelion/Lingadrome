@@ -54,8 +54,10 @@ class VRepAgent(VRepObject):
         self.__perceivedItems={}
         controller = ActionValueTable(150, 5)   # pyBrain
         controller.initialize(1.)               # pyBrain
+        print "controller:", controller.indim, controller.outdim
         learner = Q()                           # pyBrain
         self.__mind=AgentMind(controller, learner)  # with pyBrain
+        self.__controller=controller
         self.__name=name
         self.__clientID=clientID          # Client ID of the Dummy object
         self.__sensorHandle=sensorHandle  # Proximity sensor handle of the V-Rep agent
@@ -217,6 +219,8 @@ class VRepAgent(VRepObject):
         reward = reward - self.getBlockedStatus()
         # print "reward=", reward
         self.__mind.giveReward(reward)
+        # if reward<0:
+        #    print "setReward:", reward, self.__mind.history
     
     def pybrainLearn(self):
         self.__mind.learn() # episodes=1 by default
@@ -234,7 +238,10 @@ class VRepAgent(VRepObject):
         self.__pybrainTask.setItemDirection(self.getMostSalientItemDirection(mostSalient))
         self.__pybrainTask.setRelativeCarryingDirection(self.getRelativeCarryingDirection())
         self.__pybrainTask.setBlockedStatus(self.getBlockedStatus())
-        self.__mind.integrateObservation(self.__pybrainTask.getObservation())
+        obs = self.__pybrainTask.getObservation()
+        self.__mind.integrateObservation(obs)
+        # if obs[0]!=0:
+        #    print "Observation:", self.__mind.history
 
     def getMostSalientItemDistance(self, item):
         distance=2
@@ -300,3 +307,9 @@ class VRepAgent(VRepObject):
             if d/self.__thrustIntegral < self.RelativeTranslation:
                 self.__blocked = True
                 # print "blocked!", d, self.__thrustIntegral, d/self.__thrustIntegral
+    
+    def getController(self):
+        return self.__controller
+    
+    def getHistory(self):
+        return self.__mind.history

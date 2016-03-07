@@ -57,7 +57,8 @@ class VRepBRSimulator(object):
             for rob in self.__robs:
                 rob.setCarryingDirection(random.random()*2.0) # radian
                 rob.pybrainLearn()
-                rob.pybrainReset()                
+                rob.pybrainReset()
+                print rob.getHistory()
             cnt+=1
 
     def loop(self, interval, learning, learnLoop):
@@ -65,7 +66,7 @@ class VRepBRSimulator(object):
         while vrep.simxGetConnectionId(self.getClientID())!=-1 and ((not learning) or cnt<learnLoop):
             self.__cnt=self.__cnt+1
             for rob in self.__robs:
-                if self.__cnt>0:
+                if cnt>0:
                     rob.setRewards()
                 rob.loop()
                 self.robPerception(rob)

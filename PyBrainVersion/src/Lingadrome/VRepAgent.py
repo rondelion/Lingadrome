@@ -4,7 +4,7 @@ Created on 2015/09/08
 PyBrain version 2016-02-11
 @author: rondelion
 '''
-# import sys
+import sys
 import math
 from pybrain.rl.learners.valuebased import ActionValueTable
 from pybrain.rl.learners import Q
@@ -54,7 +54,6 @@ class VRepAgent(VRepObject):
         self.__perceivedItems={}
         controller = ActionValueTable(150, 5)   # pyBrain
         controller.initialize(1.)               # pyBrain
-        print "controller:", controller.indim, controller.outdim
         learner = Q()                           # pyBrain
         self.__mind=AgentMind(controller, learner)  # with pyBrain
         self.__controller=controller
@@ -72,6 +71,7 @@ class VRepAgent(VRepObject):
         self.__thrustIntegral=0.0
         self.__thrustHistory = [0]*self.BlockJudgeCount
         self.__positionHistory = [[0.0,0.0]]*self.BlockJudgeCount   # May cause a bug
+        self.__prevMostSalientDistance = 100000.0
         self.__blocked=False
    
     def getName(self):
@@ -80,7 +80,7 @@ class VRepAgent(VRepObject):
     def getType(self):
         return "Agent"
 
-    def loop(self):
+    def observe(self):
         operationMode=vrep.simx_opmode_streaming
         if self.__initLoop:
             self.__initLoop=False
@@ -100,7 +100,7 @@ class VRepAgent(VRepObject):
             self.__position[1]=position[1]  #Y
         else:
             self.__position=None
-            # print >> sys.stderr, "Error in VRepBubbleRob.getPosition()"
+            print >> sys.stderr, "Error in VRepBubbleRob.getPosition()",  self.__clientID, self.__bodyHandle
         returnCode, linearVelocity, angularVelocity = vrep.simxGetObjectVelocity(self.__clientID, self.__bodyHandle, operationMode)
         if returnCode==vrep.simx_return_ok:
             try:
@@ -114,14 +114,16 @@ class VRepAgent(VRepObject):
                 #    print self.__velocity, linearVelocity[0], math.cos(self.__orientation), linearVelocity[1], math.sin(self.__orientation)
         else:
             self.__velocity=None
-            # print >> sys.stderr, "Error in VRepBubbleRob.getPosition()"
+            # print >> sys.stderr, "Error in VRepBubbleRob.getVelocity()"
         returnCode, sensorTrigger, dp, doh, dsnv = vrep.simxReadProximitySensor(self.__clientID, self.__sensorHandle, operationMode)
         if returnCode==vrep.simx_return_ok:
             # We succeeded at reading the proximity sensor
             self.__mind.setInput("lastProximitySensorTime", vrep.simxGetLastCmdTime(self.__clientID))
             self.__mind.setInput("sensorTrigger", sensorTrigger)
         self.blocked()  # judge if blocked
-        self.__pybrainObservation()
+
+    def act(self):
+        self.__pybrainObservation() # integerateObservation before getAction
         self.__mind.applyRules()
         self.__mind.setStates()
         self.output()
@@ -201,10 +203,9 @@ class VRepAgent(VRepObject):
                     score=math.cos(direction)*math.exp(VRepAgent.__DistanceSalienceAttenuationCoefficient*item["distance"])
             item["score"]=score
 
-    def __setCarryingReward(self):
+    def __setCarryingReward(self, mostSalient):
         reward = 0
         # calculate reward of carrying the most salient item for the task
-        mostSalient = self.__mind.getMostSalient()
         if mostSalient!=None:
             velocityDirection = math.atan2(self.__linearVelocity[1], self.__linearVelocity[0])
             # TODO: normalization
@@ -213,8 +214,21 @@ class VRepAgent(VRepObject):
             # reward = self.__pybrainTask.getReward()
         return reward
         
+    def __setApproachingReward(self, mostSalient):
+        reward = 0.0
+        distance = mostSalient["distance"]
+        if distance!=None:
+            if distance < self.__prevMostSalientDistance:
+                reward = 0.5
+                # print distance, self.__prevMostSalientDistance
+            self.__prevMostSalientDistance = distance
+        return reward
+
     def setRewards(self):
-        reward = 0.5 # self.__setCarryingReward()
+        reward = 0.0 # self.__setCarryingReward()
+        mostSalient = self.__mind.getMostSalient()
+        if mostSalient!=None:
+            reward = self.__setApproachingReward(mostSalient)
         # print "carryingReward, blocked", reward, self.getBlockedStatus()
         reward = reward - self.getBlockedStatus()
         # print "reward=", reward
@@ -313,3 +327,6 @@ class VRepAgent(VRepObject):
     
     def getHistory(self):
         return self.__mind.history
+    
+    def getLastAction(self):
+        return self.__mind.lastaction

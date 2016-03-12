@@ -37,6 +37,11 @@ class VRepBRSimulator(object):
         Constructor
         '''
         self.__clientID=0
+        self.dummyPath=""
+        self.dummyID=None
+        self.robParts=""
+        self.maxLoop=100
+        self.learnLoop=100
 
     def setClientID(self, clientID):
         self.__clientID=clientID
@@ -50,15 +55,14 @@ class VRepBRSimulator(object):
     def addItem(self, item):
         self.__items.append(item)
         
-    def learningLoop(self, maxLoop, learnLoop):
+    def learningLoop(self):
         cnt=0
-        while cnt<maxLoop:
-            self.loop(0.0025, True, learnLoop)
+        while cnt<self.maxLoop:
+            self.loop(0.0025, True, self.learnLoop)
             for rob in self.__robs:
                 rob.setCarryingDirection(random.random()*2.0) # radian
                 rob.pybrainLearn()
                 rob.pybrainReset()
-                print rob.getHistory()
             cnt+=1
 
     def loop(self, interval, learning, learnLoop):
@@ -66,10 +70,12 @@ class VRepBRSimulator(object):
         while vrep.simxGetConnectionId(self.getClientID())!=-1 and ((not learning) or cnt<learnLoop):
             self.__cnt=self.__cnt+1
             for rob in self.__robs:
-                if cnt>0:
-                    rob.setRewards()
-                rob.loop()
+                rob.observe()
                 self.robPerception(rob)
+                if cnt>1:
+                    rob.setRewards()
+                # print rob.getLastAction()
+                rob.act()
                 # print rob.getName(), rob.getPosition()
             for item in self.__items:
                 item.loop()
@@ -95,10 +101,10 @@ class VRepBRSimulator(object):
             direction=2.0*math.pi+direction
         return direction
         
-    def waitForDummyPathUpdate(self, path):
+    def waitForDummyPathUpdate(self):
         cnt=0
-        mtime = os.stat(path).st_mtime
-        while os.stat(path).st_mtime==mtime:
+        mtime = os.stat(self.dummyPath).st_mtime
+        while os.stat(self.dummyPath).st_mtime==mtime:
             time.sleep(0.1)
             cnt=cnt+1
             if cnt>100:
@@ -106,6 +112,54 @@ class VRepBRSimulator(object):
                 time.sleep(1)
                 exit()
         
+    def readDummyPath(self):
+        fp = open(self.dummyPath, 'r')
+        lines = fp.readlines()  # 1行毎にファイル終端まで全て読む(改行文字も含まれる)
+        fp.close()
+        for line in lines:
+            buf = line.split(",")
+            for x in buf:
+                params = x.split(":")
+                if len(params) >= 2:
+                    name = params[0]
+                    try:
+                        portNb = int(params[1])
+                        self.dummyID = vrep.simxStart("127.0.0.1", portNb, True, True, 2000, 5)
+                        if self.dummyID == -1:
+                            print >> sys.stderr, "Fatal: No client ID while creating Dummy Communicator."
+                        else:
+                            self.setClientID(self.dummyID)
+                    except ValueError:
+                        print >> sys.stderr, "Fatal: non integer value while creating Dummy Communicator."
+                        time.sleep(1)
+                        exit()
+                else:
+                    name = params[0]
+                    returnCode, handle = vrep.simxGetObjectHandle(self.dummyID, name, vrep.simx_opmode_oneshot_wait)
+                    if returnCode != vrep.simx_return_ok:
+                        print >> sys.stderr, "Fatal: Error obtaining a handle for " + name + "!"
+                    else:
+                        print name, handle
+                        item = VRepItem(name, self.dummyID, handle)
+                        self.addItem(item)
+        
+    def readRobParts(self):
+        fp=open(self.robParts,'r')
+        lines = fp.readlines() # 1行毎にファイル終端まで全て読む(改行文字も含まれる)
+        fp.close()
+        for line in lines:
+            buf = line.split(",")
+            for x in buf:
+                params = x.split(":")
+                if len(params)>2:
+                    try:
+                        rob = VRepAgent(params[0], self.dummyID, int(params[1]), int(params[2]))
+                        vsim.addRob(rob)
+                    except ValueError:
+                        print >> sys.stderr,  "Fatal: non integer value while creating a Bubble Rob."
+                        time.sleep(1)
+                        exit()
+    
     def robPerception(self, rob):
         vrobjs=[]
         pos1=rob.getPosition()
@@ -143,70 +197,22 @@ class VRepBRSimulator(object):
             print >> sys.stderr, "No position for " + rob.getName()
         rob.setPerceivedItems(vrobjs)
 
-robParts=""
-dummyPath=""
-dummyID=-1
-maxLoop=100
-learnLoop=100
-
 if __name__ == '__main__':
     argvs = sys.argv
     argc = len(argvs)
+    vsim = VRepBRSimulator()
     if argc>=5:
-        dummyPath=argvs[1]
-        robParts=argvs[2]
-        maxLoop=int(argvs[3])
-        learnLoop=int(argvs[4])
+        vsim.dummyPath=argvs[1]
+        vsim.robParts=argvs[2]
+        vsim.maxLoop=int(argvs[3])
+        vsim.learnLoop=int(argvs[4])
     else:
         print('Specify following arguments: "dummyPath robParts maxLoop learnLoop"!')
         time.sleep(1)
         exit()
-    vsim = VRepBRSimulator()
-    vsim.waitForDummyPathUpdate(dummyPath)
+    vsim.waitForDummyPathUpdate()
     # LingadromeDummy.txt
-    fp=open(dummyPath,'r')
-    lines = fp.readlines() # 1行毎にファイル終端まで全て読む(改行文字も含まれる)
-    fp.close()
-    for line in lines:
-        buf = line.split(",")
-        for x in buf:
-            params = x.split(":")
-            if len(params)>=2:
-                name=params[0]
-                try:
-                    portNb = int(params[1])
-                    dummyID=vrep.simxStart("127.0.0.1",portNb,True,True,2000,5)
-                    if dummyID==-1:
-                        print >> sys.stderr,  "Fatal: No client ID while creating Dummy Communicator."
-                    else:
-                        vsim.setClientID(dummyID)
-                except ValueError:
-                    print >> sys.stderr,  "Fatal: non integer value while creating Dummy Communicator."
-                    time.sleep(1)
-                    exit()
-            else:
-                name=params[0]
-                returnCode, handle = vrep.simxGetObjectHandle(dummyID, name, vrep.simx_opmode_oneshot_wait)
-                if returnCode!=vrep.simx_return_ok:
-                    print >> sys.stderr,  "Fatal: Error obtaining a handle for " + name + "!"
-                else:
-                    print name, handle
-                    item = VRepItem(name, dummyID, handle)
-                    vsim.addItem(item)
+    vsim.readDummyPath()
     # RobParts.txt
-    fp=open(robParts,'r')
-    lines = fp.readlines() # 1行毎にファイル終端まで全て読む(改行文字も含まれる)
-    fp.close()
-    for line in lines:
-        buf = line.split(",")
-        for x in buf:
-            params = x.split(":")
-            if len(params)>2:
-                try:
-                    rob = VRepAgent(params[0], dummyID, int(params[1]), int(params[2]))
-                    vsim.addRob(rob)
-                except ValueError:
-                    print >> sys.stderr,  "Fatal: non integer value while creating a Bubble Rob."
-                    time.sleep(1)
-                    exit()
-    vsim.learningLoop(maxLoop, learnLoop)
+    vsim.readRobParts()
+    vsim.learningLoop()

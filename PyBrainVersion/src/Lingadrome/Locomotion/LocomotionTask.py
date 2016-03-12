@@ -38,13 +38,9 @@ class LocomotionTask(Task):
         self.__observationArray[3]=status    # 0:Free, 1:Blocked
     
     def getObservation(self):
-        #obs = array([((self.__observationArray[0]*self.SalientItemDirectionNumber + \
-        #               self.__observationArray[1])*self.HeadingDirectionNumber + \
-        #               self.__observationArray[2])*self.BlockedStatusNumber + \
-        #               self.__observationArray[3]])
-        obs = array([((0*self.SalientItemDirectionNumber + \
-                       0)*self.HeadingDirectionNumber + \
-                       0)*self.BlockedStatusNumber + \
+        obs = array([((self.__observationArray[0]*self.SalientItemDirectionNumber + \
+                       self.__observationArray[1])*self.HeadingDirectionNumber + \
+                       self.__observationArray[2])*self.BlockedStatusNumber + \
                        self.__observationArray[3]])
         # print "Observation=", obs
         return obs

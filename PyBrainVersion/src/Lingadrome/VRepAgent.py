@@ -218,10 +218,12 @@ class VRepAgent(VRepObject):
         reward = 0.0
         distance = mostSalient["distance"]
         if distance!=None:
-            if distance < self.__prevMostSalientDistance:
+            if distance < self.__prevMostSalientDistance - 0.001:
                 reward = 0.5
-                # print distance, self.__prevMostSalientDistance
+                print "setApproachingReward:", self.__name, self.__prevMostSalientDistance-distance
             self.__prevMostSalientDistance = distance
+            if self.__prevMostSalientDistance < distance - 0.001:
+                reward = -0.2
         return reward
 
     def setRewards(self):

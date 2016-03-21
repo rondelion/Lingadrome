@@ -30,7 +30,6 @@ class VRepBRSimulator(object):
     '''
     __robs=[]
     __items=[]
-    __cnt=0
 
     def __init__(self):
         '''
@@ -63,12 +62,12 @@ class VRepBRSimulator(object):
                 rob.setCarryingDirection(random.random()*2.0) # radian
                 rob.pybrainLearn()
                 rob.pybrainReset()
+            self.resetSimulation()
             cnt+=1
 
     def loop(self, interval, learning, learnLoop):
         cnt=0
         while vrep.simxGetConnectionId(self.getClientID())!=-1 and ((not learning) or cnt<learnLoop):
-            self.__cnt=self.__cnt+1
             for rob in self.__robs:
                 rob.observe()
                 self.robPerception(rob)
@@ -123,7 +122,7 @@ class VRepBRSimulator(object):
                 if len(params) >= 2:
                     name = params[0]
                     try:
-                        portNb = int(params[1])
+                        portNb = 19998 # int(params[1])
                         self.dummyID = vrep.simxStart("127.0.0.1", portNb, True, True, 2000, 5)
                         if self.dummyID == -1:
                             print >> sys.stderr, "Fatal: No client ID while creating Dummy Communicator."
@@ -188,7 +187,6 @@ class VRepBRSimulator(object):
                 if pos2!=None:
                     vrobj["direction"]=self.__getDirection(pos1, pos2, orientation)
                     vrobj["distance"]=math.sqrt((pos1[0]-pos2[0])**2 + (pos1[1]-pos2[1])**2)
-                    vrobj["velocity"]=item.getVelocity()
                     vrobj["name"]=item.getName()
                 else:
                     print >> sys.stderr, "No position obtained for " + item.getName()
@@ -196,6 +194,22 @@ class VRepBRSimulator(object):
         else:
             print >> sys.stderr, "No position for " + rob.getName()
         rob.setPerceivedItems(vrobjs)
+
+    def resetSimulation(self):
+        returnCode = vrep.simx_return_novalue_flag
+        while returnCode!=vrep.simx_return_ok:
+            returnCode=vrep.simxStopSimulation(self.__clientID, vrep.simx_opmode_oneshot)
+            time.sleep(0.5)
+        time.sleep(0.5)
+        returnCode = vrep.simx_return_novalue_flag
+        while returnCode!=vrep.simx_return_ok:
+            returnCode=vrep.simxStartSimulation(self.__clientID, vrep.simx_opmode_oneshot)
+            time.sleep(0.5)
+        
+    def resetPositions(self):
+        # reset item positions
+        for item in self.__items:
+            item.returnToInitPosition()
 
 if __name__ == '__main__':
     argvs = sys.argv

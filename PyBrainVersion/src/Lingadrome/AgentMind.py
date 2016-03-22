@@ -43,7 +43,7 @@ class AgentMind(LearningAgent):
     def applyRules(self):
         self.__buffer={}
         names=[]
-        self.__input["mostSalient"]=self.__selectMostSalient()
+        self.__setMostSalient()
         self.__input["action"]=int(self.getAction())
         for rule in self.__rules:
             if not rule.getName() in names: # Do not remove this code
@@ -72,22 +72,35 @@ class AgentMind(LearningAgent):
         else:
             return None
 
-    def __selectMostSalient(self):
+    def __setMostSalient(self):
+        if self.__input.has_key("perceivedItems"):
+            items = self.__input["perceivedItems"]
+            self.__input["mostSalientItem"]=self.__selectMostSalient(items)
+        # if self.__input.has_key("perceivedAgents"):
+        #    agents = self.__input["perceivedAgents"]
+        #    self.__input["mostSalientAgent"]=self.__selectMostSalient(agents)
+        
+    def __selectMostSalient(self, objects):
         maxScore=-1.0
         maxItem=None
-        if self.__input.has_key("perceivedItems"):
-            for item in self.__input["perceivedItems"]:
-                if item.has_key("score"):
-                    if item["score"]>maxScore:
-                        maxItem=item
-                        maxScore=item["score"]
+        for item in objects:
+            if item.has_key("score"):
+                if item["score"]>maxScore:
+                    maxItem=item
+                    maxScore=item["score"]
         if maxScore>AgentMind.__thresholdSalience:
             return maxItem
         else:
             return None
 
-    def getMostSalient(self):
-        if self.__input.has_key("mostSalient"):
-            return self.__input["mostSalient"]
+    def getMostSalientAgent(self):
+        if self.__input.has_key("mostSalientAgent"):
+            return self.__input["mostSalientAgent"]
+        else:
+            return None
+
+    def getMostSalientItem(self):
+        if self.__input.has_key("mostSalientItem"):
+            return self.__input["mostSalientItem"]
         else:
             return None

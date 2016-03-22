@@ -52,6 +52,7 @@ class VRepAgent(VRepObject):
         self.__position=None
         self.__initLoop=True
         self.__perceivedItems={}
+        self.__perceivedAgents={}
         controller = ActionValueTable(150, 5)   # pyBrain
         controller.initialize(1.)               # pyBrain
         learner = Q()                           # pyBrain
@@ -186,15 +187,21 @@ class VRepAgent(VRepObject):
     def setAttentionWidth(self, width):
         pass
     
+    def setPerceivedAgents(self, agents):
+        # set a list of perceived items
+        self.__perceivedAgents=agents
+        self.__visualSalience(agents)
+        self.__mind.setInput("perceivedAgents", self.__perceivedAgents)
+
     def setPerceivedItems(self, items):
         # set a list of perceived items
         self.__perceivedItems=items
-        self.__visualSalience()
+        self.__visualSalience(items)
         self.__mind.setInput("perceivedItems", self.__perceivedItems)
 
-    def __visualSalience(self):
+    def __visualSalience(self, objects):
         # give the score to perceived items
-        for item in self.__perceivedItems:
+        for item in objects:
             score=0.0
             if item.has_key("direction") and item.has_key("distance"):
                 direction=item["direction"]
@@ -228,9 +235,9 @@ class VRepAgent(VRepObject):
 
     def setRewards(self):
         reward = 0.0 # self.__setCarryingReward()
-        mostSalient = self.__mind.getMostSalient()
-        if mostSalient!=None:
-            reward = self.__setApproachingReward(mostSalient)
+        mostSalientItem = self.__mind.getMostSalientItem()
+        if mostSalientItem!=None:
+            reward = self.__setApproachingReward(mostSalientItem)
         # print "carryingReward, blocked", reward, self.getBlockedStatus()
         reward = reward - self.getBlockedStatus()
         # print "reward=", reward
@@ -249,7 +256,7 @@ class VRepAgent(VRepObject):
         self.__carryingDirection = direction
     
     def __pybrainObservation(self):
-        mostSalient=self.__mind.getMostSalient()
+        mostSalient=self.__mind.getMostSalientItem()
         self.__pybrainTask.setItemDistance(self.getMostSalientItemDistance(mostSalient))
         self.__pybrainTask.setItemDirection(self.getMostSalientItemDirection(mostSalient))
         self.__pybrainTask.setRelativeCarryingDirection(self.getRelativeCarryingDirection())

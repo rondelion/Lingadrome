@@ -160,8 +160,8 @@ class VRepBRSimulator(object):
                         exit()
     
     def robPerception(self, rob):
-        vrobjs=[]
         pos1=rob.getPosition()
+        vragents=[]
         if pos1!=None:
             orientation=rob.getOrientation()
             # other agent perception
@@ -179,8 +179,10 @@ class VRepBRSimulator(object):
                     else:
                         print >> sys.stderr, "No position obtained for " + br.getName()
                     vrobj["emotion"]=self.getEmotion(br)
-                    vrobjs.append(vrobj)
+                    vragents.append(vrobj)
+                    rob.setPerceivedAgents(vragents)
             # item perception
+            vritems=[]
             for item in self.__items:
                 vrobj={}
                 pos2=item.getPosition()
@@ -190,10 +192,10 @@ class VRepBRSimulator(object):
                     vrobj["name"]=item.getName()
                 else:
                     print >> sys.stderr, "No position obtained for " + item.getName()
-                vrobjs.append(vrobj)
+                vritems.append(vrobj)
+                rob.setPerceivedItems(vritems)
         else:
             print >> sys.stderr, "No position for " + rob.getName()
-        rob.setPerceivedItems(vrobjs)
 
     def resetSimulation(self):
         returnCode = vrep.simx_return_novalue_flag

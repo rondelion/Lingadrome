@@ -227,7 +227,7 @@ class VRepAgent(VRepObject):
         if distance!=None:
             if distance < self.__prevMostSalientDistance - 0.001:
                 reward = 0.5
-                print "setApproachingReward:", self.__name, self.__prevMostSalientDistance-distance
+                # print "setApproachingReward:", self.__name, self.__prevMostSalientDistance-distance
             self.__prevMostSalientDistance = distance
             if self.__prevMostSalientDistance < distance - 0.001:
                 reward = -0.2
@@ -277,7 +277,7 @@ class VRepAgent(VRepObject):
         return distance
     
     def getMostSalientItemDirection(self, item):
-        direction=0
+        direction=3 # out of sight
         if item!=None and item.has_key("direction"):
             d = item["direction"]
             if math.fabs(d)>self.DirectionAhead:
@@ -285,12 +285,14 @@ class VRepAgent(VRepObject):
                     if d<0.5*math.pi:
                         direction=2 # Left forward
                     else:
-                        direction=4 # Left backward
+                        direction=3 # out of sight
                 else:
                     if d>-0.5*math.pi:
                         direction=1 # Right forward
                     else:
-                        direction=3 # Right backward
+                        direction=3 # out of sight
+        if self.__name=="BubbleRob#0":
+            print "getMostSalientItemDirection:", self.__name, direction
         return direction
     
     def getRelativeCarryingDirection(self):

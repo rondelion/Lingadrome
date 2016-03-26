@@ -74,6 +74,7 @@ class VRepAgent(VRepObject):
         self.__positionHistory = [[0.0,0.0]]*self.BlockJudgeCount   # May cause a bug
         self.__prevMostSalientDistance = 100000.0
         self.__blocked=False
+        self.__prevMostSalient=None
    
     def getName(self):
         return self.__name
@@ -220,25 +221,36 @@ class VRepAgent(VRepObject):
             # print "velocityDirection=",velocityDirection,"carryingD=", self.__carryingDirection, "RW=", reward
             # reward = self.__pybrainTask.getReward()
         return reward
-        
+
+    def __setItemLostFoundReward(self, mostSalient):
+        reward = 0.0
+        if mostSalient!=None and self.__prevMostSalient==None:
+            reward=0.5
+        if mostSalient==None and self.__prevMostSalient!=None:
+            reward=-0.5
+        self.__prevMostSalient=mostSalient
+        return reward
+
     def __setApproachingReward(self, mostSalient):
         reward = 0.0
         distance = mostSalient["distance"]
         if distance!=None:
             if distance < self.__prevMostSalientDistance - 0.001:
                 reward = 0.5
-                # print "setApproachingReward:", self.__name, self.__prevMostSalientDistance-distance
-            self.__prevMostSalientDistance = distance
             if self.__prevMostSalientDistance < distance - 0.001:
                 reward = -0.2
+            if reward!=0.0:
+                print "setApproachingReward:", self.__name, reward, self.__prevMostSalientDistance-distance
+            self.__prevMostSalientDistance = distance
         return reward
 
     def setRewards(self):
-        reward = 0.0 # self.__setCarryingReward()
         mostSalientItem = self.__mind.getMostSalientItem()
-        if mostSalientItem!=None:
-            reward = self.__setApproachingReward(mostSalientItem)
-        # print "carryingReward, blocked", reward, self.getBlockedStatus()
+        reward = self.__setItemLostFoundReward(mostSalientItem)
+        if reward == 0.0:
+            if mostSalientItem != None:
+                reward = self.__setApproachingReward(mostSalientItem)
+                # print "carryingReward, blocked", reward, self.getBlockedStatus()
         reward = reward - self.getBlockedStatus()
         # print "reward=", reward
         self.__mind.giveReward(reward)
@@ -280,6 +292,7 @@ class VRepAgent(VRepObject):
         direction=3 # out of sight
         if item!=None and item.has_key("direction"):
             d = item["direction"]
+            direction=0
             if math.fabs(d)>self.DirectionAhead:
                 if d>0:
                     if d<0.5*math.pi:
@@ -291,8 +304,8 @@ class VRepAgent(VRepObject):
                         direction=1 # Right forward
                     else:
                         direction=3 # out of sight
-        if self.__name=="BubbleRob#0":
-            print "getMostSalientItemDirection:", self.__name, direction
+        # if self.__name=="BubbleRob#0":
+        #    print "getMostSalientItemDirection:", self.__name, direction
         return direction
     
     def getRelativeCarryingDirection(self):

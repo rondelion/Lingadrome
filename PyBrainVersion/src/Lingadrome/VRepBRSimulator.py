@@ -68,6 +68,8 @@ class VRepBRSimulator(object):
     def loop(self, interval, learning, learnLoop):
         cnt=0
         while vrep.simxGetConnectionId(self.getClientID())!=-1 and ((not learning) or cnt<learnLoop):
+            for item in self.__items:
+                item.loop()
             for rob in self.__robs:
                 rob.observe()
                 self.robPerception(rob)
@@ -76,8 +78,6 @@ class VRepBRSimulator(object):
                 # print rob.getLastAction()
                 rob.act()
                 # print rob.getName(), rob.getPosition()
-            for item in self.__items:
-                item.loop()
             time.sleep(interval)
             cnt+=1
         if vrep.simxGetConnectionId(self.getClientID())==-1:

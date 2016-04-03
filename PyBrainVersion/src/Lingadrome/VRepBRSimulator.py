@@ -57,12 +57,13 @@ class VRepBRSimulator(object):
     def learningLoop(self):
         cnt=0
         while cnt<self.maxLoop:
-            self.loop(0.0025, True, self.learnLoop)
+            self.loop(0.0125, True, self.learnLoop)
             for rob in self.__robs:
                 rob.setCarryingDirection(0.0) # (random.random()-0.5)*2.0*math.pi) # radian
                 rob.pybrainLearn()
                 rob.pybrainReset()
             self.resetSimulation()
+            rob.resetParameters()
             cnt+=1
 
     def loop(self, interval, learning, learnLoop):

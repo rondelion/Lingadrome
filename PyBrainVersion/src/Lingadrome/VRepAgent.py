@@ -31,8 +31,8 @@ class VRepAgent(VRepObject):
     classdocs
     '''
     __DistanceSalienceAttenuationCoefficient=-1.0
-    ItemContactLimit=0.02
-    ItemNearLimit=1.0
+    ItemContactLimit=0.15
+    ItemNearLimit=0.4
     ItemDirectionAhead=0.1
     BlockJudgeCount=500
     RelativeTranslation=0.0001
@@ -42,6 +42,21 @@ class VRepAgent(VRepObject):
         '''
         Constructor
         '''
+        self.resetParameters()
+        controller = ActionValueTable(150, 5)   # pyBrain
+        controller.initialize(1.)               # pyBrain
+        learner = Q()                           # pyBrain
+        self.__mind=AgentMind(controller, learner)  # with pyBrain
+        self.__controller=controller
+        self.__name=name
+        self.__clientID=clientID          # Client ID of the Dummy object
+        self.__sensorHandle=sensorHandle  # Proximity sensor handle of the V-Rep agent
+        self.__bodyHandle=bodyHandle      # BubbleRob body handle
+        self.__mind.setInput("name", name)
+        self.__pybrainEnvironment = LocomotionEnvironment()
+        self.__pybrainTask = LocomotionTask(self.__pybrainEnvironment)
+   
+    def resetParameters(self):
         self.__velocity=0.0        # m/s
         self.__linearVelocity=None # vector
         self.__angularVelocity=0.0 # radian/s
@@ -53,29 +68,17 @@ class VRepAgent(VRepObject):
         self.__initLoop=True
         self.__perceivedItems={}
         self.__perceivedAgents={}
-        controller = ActionValueTable(150, 5)   # pyBrain
-        controller.initialize(1.)               # pyBrain
-        learner = Q()                           # pyBrain
-        self.__mind=AgentMind(controller, learner)  # with pyBrain
-        self.__controller=controller
-        self.__name=name
-        self.__clientID=clientID          # Client ID of the Dummy object
-        self.__sensorHandle=sensorHandle  # Proximity sensor handle of the V-Rep agent
-        self.__bodyHandle=bodyHandle      # BubbleRob body handle
         self.__driveBackStartTime=-99000
         self.__firstOrientation=None
         self.__cnt=0
-        self.__mind.setInput("name", name)
-        self.__pybrainEnvironment = LocomotionEnvironment()
-        self.__pybrainTask = LocomotionTask(self.__pybrainEnvironment)
         self.__carryingDirection = 0
         self.__thrustIntegral=0.0
         self.__thrustHistory = [0]*self.BlockJudgeCount
         self.__positionHistory = [[0.0,0.0]]*self.BlockJudgeCount   # May cause a bug
-        self.__prevMostSalientDistance = 100000.0
+        self.__prevMostSalientDistance = 3  # 100000.0
         self.__blocked=False
-        self.__prevMostSalient=None
-   
+        self.__prevMostSalient=None        
+        
     def getName(self):
         return self.__name
 
@@ -235,13 +238,25 @@ class VRepAgent(VRepObject):
         reward = 0.0
         distance = mostSalient["distance"]
         if distance!=None:
-            if distance < self.__prevMostSalientDistance - 0.001:
+            if distance < self.__prevMostSalientDistance - 0.0015:
                 reward = 0.5
-            if self.__prevMostSalientDistance < distance - 0.001:
-                reward = -0.2
-            # if reward!=0.0:
+            if self.__prevMostSalientDistance < distance - 0.0015:
+                reward = -0.0
+            #if reward!=0.0:
             #    print "setApproachingReward:", self.__name, reward, self.__prevMostSalientDistance-distance
             self.__prevMostSalientDistance = distance
+        return reward
+
+    def __setApproachingReward2(self, mostSalient):
+        reward = 0.0
+        distance = self.getMostSalientItemDistance(mostSalient)
+        if distance < self.__prevMostSalientDistance:    
+            reward = 0.5
+        elif self.__prevMostSalientDistance < distance:
+                reward = -0.5
+        #if reward!=0:
+        #    print "setApproachingReward:", self.__name, reward
+        self.__prevMostSalientDistance = distance
         return reward
 
     def setRewards(self):
@@ -249,10 +264,11 @@ class VRepAgent(VRepObject):
         reward = 0.0 # self.__setItemLostFoundReward(mostSalientItem)
         if reward == 0.0:
             if mostSalientItem != None:
-                reward = self.__setApproachingReward(mostSalientItem)
+                reward = self.__setApproachingReward2(mostSalientItem)
                 # print "carryingReward, blocked", reward, self.getBlockedStatus()
         reward = reward - self.getBlockedStatus()
-        # print "reward=", reward
+        if reward!=0:
+            print "setReward:", self.__name, reward
         self.__mind.giveReward(reward)
         # if reward<0:
         #    print "setReward:", reward, self.__mind.history
@@ -271,7 +287,7 @@ class VRepAgent(VRepObject):
         mostSalient=self.__mind.getMostSalientItem()
         self.__pybrainTask.setItemDistance(self.getMostSalientItemDistance(mostSalient))
         self.__pybrainTask.setItemDirection(self.getMostSalientItemDirection(mostSalient))
-        self.__pybrainTask.setRelativeCarryingDirection(self.getRelativeCarryingDirection())
+        self.__pybrainTask.setRelativeCarryingDirection(0) # self.getRelativeCarryingDirection())
         self.__pybrainTask.setBlockedStatus(self.getBlockedStatus())
         obs = self.__pybrainTask.getObservation()
         self.__mind.integrateObservation(obs)
@@ -282,6 +298,7 @@ class VRepAgent(VRepObject):
         distance=2
         if item!=None and item.has_key("distance"):
             d = item["distance"]
+            # print "getMostSalientItemDistance:", self.__name, d
             if d<self.ItemContactLimit:
                 distance=0
             elif d<self.ItemNearLimit:
@@ -304,8 +321,8 @@ class VRepAgent(VRepObject):
                         direction=1 # Right forward
                     else:
                         direction=3 # out of sight
-        if self.__name=="BubbleRob#0":
-            print "getMostSalientItemDirection:", self.__name, direction
+        # if self.__name=="BubbleRob#0":
+        #    print "getMostSalientItemDirection:", self.__name, direction
         return direction
     
     def getRelativeCarryingDirection(self):
@@ -323,6 +340,7 @@ class VRepAgent(VRepObject):
                         direction=1 # Right forward
                     else:
                         direction=3 # Right backward
+            # print "getRelativeCarryingDirection:", self.__name, direction
         return direction
     
     def getBlockedStatus(self):
@@ -342,9 +360,9 @@ class VRepAgent(VRepObject):
         if self.__cnt>=self.BlockJudgeCount and self.__thrustIntegral!=0.0 and self.__positionHistory[pLast]!=None:
             d = math.sqrt((self.__position[0]-self.__positionHistory[pLast][0])**2 + \
                           (self.__position[1]-self.__positionHistory[pLast][1])**2)
-            if d/self.__thrustIntegral < self.RelativeTranslation:
+            if d/math.fabs(self.__thrustIntegral) < self.RelativeTranslation:
                 self.__blocked = True
-                # print "blocked!", d, self.__thrustIntegral, d/self.__thrustIntegral
+                print "blocked!", d, self.__thrustIntegral, d/self.__thrustIntegral
     
     def getController(self):
         return self.__controller

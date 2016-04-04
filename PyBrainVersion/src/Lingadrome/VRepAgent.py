@@ -34,9 +34,10 @@ class VRepAgent(VRepObject):
     ItemContactLimit=0.15
     ItemNearLimit=0.4
     ItemDirectionAhead=0.1
-    BlockJudgeCount=500
-    RelativeTranslation=0.0001
+    BlockJudgeCount=200
+    RelativeTranslation=0.0005
     DirectionAhead=0.01
+    RefractoryPeriod=500
 
     def __init__(self, name, clientID, sensorHandle, bodyHandle):
         '''
@@ -77,7 +78,8 @@ class VRepAgent(VRepObject):
         self.__positionHistory = [[0.0,0.0]]*self.BlockJudgeCount   # May cause a bug
         self.__prevMostSalientDistance = 3  # 100000.0
         self.__blocked=False
-        self.__prevMostSalient=None        
+        self.__prevMostSalient=None
+        self.__prevApproachingRewardCnt=-1*VRepAgent.RefractoryPeriod
         
     def getName(self):
         return self.__name
@@ -250,11 +252,25 @@ class VRepAgent(VRepObject):
     def __setApproachingReward2(self, mostSalient):
         reward = 0.0
         distance = self.getMostSalientItemDistance(mostSalient)
-        if distance < self.__prevMostSalientDistance:    
-            reward = 0.5
-        elif self.__prevMostSalientDistance < distance:
+        if self.__cnt-self.__prevApproachingRewardCnt>=VRepAgent.RefractoryPeriod:
+            if distance < self.__prevMostSalientDistance:
+                reward = 0.5
+            elif self.__prevMostSalientDistance < distance:
                 reward = -0.5
-        #if reward!=0:
+        if reward!=0:
+            self.__prevApproachingRewardCnt=self.__cnt
+        #    print "setApproachingReward:", self.__name, reward
+        self.__prevMostSalientDistance = distance
+        return reward
+
+    def __setContactReward(self, mostSalient):
+        reward = 0.0
+        distance = self.getMostSalientItemDistance(mostSalient)
+        if self.__cnt-self.__prevApproachingRewardCnt>=VRepAgent.RefractoryPeriod:
+            if distance==0 and self.__prevMostSalientDistance==1:
+                reward = 0.5
+        if reward!=0:
+            self.__prevApproachingRewardCnt=self.__cnt
         #    print "setApproachingReward:", self.__name, reward
         self.__prevMostSalientDistance = distance
         return reward
@@ -264,7 +280,7 @@ class VRepAgent(VRepObject):
         reward = 0.0 # self.__setItemLostFoundReward(mostSalientItem)
         if reward == 0.0:
             if mostSalientItem != None:
-                reward = self.__setApproachingReward2(mostSalientItem)
+                reward = self.__setContactReward(mostSalientItem)
                 # print "carryingReward, blocked", reward, self.getBlockedStatus()
         reward = reward - self.getBlockedStatus()
         if reward!=0:
@@ -362,7 +378,7 @@ class VRepAgent(VRepObject):
                           (self.__position[1]-self.__positionHistory[pLast][1])**2)
             if d/math.fabs(self.__thrustIntegral) < self.RelativeTranslation:
                 self.__blocked = True
-                print "blocked!", d, self.__thrustIntegral, d/self.__thrustIntegral
+                print "blocked!", self.__name, d, self.__thrustIntegral, d/self.__thrustIntegral
     
     def getController(self):
         return self.__controller

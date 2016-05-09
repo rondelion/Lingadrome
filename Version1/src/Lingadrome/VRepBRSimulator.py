@@ -152,7 +152,7 @@ if __name__ == '__main__':
             if len(params)>=2:
                 name=params[0]
                 try:
-                    portNb = int(params[1])
+                    portNb = 19998  # int(params[1])
                     dummyID=vrep.simxStart("127.0.0.1",portNb,True,True,2000,5)
                     if dummyID==-1:
                         print >> sys.stderr,  "Fatal: No client ID while creating Dummy Communicator."

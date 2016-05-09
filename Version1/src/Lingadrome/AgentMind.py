@@ -6,12 +6,13 @@ Created on 2015/10/19
 
 from Rules.BackOffRule import BackOffRule
 from Rules.BackOffRule2 import BackOffRule2
-from GoStraightRule import GoStraightRule
+from Rules.GoStraightRule import GoStraightRule
 # from Rules.FollowMostSalientRule import FollowMostSalientRule
-from LostTrackRule import LostTrackRule
-from ConfrontingRule import ConfrontingRule
+from Rules.LostTrackRule import LostTrackRule
+from Rules.ConfrontingRule import ConfrontingRule
 from Rules.SpontaneousPromenadeRule import SpontaneousPromenadeRule
 from Rules.ItemCarryingRule import ItemCarryingRule
+from Rules.BackOffRule2 import BackOffRule2
 from Locomotion.LocomotionPrimitives import LocomotionPrimitives
 
 class AgentMind(object):

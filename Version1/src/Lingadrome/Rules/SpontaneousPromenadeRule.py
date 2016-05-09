@@ -5,7 +5,7 @@ Created on 2015/12/15
 '''
 import datetime
 import math
-from Lingadrome.Rules.Rule import Rule
+from Rule import Rule
 
 class SpontaneousPromenadeRule(Rule):
     '''

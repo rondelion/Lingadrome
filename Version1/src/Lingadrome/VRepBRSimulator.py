@@ -106,10 +106,10 @@ class VRepBRSimulator(object):
                         brOri=br.getOrientation()
                         if brOri!=None:
                             vrobj["orientation"]=brOri
+                        vrobj["emotion"] = self.getEmotion(br)
+                        vrobjs.append(vrobj)
                     else:
                         print >> sys.stderr, "No position obtained for " + br.getName()
-                    vrobj["emotion"]=self.getEmotion(br)
-                    vrobjs.append(vrobj)
             # item perception
             for item in self.__items:
                 vrobj={}
@@ -118,9 +118,9 @@ class VRepBRSimulator(object):
                     vrobj["direction"]=self.__getDirection(pos1, pos2, orientation)
                     vrobj["distance"]=math.sqrt((pos1[0]-pos2[0])**2 + (pos1[1]-pos2[1])**2)
                     vrobj["name"]=item.getName()
+                    vrobjs.append(vrobj)
                 else:
                     print >> sys.stderr, "No position obtained for " + item.getName()
-                vrobjs.append(vrobj)
         else:
             print >> sys.stderr, "No position for " + rob.getName()
         rob.setPerceivedItems(vrobjs)
@@ -182,6 +182,7 @@ if __name__ == '__main__':
             if len(params)>2:
                 try:
                     rob = VRepAgent(params[0], dummyID, int(params[1]), int(params[2]))
+                    rob.setCarryingDirection(0.25*math.pi)  # (random.random()-0.5)*2.0*math.pi) # radian
                     vsim.addRob(rob)
                 except ValueError:
                     print >> sys.stderr,  "Fatal: non integer value while creating a Bubble Rob."

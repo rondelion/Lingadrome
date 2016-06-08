@@ -13,6 +13,7 @@ from Rules.ConfrontingRule import ConfrontingRule
 from Rules.SpontaneousPromenadeRule import SpontaneousPromenadeRule
 from Rules.ItemCarryingRule import ItemCarryingRule
 from Rules.BackOffRule2 import BackOffRule2
+from Rules.ApproachingItemRule import ApproachingItemRule
 from Locomotion.LocomotionPrimitives import LocomotionPrimitives
 
 class AgentMind(object):
@@ -32,8 +33,9 @@ class AgentMind(object):
         self.__input={}
         self.__buffer={}
         # self.__rules.append(BackOffRule())
-        self.__rules.append(BackOffRule2())
-        self.__rules.append(LocomotionPrimitives())
+        # self.__rules.append(BackOffRule2())
+        # self.__rules.append(LocomotionPrimitives())
+        self.__rules.append(ApproachingItemRule())
         # self.__rules.append(GoStraightRule())
         # self.__rules.append(FollowMostSalientRule())
         # self.__rules.append(LostTrackRule())
@@ -46,8 +48,7 @@ class AgentMind(object):
 
     def setInput(self, key, value):
         self.__input[key]=value
-        self.__input["mostSalient"]=self.__selectMostSalient()
-        
+
     def __getInput(self, key):
         if self.__input.has_key(key):
             return self.__input[key]
@@ -86,17 +87,25 @@ class AgentMind(object):
         else:
             return None
 
-    def __selectMostSalient(self):
+    def selectMostSalient(self, type):
         maxScore=-1.0
         maxItem=None
         if self.__input.has_key("perceivedItems"):
             for item in self.__input["perceivedItems"]:
                 if item.has_key("score"):
-                    if item["score"]>maxScore:
-                        maxItem=item
-                        maxScore=item["score"]
+                    if (type=="A" and item.has_key("orientation")) or (type=="I" and not item.has_key("orientation")):
+                        if item["score"]>maxScore:
+                            maxItem=item
+                            maxScore=item["score"]
         if maxScore>AgentMind.__thresholdSalience:
             return maxItem
         else:
             return None
+
+    def getAttendedItem(self, name):
+        if self.__input.has_key("perceivedItems"):
+            for item in self.__input["perceivedItems"]:
+                if item["name"] == name:
+                    return item
+        return None
 

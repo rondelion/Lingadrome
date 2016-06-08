@@ -48,7 +48,8 @@ class VRepAgent(VRepObject):
         self.__firstOrientation=None
         self.__cnt=0
         self.__mind.setInput("name", name)
-   
+        self.__carryingDirection = 0
+
     def getName(self):
         return self.__name
 
@@ -79,7 +80,8 @@ class VRepAgent(VRepObject):
         returnCode, linearVelocity, angularVelocity = vrep.simxGetObjectVelocity(self.__clientID, self.__bodyHandle, operationMode)
         if returnCode==vrep.simx_return_ok:
             try:
-                self.__velocity=linearVelocity[0]*math.cos(self.__orientation)+linearVelocity[1]*math.sin(self.__orientation)
+                # self.__velocity=linearVelocity[0]*math.cos(self.__orientation)+linearVelocity[1]*math.sin(self.__orientation)
+                self.__velocity=math.sqrt(linearVelocity[0]**2+linearVelocity[1]**2)
                 self.__mind.setInput("velocity", self.__velocity)
             except TypeError:
                 pass
@@ -93,6 +95,9 @@ class VRepAgent(VRepObject):
             # We succeeded at reading the proximity sensor
             self.__mind.setInput("lastProximitySensorTime", vrep.simxGetLastCmdTime(self.__clientID))
             self.__mind.setInput("sensorTrigger", sensorTrigger)
+        self.__mind.setInput("mostSalientItem", self.__mind.selectMostSalient("I"))
+        # print self.__name, self.__mind.getAttendedItem(self.__mind.getOutput("attendedItemName"))
+        self.__mind.setInput("attendedItem", self.__mind.getAttendedItem(self.__mind.getOutput("attendedItemName")))
         self.__mind.applyRules()
         self.__mind.setStates()
         if self.__mind.getOutput("steering")!=None:
@@ -157,6 +162,11 @@ class VRepAgent(VRepObject):
         self.__visualSalience()
         self.__mind.setInput("perceivedItems", self.__perceivedItems)
 
+    def setCarryingDirection(self, direction):
+        print "setCarryingDirection:", direction
+        self.__carryingDirection = direction
+        self.__mind.setInput("carryingDirection", direction)
+
     def __visualSalience(self):
         # give the score to perceived items
         for item in self.__perceivedItems:
@@ -167,4 +177,10 @@ class VRepAgent(VRepObject):
                     # FOV: [-90,90] degrees
                     score=math.cos(direction)*math.exp(VRepAgent.__DistanceSalienceAttenuationCoefficient*item["distance"])
             item["score"]=score
+
+    def pybrainLearn(self):
+        pass
+    
+    def pybrainReset(self):
+        pass
 

@@ -182,7 +182,7 @@ if __name__ == '__main__':
             if len(params)>2:
                 try:
                     rob = VRepAgent(params[0], dummyID, int(params[1]), int(params[2]))
-                    rob.setCarryingDirection(0.25*math.pi)  # (random.random()-0.5)*2.0*math.pi) # radian
+                    rob.setCarryingDirection(0.27*math.pi)  # (random.random()-0.5)*2.0*math.pi) # radian
                     vsim.addRob(rob)
                 except ValueError:
                     print >> sys.stderr,  "Fatal: non integer value while creating a Bubble Rob."

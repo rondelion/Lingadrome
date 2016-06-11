@@ -20,6 +20,7 @@ class ApproachingItemRule(Rule):
         Constructor
         '''
         self.__phase = 1
+        self.__phase4D = ""
 
     def condition(self, inputBuffer, stateBuffer):
         if inputBuffer.has_key("mostSalientItem") or inputBuffer.has_key("attendedItem"):
@@ -50,10 +51,10 @@ class ApproachingItemRule(Rule):
                     distance = attendedItem["distance"]
                     itemAbsoluteDirection = orientation + itemDirection
                     diff = ApproachingItemRule.NormalizeRadian(carryingDirection - itemAbsoluteDirection)
+                    diff2 = ApproachingItemRule.NormalizeRadian(orientation - carryingDirection)
                     # print inputBuffer["name"], attendedItem["name"], carryingDirection, orientation, itemDirection
                     # if not in the carrying angle allowance
                     if self.__phase == 2:
-                        diff2 = ApproachingItemRule.NormalizeRadian(orientation - carryingDirection)
                         # if not in the carrying angle allowance
                         if abs(diff2) > self.__AngleAllowance:
                             if inputBuffer["name"] == "BubbleRob#1":
@@ -65,14 +66,51 @@ class ApproachingItemRule(Rule):
                         else:
                             self.__phase = 3
                     elif self.__phase == 3:
-                        diff2 = ApproachingItemRule.NormalizeRadian(orientation - carryingDirection)
                         thrust = 0.5
+                        if abs(diff) > self.__AngleAllowance * 5.0:
+                            self.__phase = 4
+                            if itemDirection < 0:
+                                self.__phase4D = "L"
+                            else:
+                                self.__phase4D = "R"
+                        else:
+                            if inputBuffer["name"] == "BubbleRob#1":
+                                print "Phase 3 carryingDirection=", carryingDirection, "itemAbsoluteDirection=", itemAbsoluteDirection, "diff=", diff
+                            if diff2 > 0:  # carryingDirection - itemAbsoluteDirection
+                                steering = 0.1
+                            else:
+                                steering = -0.1
+                    elif self.__phase == 4:
+                        thrust = 0.0
                         if inputBuffer["name"] == "BubbleRob#1":
-                            print "carryingDirection=", carryingDirection, "itemAbsoluteDirection=", itemAbsoluteDirection, "diff=", diff
-                        if diff2 > 0:  # carryingDirection - itemAbsoluteDirection
+                            print "Phase 4 itemDirection=", itemDirection, "diff=", diff
+                        if self.__phase4D == "L":
+                            steering = 0.1
+                            if itemDirection > self.__AngleAllowance * 3.0:
+                               self.__phase = 5
+                        else:
+                            steering = -0.1
+                            if itemDirection < self.__AngleAllowance * -3.0:
+                               self.__phase = 5
+                    elif self.__phase == 5:
+                        thrust = 0.2
+                        steering = 0.0
+                        if inputBuffer["name"] == "BubbleRob#1":
+                            print "Phase 5 diff=", diff
+                        if abs(diff) < self.__AngleAllowance * 3.0:
+                            self.__phase = 6
+                        # elif abs(diff) > self.__AngleAllowance * 20.0:
+                        #    self.__phase = 3
+                    elif self.__phase == 6:
+                        thrust = 0.0
+                        if inputBuffer["name"] == "BubbleRob#1":
+                            print "Phase 6 diff2=", diff2
+                        if diff2 > 0:  # orientation - carryingDirection
                             steering = 0.1
                         else:
                             steering = -0.1
+                        if abs(diff2) < self.__AngleAllowance:
+                            self.__phase = 3
                     elif abs(diff) > self.__AngleAllowance:
                         approachingAngleOffset = math.atan2(distance - self.__OffLimit, distance * diff)
                         approachingAngle = 0
@@ -80,19 +118,19 @@ class ApproachingItemRule(Rule):
                             approachingAngle = ApproachingItemRule.NormalizeRadian(itemAbsoluteDirection + approachingAngleOffset - 0.5 * math.pi)
                         else:
                             approachingAngle = ApproachingItemRule.NormalizeRadian(itemAbsoluteDirection + approachingAngleOffset + 0.5 * math.pi)
-                        diff2 = ApproachingItemRule.NormalizeRadian(orientation - approachingAngle)
-                        if inputBuffer["name"] == "BubbleRob#1":
-                            print "diff=", diff, "orientation=", orientation, "approachingAngle=", approachingAngle, \
-                            "itemAbsoluteDirection=", itemAbsoluteDirection, "diff2", diff2
+                        diff3 = ApproachingItemRule.NormalizeRadian(orientation - approachingAngle)
+                        # if inputBuffer["name"] == "BubbleRob#1":
+                            # print "diff=", diff, "orientation=", orientation, "approachingAngle=", approachingAngle, \
+                            # "itemAbsoluteDirection=", itemAbsoluteDirection, "diff3", diff3
                         # if not in the approaching angle allowance
-                        if abs(diff2) > self.__AngleAllowance:
+                        if abs(diff3) > self.__AngleAllowance:
                             thrust = 0.0
                         else:
                             thrust = 0.5
                         steering = 0.1
-                        if diff2 > 0:
+                        if diff3 > 0:
                             steering = 0.1
-                        elif diff2 < 0:
+                        elif diff3 < 0:
                             steering = -0.1
                     else:
                         self.__phase = 2

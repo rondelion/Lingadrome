@@ -57,8 +57,8 @@ class ApproachingItemRule(Rule):
                     if self.__phase == 2:
                         # if not in the carrying angle allowance
                         if abs(diff2) > self.__AngleAllowance:
-                            if inputBuffer["name"] == "BubbleRob#1":
-                                print "orientation=", orientation, "carryingDirection=", carryingDirection, "diff2=", diff2
+                            # if inputBuffer["name"] == "BubbleRob#1":
+                            #    print "orientation=", orientation, "carryingDirection=", carryingDirection, "diff2=", diff2
                             if diff2 < 0:  # orientation - carryingDirection
                                 steering = -0.1
                             else:
@@ -67,23 +67,23 @@ class ApproachingItemRule(Rule):
                             self.__phase = 3
                     elif self.__phase == 3:
                         thrust = 0.5
-                        if abs(diff) > self.__AngleAllowance * 5.0:
+                        if abs(diff) > self.__AngleAllowance * 2.0:
                             self.__phase = 4
                             if itemDirection < 0:
                                 self.__phase4D = "L"
                             else:
                                 self.__phase4D = "R"
                         else:
-                            if inputBuffer["name"] == "BubbleRob#1":
-                                print "Phase 3 carryingDirection=", carryingDirection, "itemAbsoluteDirection=", itemAbsoluteDirection, "diff=", diff
+                            # if inputBuffer["name"] == "BubbleRob#1":
+                            #    print "Phase 3 carryingDirection=", carryingDirection, "itemAbsoluteDirection=", itemAbsoluteDirection, "diff=", diff
                             if diff2 > 0:  # carryingDirection - itemAbsoluteDirection
                                 steering = 0.1
                             else:
                                 steering = -0.1
                     elif self.__phase == 4:
                         thrust = 0.0
-                        if inputBuffer["name"] == "BubbleRob#1":
-                            print "Phase 4 itemDirection=", itemDirection, "diff=", diff
+                        # if inputBuffer["name"] == "BubbleRob#1":
+                        #    print "Phase 4 itemDirection=", itemDirection, "diff=", diff
                         if self.__phase4D == "L":
                             steering = 0.1
                             if itemDirection > self.__AngleAllowance * 3.0:
@@ -95,16 +95,14 @@ class ApproachingItemRule(Rule):
                     elif self.__phase == 5:
                         thrust = 0.2
                         steering = 0.0
-                        if inputBuffer["name"] == "BubbleRob#1":
-                            print "Phase 5 diff=", diff
+                        # if inputBuffer["name"] == "BubbleRob#1":
+                        #    print "Phase 5 diff=", diff
                         if abs(diff) < self.__AngleAllowance * 3.0:
                             self.__phase = 6
-                        # elif abs(diff) > self.__AngleAllowance * 20.0:
-                        #    self.__phase = 3
                     elif self.__phase == 6:
                         thrust = 0.0
-                        if inputBuffer["name"] == "BubbleRob#1":
-                            print "Phase 6 diff2=", diff2
+                        # if inputBuffer["name"] == "BubbleRob#1":
+                        #     print "Phase 6 diff2=", diff2
                         if diff2 > 0:  # orientation - carryingDirection
                             steering = 0.1
                         else:

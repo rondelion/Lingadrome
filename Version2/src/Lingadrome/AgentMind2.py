@@ -1,13 +1,9 @@
 '''
-Created on 2015/10/19
+Created on 2016/07/11
 
 @author: rondelion
 '''
 
-from Rules.BackOffRule import BackOffRule
-from Rules.BackOffRule2 import BackOffRule2
-from Rules.GoStraightRule import GoStraightRule
-from Rules.ApproachingItemRule import ApproachingItemRule
 from LocomotionSelector import LocomotionSelector
 from Actions.Locomotion import Locomotion
 
@@ -19,16 +15,18 @@ class AgentMind2(object):
     __driveBackStartTime=-99000
     __lostTrackTurnStartTime=-99000
 
-    def __init__(self):
+    def __init__(self, type):
         '''
         Constructor
         '''
+        if type!="User" and type!="Learner":
+            raise TypeError("AgentMind neither User nor Learner!")
+        self.__type = type
         self.__rules=[]
         self.__states={}
         self.__input={}
         self.__actionParameters={}
         self.__buffer={}
-        self.__rules.append(ApproachingItemRule())
         self.locomotionSelector = LocomotionSelector()
         self.locomotion = Locomotion()
         self.__states["driveBackStartTime"]=AgentMind2.__driveBackStartTime

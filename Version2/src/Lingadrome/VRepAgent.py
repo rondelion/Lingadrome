@@ -7,6 +7,8 @@ Created on 2015/09/08
 # import sys
 import math
 from AgentMind2 import AgentMind2
+from LanguageLearner import LanguageLearner
+from LanguageUser import LanguageUser
 from VRepObject import VRepObject
 try:
     import vrep
@@ -39,7 +41,10 @@ class VRepAgent(VRepObject):
         self.__position=None
         self.__initLoop=True
         self.__perceivedItems={}
-        self.__mind=AgentMind2()
+        if name=="BubbleRob#0":
+            self.__mind = LanguageUser()
+        else:
+            self.__mind = LanguageLearner()
         self.__name=name
         self.__clientID=clientID          # Client ID of the Dummy object
         self.__sensorHandle=sensorHandle  # Proximity sensor handle of the V-Rep agent

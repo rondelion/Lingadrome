@@ -23,41 +23,40 @@ class AgentMind2(object):
             raise TypeError("AgentMind neither User nor Learner!")
         self.__type = type
         self.__rules=[]
-        self.__states={}
-        self.__input={}
-        self.__actionParameters={}
+        self.states={}
+        self.input={}
+        self.actionParameters={}
         self.__buffer={}
         self.locomotionSelector = LocomotionSelector()
         self.locomotion = Locomotion()
-        self.__states["driveBackStartTime"]=AgentMind2.__driveBackStartTime
-        self.__states["__lostTrackTurnStartTime"]=AgentMind2.__lostTrackTurnStartTime
 
     def setInput(self, key, value):
-        self.__input[key]=value
+        self.input[key]=value
 
     def perceive(self):
         pass
         # for perception in self.__perceptions:
-        #   perception.perceive(self.__input, self.__states)
+        #   perception.perceive(self.input, self.states)
 
     def selectAction(self):
-        self.locomotionSelector.selectLocomotion(self.__input, self.__states)
+        self.locomotionSelector.selectLocomotion(self.input, self.states, self.actionParameters)
 
     def action(self):
-        self.locomotion.action(self.__input, self.__states, self.__actionParameters)
-        # print self.__input["name"] + ":",  self.__states
+        self.locomotion.action(self.input, self.states, self.actionParameters)
+        #if self.input["name"]=="BubbleRob#0":
+        #    print self.input["name"] + ":",  self.states, self.actionParameters
 
     def getOutput(self, key):
-        if self.__states.has_key(key):
-            return self.__states[key]
+        if self.states.has_key(key):
+            return self.states[key]
         else:
             return None
 
     def selectMostSalient(self, type):
         maxScore=-1.0
         maxItem=None
-        if self.__input.has_key("perceivedItems"):
-            for item in self.__input["perceivedItems"]:
+        if self.input.has_key("perceivedItems"):
+            for item in self.input["perceivedItems"]:
                 if item.has_key("score"):
                     if (type=="A" and item.has_key("orientation")) or (type=="I" and not item.has_key("orientation")):
                         if item["score"]>maxScore:
@@ -69,8 +68,8 @@ class AgentMind2(object):
             return None
 
     def getAttendedItem(self, name):
-        if self.__input.has_key("perceivedItems"):
-            for item in self.__input["perceivedItems"]:
+        if self.input.has_key("perceivedItems"):
+            for item in self.input["perceivedItems"]:
                 if item["name"] == name:
                     return item
         return None

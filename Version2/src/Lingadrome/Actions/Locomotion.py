@@ -28,7 +28,6 @@ class Locomotion(object):
         elif states["locomotionType"] == "GoStraight":
             self.goStraight.action(input, states, parameters)
         elif states["locomotionType"] == "Turn":
-            parameters["turnDirection"]=random.choice(["R","L"])
             self.Turn.action(input, states, parameters)
         elif states["locomotionType"] == "FullTurn":
             if input.has_key("orientation") and input["orientation"]!=None:

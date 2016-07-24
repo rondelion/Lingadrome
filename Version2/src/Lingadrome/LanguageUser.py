@@ -15,3 +15,17 @@ class LanguageUser(AgentMind2):
         Constructor
         '''
         super(LanguageUser, self).__init__("User")
+
+    def selectAction(self): # overriding
+        self.states["locomotionType"] = "Stop"
+        if self.input.has_key("mostSalientAgent"):
+            msa = self.input["mostSalientAgent"]
+            if msa!=None and msa.has_key("direction"):
+                self.states["locomotionType"] = "Turn"
+                if msa["direction"] > 0:
+                    self.actionParameters["turnDirection"] = "L"
+                else:
+                    self.actionParameters["turnDirection"] = "R"
+
+
+

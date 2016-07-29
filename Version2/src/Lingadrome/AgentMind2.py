@@ -4,6 +4,7 @@ Created on 2016/07/11
 @author: rondelion
 '''
 
+from Perception.Perceive import Perceive
 from LocomotionSelector import LocomotionSelector
 from Actions.Locomotion import Locomotion
 
@@ -29,12 +30,13 @@ class AgentMind2(object):
         self.__buffer={}
         self.locomotionSelector = LocomotionSelector()
         self.locomotion = Locomotion()
+        self.perception = Perceive()
 
     def setInput(self, key, value):
         self.input[key]=value
 
     def perceive(self):
-        pass
+        self.perception.perceive(self.input, self.states)
         # for perception in self.__perceptions:
         #   perception.perceive(self.input, self.states)
 

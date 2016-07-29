@@ -6,7 +6,7 @@ Created on 2015/09/08
 '''
 # import sys
 import math
-from AgentMind2 import AgentMind2
+import ctypes
 from LanguageLearner import LanguageLearner
 from LanguageUser import LanguageUser
 from VRepObject import VRepObject
@@ -101,6 +101,7 @@ class VRepAgent(VRepObject):
             self.__mind.setInput("lastProximitySensorTime", vrep.simxGetLastCmdTime(self.__clientID))
             self.__mind.setInput("sensorTrigger", sensorTrigger)
         self.__mind.setInput("mostSalientItem", self.__mind.selectMostSalient("I"))
+        self.__mind.setInput("mostSalientAgent", self.__mind.selectMostSalient("A"))
         # print self.__name, self.__mind.getAttendedItem(self.__mind.getOutput("attendedItemName"))
         self.__mind.setInput("attendedItem", self.__mind.getAttendedItem(self.__mind.getOutput("attendedItemName")))
         self.__mind.perceive()
@@ -110,6 +111,8 @@ class VRepAgent(VRepObject):
             self.setSteering(self.__mind.getOutput("steering"))
         if self.__mind.getOutput("thrust")!=None:
             self.setThrust(self.__mind.getOutput("thrust"))
+        if self.__mind.getOutput("utterance") != None:
+            self.setUtterance(self.__mind.getOutput("utterance"))
         if self.__mind.getOutput("reward")!=None:
             if self.__mind.getOutput("reward")>0.5:
                 self.setEmotionalExpression(1)
@@ -134,6 +137,10 @@ class VRepAgent(VRepObject):
         # Average wheel speed
         self.__thrust = thrust
         vrep.simxSetFloatSignal(self.__clientID, self.__name+":Acceleration", self.__thrust, vrep.simx_opmode_oneshot)
+
+    def setUtterance(self, utterance):
+        raw_ubytes = (ctypes.c_ubyte * len(utterance)).from_buffer_copy(utterance)
+        vrep.simxSetStringSignal(self.__clientID, self.__name + ":Utterance", raw_ubytes, vrep.simx_opmode_oneshot)
 
     def getPosition(self):
         return self.__position

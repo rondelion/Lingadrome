@@ -27,17 +27,13 @@ class ConfrontingCall(object):
                 suppressed = datetime.datetime.now() - self.endTime
             if self.startTime == None:
                if self.endTime == None or suppressed.seconds > self.__suppressDuration:
-                   if self.endTime != None:
-                       print suppressed.seconds
-                   else:
-                       print "entTime: None"
                    states["utterance"] = ConfrontingCall.__name[input["name"]] + "!"
                    self.startTime = datetime.datetime.now()
-                   print "Utter:", ConfrontingCall.__name[input["name"]] + "!"
+                   # print "Utter:", ConfrontingCall.__name[input["name"]] + "!"
         if self.startTime != None:
             elapsed = datetime.datetime.now() - self.startTime
             if elapsed.seconds > self.__defaultDuration:
                 states["utterance"] = ""
-                print "Utter:"
+                # print "Utter:"
                 self.startTime = None
                 self.endTime = datetime.datetime.now()

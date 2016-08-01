@@ -7,6 +7,7 @@ Created on 2016/07/11
 from Perception.Perceive import Perceive
 from LocomotionSelector import LocomotionSelector
 from Actions.Locomotion import Locomotion
+from Reward.Reward import Reward
 
 class AgentMind2(object):
     '''
@@ -24,13 +25,14 @@ class AgentMind2(object):
             raise TypeError("AgentMind neither User nor Learner!")
         self.__type = type
         self.__rules=[]
-        self.states={}
+        self.states={"reward":0}
         self.input={}
         self.actionParameters={}
         self.__buffer={}
         self.locomotionSelector = LocomotionSelector()
         self.locomotion = Locomotion()
         self.perception = Perceive()
+        self.reward = Reward()
 
     def setInput(self, key, value):
         self.input[key]=value
@@ -39,6 +41,9 @@ class AgentMind2(object):
         self.perception.perceive(self.input, self.states)
         # for perception in self.__perceptions:
         #   perception.perceive(self.input, self.states)
+
+    def setReward(self):
+        self.reward.reward(self.input, self.states)
 
     def selectAction(self):
         self.locomotionSelector.selectLocomotion(self.input, self.states, self.actionParameters)

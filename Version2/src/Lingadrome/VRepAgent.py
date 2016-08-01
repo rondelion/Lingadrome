@@ -105,6 +105,7 @@ class VRepAgent(VRepObject):
         # print self.__name, self.__mind.getAttendedItem(self.__mind.getOutput("attendedItemName"))
         self.__mind.setInput("attendedItem", self.__mind.getAttendedItem(self.__mind.getOutput("attendedItemName")))
         self.__mind.perceive()
+        self.__mind.setReward()
         self.__mind.selectAction()
         self.__mind.action()
         if self.__mind.getOutput("steering")!=None:

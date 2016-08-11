@@ -4,7 +4,7 @@ Created on 2016/07/21
 @author: rondelion
 '''
 from AgentMind2 import AgentMind2
-from Actions.ConfrontingCall import ConfrontingCall
+from Actions.LU_Utter import LU_Utter
 
 class LanguageUser(AgentMind2):
     '''
@@ -16,7 +16,7 @@ class LanguageUser(AgentMind2):
         Constructor
         '''
         super(LanguageUser, self).__init__("User")
-        self.confrontingCall = ConfrontingCall()
+        self.lu_Utter = LU_Utter()
 
     def selectAction(self): # overriding
         self.states["locomotionType"] = "Stop"
@@ -28,7 +28,4 @@ class LanguageUser(AgentMind2):
                     self.actionParameters["turnDirection"] = "L"
                 else:
                     self.actionParameters["turnDirection"] = "R"
-        self.confrontingCall.action(self.input, self.states, self.actionParameters)
-
-
-
+        self.lu_Utter.action(self.input, self.states, self.actionParameters)

@@ -118,6 +118,11 @@ class VRepBRSimulator(object):
                     vrobj["direction"]=self.__getDirection(pos1, pos2, orientation)
                     vrobj["distance"]=math.sqrt((pos1[0]-pos2[0])**2 + (pos1[1]-pos2[1])**2)
                     vrobj["name"]=item.getName()
+                    # color code cheating
+                    if vrobj["name"]=="Cylinder#1":
+                        vrobj["color"] = "pink"
+                    elif vrobj["name"]=="Cylinder#2":
+                        vrobj["color"] = "blue"
                     vrobjs.append(vrobj)
                 else:
                     print >> sys.stderr, "No position obtained for " + item.getName()

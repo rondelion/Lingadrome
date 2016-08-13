@@ -13,6 +13,8 @@ class LU_Utter(object):
     __name = {"BubbleRob#0": "Mario", "BubbleRob#0": "Luca"}
     __defaultDuration = 1 # in seconds
     __suppressDuration = 5 # in seconds
+    __minimumSalience=0.1
+    __itemAgentDistance2Approach=0.5
 
     def __init__(self):
         '''
@@ -31,6 +33,8 @@ class LU_Utter(object):
                 potentialUtterance.append(LU_Utter.__name[input["name"]] + ", veni hic!")
             potentialUtterance.append(LU_Utter.__name[input["name"]] + ", resta!")
             potentialUtterance.append(LU_Utter.__name[input["name"]] + ", gira!")
+            msa = input["mostSalientAgent"]
+            self.itemAction(input, msa["distance"], potentialUtterance)
         if len(potentialUtterance)>0:
             if self.endTime != None:
                 suppressed = datetime.datetime.now() - self.endTime
@@ -46,3 +50,18 @@ class LU_Utter(object):
                 # print "Utter:"
                 self.startTime = None
                 self.endTime = datetime.datetime.now()
+
+    def itemAction(self, input, agentDistance, potentialUtterance):
+        if input.has_key("perceivedItems"):
+            for item in input["perceivedItems"]:
+                if not item.has_key("orientation"):  # Not an agent but an Item
+                    if item["color"]=="blue":
+                        color="blau"
+                    elif item["color"]=="pink":
+                        color="rosate"
+                    if item["score"] >= LU_Utter.__minimumSalience:
+                        # print item["name"], item["distance"], agentDistance
+                        if item["distance"] > agentDistance + LU_Utter.__itemAgentDistance2Approach:
+                            potentialUtterance.append(LU_Utter.__name[input["name"]] + ", vade al illo " + color + "!")
+                        elif agentDistance > item["distance"] + LU_Utter.__itemAgentDistance2Approach:
+                            potentialUtterance.append(LU_Utter.__name[input["name"]] + ", veni al illo " + color + "!")

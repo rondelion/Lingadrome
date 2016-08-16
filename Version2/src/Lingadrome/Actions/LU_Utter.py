@@ -5,6 +5,7 @@ Created on 2016/08/11
 '''
 import datetime
 import random
+import math
 
 class LU_Utter(object):
     '''
@@ -13,8 +14,11 @@ class LU_Utter(object):
     __name = {"BubbleRob#0": "Mario", "BubbleRob#0": "Luca"}
     __defaultDuration = 1 # in seconds
     __suppressDuration = 5 # in seconds
+    __judgmentDuration = 3 # in seconds
     __minimumSalience=0.1
-    __itemAgentDistance2Approach=0.5
+    __itemAgentDistance2Approach=0.4
+    __approachMargin=0.1
+    __pauseMargin=0.05
 
     def __init__(self):
         '''
@@ -22,6 +26,7 @@ class LU_Utter(object):
         '''
         self.startTime = None
         self.endTime = None
+        self.originalDistance = None
 
     def action(self, input, states, parameters):
         choices = []
@@ -34,26 +39,30 @@ class LU_Utter(object):
             choices.append("pause")
             parameters["utteranceTurnOrientation"] = random.choice(["dextra", "sinistra", ""])
             choices.append("turn")
-            msa = input["mostSalientAgent"]
-            self.itemAction(input, msa["distance"], parameters, choices)
+            self.itemAction(input, parameters, choices)
         if len(choices)>0:
             if self.endTime != None:
                 suppressed = datetime.datetime.now() - self.endTime
+                if self.startTime == None:
+                    self.startTime = self.judgment(suppressed, input, states, parameters)   # may return None
             if self.startTime == None:
-               if self.endTime == None or suppressed.seconds > self.__suppressDuration:
-                   states["utteranceType"] = random.choice(choices)
-                   states["utterance"] = self.choice2utterance(input, states["utteranceType"], parameters)
-                   self.startTime = datetime.datetime.now()
-                   # print "Utter:", ConfrontingCall.__name[input["name"]] + "!"
+                if self.endTime == None or suppressed.seconds > self.__suppressDuration:
+                    states["utteranceType"] = random.choice(choices)
+                    states["utterance"] = self.choice2utterance(input, states["utteranceType"], parameters)
+                    self.startTime = datetime.datetime.now()
+                    # print "Utter:", ConfrontingCall.__name[input["name"]] + "!"
         if self.startTime != None:
             elapsed = datetime.datetime.now() - self.startTime
             if elapsed.seconds > self.__defaultDuration:
                 states["utterance"] = ""
+                states["sanction"] = 0
                 # print "Utter:"
                 self.startTime = None
                 self.endTime = datetime.datetime.now()
 
-    def itemAction(self, input, agentDistance, parameters, choices):
+    def itemAction(self, input, parameters, choices):
+        msa = input["mostSalientAgent"]
+        agentDistance = msa["distance"]
         if input.has_key("perceivedItems"):
             for item in input["perceivedItems"]:
                 if not item.has_key("orientation"):  # Not an agent but an Item
@@ -85,3 +94,24 @@ class LU_Utter(object):
             return LU_Utter.__name[input["name"]] + ", vade al illo " + parameters["utteranceItemColor"] + "!"
         if choice == "come2Item":
             return LU_Utter.__name[input["name"]] + ", veni al illo " + parameters["utteranceItemColor"] + "!"
+
+    def judgment(self, suppressed, input, states, parameters):
+        sanction = 0
+        msa = input["mostSalientAgent"]
+        agentDistance = msa["distance"]
+        elapsed = suppressed.seconds
+        if elapsed == 0:    # the beginning
+            self.originalDistance = agentDistance
+        if suppressed.seconds > self.__judgmentDuration:
+            if states["utteranceType"]=="comeHere" or states["utteranceType"]=="call":
+                if agentDistance < self.originalDistance - self.__approachMargin:
+                    sanction = 1
+            if states["utteranceType"]=="pause":
+                if math.fabs(agentDistance - self.originalDistance) < self.__approachMargin:
+                    sanction = 1
+            if sanction==1:
+                states["utterance"] = "Ben!"
+                states["utteranceType"] = "sanction"
+                states["sanction"] = sanction
+                return datetime.datetime.now()
+        return None

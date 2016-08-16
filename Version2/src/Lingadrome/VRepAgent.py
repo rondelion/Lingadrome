@@ -114,13 +114,12 @@ class VRepAgent(VRepObject):
             self.setThrust(self.__mind.getOutput("thrust"))
         if self.__mind.getOutput("utterance") != None:
             self.setUtterance(self.__mind.getOutput("utterance"))
-        if self.__mind.getOutput("reward")!=None:
-            if self.__mind.getOutput("reward")>0.5:
-                self.setEmotionalExpression(1)
-            elif self.__mind.getOutput("reward")<-0.5:
-                self.setEmotionalExpression(-1)
-            else:
-                self.setEmotionalExpression(0)
+        if self.__mind.getOutput("reward")>0.5 or self.__mind.getOutput("sanction")==1:
+            self.setEmotionalExpression(1)
+        elif self.__mind.getOutput("reward")<-0.5:
+            self.setEmotionalExpression(-1)
+        else:
+            self.setEmotionalExpression(0)
         getSignalReturnCode, dMessage = vrep.simxGetStringSignal(self.__clientID, "Debug", vrep.simx_opmode_streaming)
         if dMessage!="":
             print("Debug:"+dMessage)

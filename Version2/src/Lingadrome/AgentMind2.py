@@ -25,7 +25,7 @@ class AgentMind2(object):
             raise TypeError("AgentMind neither User nor Learner!")
         self.__type = type
         self.__rules=[]
-        self.states={"reward":0}
+        self.states={"reward":0, "sanction":0}
         self.input={}
         self.actionParameters={}
         self.__buffer={}

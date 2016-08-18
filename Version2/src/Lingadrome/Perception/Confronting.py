@@ -20,10 +20,7 @@ class Confronting(object):
         '''
         self.__current=False
         self.__previous=False
-        self.__currentDetectedEmotion=0
-        self.__previousDetectedEmotion=0
-        self.__reward=0.0
-    
+
     def perceive(self, input):
         self.__previous=self.__current
         self.__current=False

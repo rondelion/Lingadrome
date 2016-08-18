@@ -36,4 +36,4 @@ class Locomotion(object):
             pass
         elif states["locomotionType"] == "Carry":
             pass
-        # print "Locomotion.action.states:", states
+        # print "Locomotion.action.states:", states, parameters

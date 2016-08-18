@@ -19,6 +19,7 @@ class LU_Utter(object):
     __itemAgentDistance2Approach=0.4
     __approachMargin=0.1
     __pauseMargin=0.05
+    __rotationMargin=0.1
 
     def __init__(self):
         '''
@@ -27,6 +28,7 @@ class LU_Utter(object):
         self.startTime = None
         self.endTime = None
         self.originalDistance = None
+        self.originalOrientation = None
 
     def action(self, input, states, parameters):
         choices = []
@@ -37,7 +39,6 @@ class LU_Utter(object):
             if input.has_key("MSAisInConfrontingDistance") and not input["MSAisInConfrontingDistance"]:
                 choices.append("comeHere")
             choices.append("pause")
-            parameters["utteranceTurnOrientation"] = random.choice(["dextra", "sinistra", ""])
             choices.append("turn")
             self.itemAction(input, parameters, choices)
         if len(choices)>0:
@@ -48,6 +49,8 @@ class LU_Utter(object):
             if self.startTime == None:
                 if self.endTime == None or suppressed.seconds > self.__suppressDuration:
                     states["utteranceType"] = random.choice(choices)
+                    if states["utteranceType"] == "turn":
+                        parameters["utteranceTurnOrientation"] = random.choice(["dextra", "sinistra", ""])
                     states["utterance"] = self.choice2utterance(input, states["utteranceType"], parameters)
                     self.startTime = datetime.datetime.now()
                     # print "Utter:", ConfrontingCall.__name[input["name"]] + "!"
@@ -102,16 +105,57 @@ class LU_Utter(object):
         elapsed = suppressed.seconds
         if elapsed == 0:    # the beginning
             self.originalDistance = agentDistance
+            self.originalOrientation = msa["orientation"]
         if suppressed.seconds > self.__judgmentDuration:
             if states["utteranceType"]=="comeHere" or states["utteranceType"]=="call":
-                if agentDistance < self.originalDistance - self.__approachMargin:
+                if self.originalDistance - agentDistance > self.__approachMargin:
                     sanction = 1
             if states["utteranceType"]=="pause":
-                if math.fabs(agentDistance - self.originalDistance) < self.__approachMargin:
+                if math.fabs(agentDistance - self.originalDistance) < self.__pauseMargin:
                     sanction = 1
+            if states["utteranceType"]=="lookHere" or states["utteranceType"]=="call":
+                if input.has_key("MSAisConfronting") and input["MSAisConfronting"]:
+                    sanction = 1
+            if states["utteranceType"]=="turn":
+                rd = self.rotationDirection(msa)
+                if parameters["utteranceTurnOrientation"]=="dextra":
+                    if rd=="R":
+                        sanction = 1
+                elif parameters["utteranceTurnOrientation"] == "sinitra":
+                    if rd == "L":
+                        sanction = 1
+                else:
+                    if rd == "L" or rd == "R":
+                        sanction = 1
             if sanction==1:
                 states["utterance"] = "Ben!"
                 states["utteranceType"] = "sanction"
                 states["sanction"] = sanction
                 return datetime.datetime.now()
         return None
+
+    def rotationDirection(self, agent):
+        diff = agent["orientation"] - self.originalOrientation
+        if self.normalizeRadian(diff) > self.__rotationMargin:
+            return "L"
+        elif self.normalizeRadian(diff) < -1.0 * self.__rotationMargin:
+            return "R"
+        else:
+            return None
+
+    def normalizeRadian(self, rad):
+        sin = math.sin(rad)
+        cos = math.cos(rad)
+        if rad > 0:
+            if sin > 0:
+                val = rad % math.pi
+            else:
+                val = rad % math.pi - math.pi
+        elif rad < 0:
+            if sin < 0:
+                val = ((-1.0 * rad) % math.pi) * -1.0
+            else:
+                val = math.pi - ((-1.0 * rad) % math.pi)
+        else:
+            val = rad
+        return val

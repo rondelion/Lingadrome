@@ -19,6 +19,7 @@ class FullTurn(object):
         self.originalOrientation = 0.0
 
     def action(self, input, states, parameters):
+        steering = 0.2
         if not (input.has_key("orientation") and input["orientation"]!=None):
             states["locomotionType"] = ""
         else:
@@ -26,7 +27,10 @@ class FullTurn(object):
                 self.originalOrientation = self.NormalizeRadian(input["orientation"])
                 states["firstAfterSelection"] = False
             orientation = self.NormalizeRadian(input["orientation"])
-            states["steering"] = 0.2
+            if parameters.has_key("turnDirection"):
+                if parameters["turnDirection"] == "L":
+                    steering = steering * -1.0
+            states["steering"] = steering
             states["thrust"] = 0.0
             # print "FullTurn:", abs(orientation - self.originalOrientation)
             if abs(orientation - self.originalOrientation) < self.__AngleAllowance:

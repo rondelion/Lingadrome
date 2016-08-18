@@ -190,10 +190,3 @@ class VRepAgent(VRepObject):
                     # FOV: [-90,90] degrees
                     score=math.cos(direction)*math.exp(VRepAgent.__DistanceSalienceAttenuationCoefficient*item["distance"])
             item["score"]=score
-
-    def pybrainLearn(self):
-        pass
-    
-    def pybrainReset(self):
-        pass
-

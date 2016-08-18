@@ -26,7 +26,6 @@ class LocomotionSelector(object):
         self.selectTime = None
 
     def selectLocomotion(self, input, states, parameters):
-        parameters.clear()
         if states.has_key("locomotionType"):
             self.locomotionType = states["locomotionType"]
         else:
@@ -38,8 +37,10 @@ class LocomotionSelector(object):
                 self.locomotionType = ""
         if self.locomotionType == "":
             self.locomotionType = random.choice(self.__locomotionTypes)
-            if self.locomotionType == "Turn":
+            if self.locomotionType == "Turn" or self.locomotionType == "FullTurn":
                 parameters["turnDirection"] = random.choice(["R", "L"])
+            else:
+                parameters["turnDirection"] = ""
             self.selectTime = datetime.datetime.now()
             states["firstAfterSelection"]=True
             print input["name"], self.locomotionType + " selected with", parameters, "."

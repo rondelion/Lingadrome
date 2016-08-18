@@ -14,6 +14,8 @@ class Turn(object):
                 steering=steering * -1.0
         states["thrust"]=0.0
         states["steering"]=steering
+        # if parameters.has_key("turnDirection") and parameters["turnDirection"]=="L":
+        #    print "Turn", states["steering"]
         return
     
     def getName(self):

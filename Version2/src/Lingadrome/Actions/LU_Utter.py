@@ -16,10 +16,11 @@ class LU_Utter(object):
     __suppressDuration = 5 # in seconds
     __judgmentDuration = 3 # in seconds
     __minimumSalience=0.1
-    __itemAgentDistance2Approach=0.4
-    __approachMargin=0.1
-    __pauseMargin=0.05
-    __rotationMargin=0.1
+    __callDistance=0.5
+    __itemAgentDistance2Approach=0.3    # apparent distance discrepancy between LL and item to initiate approach
+    __approachMargin=0.1    # approaching distance to be praised
+    __pauseMargin=0.05      # motion limit when instructed to pause
+    __rotationMargin=0.1    # rotation to be praised when instructed to turn
 
     def __init__(self):
         '''
@@ -29,31 +30,33 @@ class LU_Utter(object):
         self.endTime = None
         self.originalDistance = None
         self.originalOrientation = None
+        self.originalAgentTargetDistance = None
 
     def action(self, input, states, parameters):
-        choices = []
-        if input.has_key("MSAisInCenterFOV") and input["MSAisInCenterFOV"]:
-            if input.has_key("MSAisConfronting") and not input["MSAisConfronting"]:
-                choices.append("call")
-                choices.append("lookHere")
-            if input.has_key("MSAisInConfrontingDistance") and not input["MSAisInConfrontingDistance"]:
-                choices.append("comeHere")
-            choices.append("pause")
-            choices.append("turn")
-            self.itemAction(input, parameters, choices)
-        if len(choices)>0:
-            if self.endTime != None:
-                suppressed = datetime.datetime.now() - self.endTime
-                if self.startTime == None:
-                    self.startTime = self.judgment(suppressed, input, states, parameters)   # may return None
+        if self.endTime != None:
+            suppressed = datetime.datetime.now() - self.endTime
             if self.startTime == None:
-                if self.endTime == None or suppressed.seconds > self.__suppressDuration:
-                    states["utteranceType"] = random.choice(choices)
-                    if states["utteranceType"] == "turn":
-                        parameters["utteranceTurnOrientation"] = random.choice(["dextra", "sinistra", ""])
-                    states["utterance"] = self.choice2utterance(input, states["utteranceType"], parameters)
-                    self.startTime = datetime.datetime.now()
-                    # print "Utter:", ConfrontingCall.__name[input["name"]] + "!"
+                self.startTime = self.judgment(suppressed, input, states, parameters)   # may return None
+        if self.startTime == None:
+            if self.endTime == None or suppressed.seconds > self.__suppressDuration:
+                choices = []
+                if input.has_key("MSAisInCenterFOV") and input["MSAisInCenterFOV"]:
+                    if input.has_key("MSAisConfronting") and not input["MSAisConfronting"]:
+                        choices.append("call")
+                        choices.append("lookHere")
+                    if input.has_key("MSAisInConfrontingDistance") and not input["MSAisInConfrontingDistance"]:
+                        choices.append("comeHere")
+                    choices.append("pause")
+                    choices.append("turn")
+                    choices = []
+                    self.itemAction(input, parameters, choices)
+                    if len(choices) > 0:
+                        states["utteranceType"] = random.choice(choices)
+                        if states["utteranceType"] == "turn":
+                            parameters["utteranceTurnOrientation"] = random.choice(["dextra", "sinistra", ""])
+                        states["utterance"] = self.choice2utterance(input, states["utteranceType"], parameters)
+                        self.startTime = datetime.datetime.now()
+                        # print "Utter:", ConfrontingCall.__name[input["name"]] + "!"
         if self.startTime != None:
             elapsed = datetime.datetime.now() - self.startTime
             if elapsed.seconds > self.__defaultDuration:
@@ -66,19 +69,20 @@ class LU_Utter(object):
     def itemAction(self, input, parameters, choices):
         msa = input["mostSalientAgent"]
         agentDistance = msa["distance"]
+        items=[]
         if input.has_key("perceivedItems"):
             for item in input["perceivedItems"]:
                 if not item.has_key("orientation"):  # Not an agent but an Item
-                    if item["color"]=="blue":
-                        parameters["utteranceItemColor"]="blau"
-                    elif item["color"]=="pink":
-                        parameters["utteranceItemColor"]="rosate"
                     if item["score"] >= LU_Utter.__minimumSalience:
-                        # print item["name"], item["distance"], agentDistance
-                        if item["distance"] > agentDistance + LU_Utter.__itemAgentDistance2Approach:
-                            choices.append("go2Item")
-                        elif agentDistance > item["distance"] + LU_Utter.__itemAgentDistance2Approach:
-                            choices.append("come2Item")
+                        items.append(item)
+            if len(items)>0:
+                item = random.choice(items) # pick one item
+                if item["distance"] > agentDistance + LU_Utter.__itemAgentDistance2Approach:
+                    choices.append("go2Item")
+                    parameters["actionTargetItem"] = item
+                elif agentDistance > item["distance"] + LU_Utter.__itemAgentDistance2Approach:
+                    choices.append("come2Item")
+                    parameters["actionTargetItem"] = item
 
     def choice2utterance(self, input, choice, parameters):
         if choice == "call":
@@ -93,19 +97,32 @@ class LU_Utter(object):
             return LU_Utter.__name[input["name"]] + "!"
         if choice == "turn":
             return LU_Utter.__name[input["name"]] + ", gira " + parameters["utteranceTurnOrientation"] +"!"
-        if choice == "go2Item":
-            return LU_Utter.__name[input["name"]] + ", vade al illo " + parameters["utteranceItemColor"] + "!"
-        if choice == "come2Item":
-            return LU_Utter.__name[input["name"]] + ", veni al illo " + parameters["utteranceItemColor"] + "!"
+        if choice == "go2Item" or choice == "come2Item":
+            if parameters.has_key("actionTargetItem"):
+                item = parameters["actionTargetItem"]
+                if item["color"] == "blue":
+                    color = "blau"
+                elif item["color"] == "pink":
+                    color = "rosate"
+                if choice == "go2Item":
+                    return LU_Utter.__name[input["name"]] + ", vade al illo " + color + "!"
+                elif choice == "come2Item":
+                    return LU_Utter.__name[input["name"]] + ", veni al illo " + color + "!"
 
     def judgment(self, suppressed, input, states, parameters):
         sanction = 0
         msa = input["mostSalientAgent"]
         agentDistance = msa["distance"]
+        item = None
+        if states["utteranceType"] == "go2Item" or states["utteranceType"] == "come2Item":
+            if parameters.has_key("actionTargetItem"):
+                item = parameters["actionTargetItem"]
         elapsed = suppressed.seconds
         if elapsed == 0:    # the beginning
             self.originalDistance = agentDistance
             self.originalOrientation = msa["orientation"]
+            if item != None:
+                self.originalAgentTargetDistance = self.itemAgentDistance(item, msa)
         if suppressed.seconds > self.__judgmentDuration:
             if states["utteranceType"]=="comeHere" or states["utteranceType"]=="call":
                 if self.originalDistance - agentDistance > self.__approachMargin:
@@ -127,8 +144,12 @@ class LU_Utter(object):
                 else:
                     if rd == "L" or rd == "R":
                         sanction = 1
+            if states["utteranceType"] == "go2Item" or states["utteranceType"] == "come2Item":
+                if item != None:
+                    if self.originalAgentTargetDistance - self.itemAgentDistance(item, msa) > self.__approachMargin:
+                        sanction = 1
             if sanction==1:
-                states["utterance"] = "Ben!"
+                states["utterance"] = "Bon!"
                 states["utteranceType"] = "sanction"
                 states["sanction"] = sanction
                 return datetime.datetime.now()
@@ -142,6 +163,12 @@ class LU_Utter(object):
             return "R"
         else:
             return None
+
+    def itemAgentDistance(self, item, agent):
+        agentDistance = agent["distance"]
+        directionDiff = math.fabs(agent["direction"] - item["direction"])
+        return math.sqrt((item["distance"]-agentDistance * math.cos(directionDiff)) ** 2 \
+               + (agentDistance * math.sin(directionDiff)) **2)
 
     def normalizeRadian(self, rad):
         sin = math.sin(rad)

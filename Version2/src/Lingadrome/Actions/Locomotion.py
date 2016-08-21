@@ -8,6 +8,7 @@ from Stop import Stop
 from GoStraight import GoStraight
 from Turn import Turn
 from FullTurn import FullTurn
+from Approach import Approach
 
 class Locomotion(object):
     '''
@@ -21,6 +22,7 @@ class Locomotion(object):
         self.goStraight = GoStraight()
         self.Turn = Turn()
         self.FullTurn = FullTurn()
+        self.Approach = Approach()
 
     def action(self, input, states, parameters):
         if states["locomotionType"] == "Stop":
@@ -33,7 +35,7 @@ class Locomotion(object):
             if input.has_key("orientation") and input["orientation"]!=None:
                 self.FullTurn.action(input, states, parameters)
         elif states["locomotionType"] == "Approach":
-            pass
+            self.Approach.action(input, states, parameters)
         elif states["locomotionType"] == "Carry":
             pass
         # print "Locomotion.action.states:", states, parameters

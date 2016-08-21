@@ -36,27 +36,16 @@ class LU_Utter(object):
         if self.endTime != None:
             suppressed = datetime.datetime.now() - self.endTime
             if self.startTime == None:
-                self.startTime = self.judgment(suppressed, input, states, parameters)   # may return None
+                if states["illocution"]=="instruction":
+                    self.startTime = self.judgment(suppressed, input, states, parameters)   # may return None
         if self.startTime == None:
             if self.endTime == None or suppressed.seconds > self.__suppressDuration:
-                choices = []
-                if input.has_key("MSAisInCenterFOV") and input["MSAisInCenterFOV"]:
-                    if input.has_key("MSAisConfronting") and not input["MSAisConfronting"]:
-                        choices.append("call")
-                        choices.append("lookHere")
-                    if input.has_key("MSAisInConfrontingDistance") and not input["MSAisInConfrontingDistance"]:
-                        choices.append("comeHere")
-                    choices.append("pause")
-                    choices.append("turn")
-                    choices = []
-                    self.itemAction(input, parameters, choices)
-                    if len(choices) > 0:
-                        states["utteranceType"] = random.choice(choices)
-                        if states["utteranceType"] == "turn":
-                            parameters["utteranceTurnOrientation"] = random.choice(["dextra", "sinistra", ""])
-                        states["utterance"] = self.choice2utterance(input, states["utteranceType"], parameters)
-                        self.startTime = datetime.datetime.now()
-                        # print "Utter:", ConfrontingCall.__name[input["name"]] + "!"
+                choices = ["instruction", "announce"]
+                choice = random.choice(choices)
+                if choice=="instruction":
+                    self.instruction(input, states, parameters)
+                elif choice=="announce":
+                    self.announce(input, states, parameters)
         if self.startTime != None:
             elapsed = datetime.datetime.now() - self.startTime
             if elapsed.seconds > self.__defaultDuration:
@@ -65,6 +54,25 @@ class LU_Utter(object):
                 # print "Utter:"
                 self.startTime = None
                 self.endTime = datetime.datetime.now()
+
+    def instruction(self, input, states, parameters):
+        choices = []
+        if input.has_key("MSAisInCenterFOV") and input["MSAisInCenterFOV"]:
+            if input.has_key("MSAisConfronting") and not input["MSAisConfronting"]:
+                choices.append("call")
+                choices.append("lookHere")
+            if input.has_key("MSAisInConfrontingDistance") and not input["MSAisInConfrontingDistance"]:
+                choices.append("comeHere")
+            choices.append("pause")
+            choices.append("turn")
+            self.itemAction(input, parameters, choices)
+            if len(choices) > 0:
+                states["utteranceType"] = random.choice(choices)
+                if states["utteranceType"] == "turn":
+                    parameters["utteranceTurnOrientation"] = random.choice(["dextra", "sinistra", ""])
+                states["utterance"] = self.choice2utterance(input, states["utteranceType"], parameters)
+                self.startTime = datetime.datetime.now()
+                states["illocution"]="instruction"
 
     def itemAction(self, input, parameters, choices):
         msa = input["mostSalientAgent"]
@@ -108,6 +116,28 @@ class LU_Utter(object):
                     return LU_Utter.__name[input["name"]] + ", vade al illo " + color + "!"
                 elif choice == "come2Item":
                     return LU_Utter.__name[input["name"]] + ", veni al illo " + color + "!"
+
+    def announce(self, input, states, parameters):
+        msa = input["mostSalientAgent"]
+        choices = []
+        if input.has_key("MSAisInCenterFOV") and input["MSAisInCenterFOV"]:
+            if input.has_key("MSAisConfronting") and not input["MSAisConfronting"]:
+                if input.has_key("MSAisInConfrontingDistance") and not input["MSAisInConfrontingDistance"]:
+                    choices.append("approaching")
+                choices.append("resting")
+                if len(choices) > 0:
+                    states["utteranceType"] = random.choice(choices)
+                    if states["utteranceType"] == "approaching":
+                        states["target"]=msa["name"]
+                    states["utterance"] = self.choice2announce(input, states["utteranceType"], parameters)
+                    self.startTime = datetime.datetime.now()
+                    states["illocution"] = "announce"
+
+    def choice2announce(self, input, choice, parameters):
+        if choice == "approaching":
+            return "Io veni."
+        if choice == "resting":
+            return "Io resta."
 
     def judgment(self, suppressed, input, states, parameters):
         sanction = 0

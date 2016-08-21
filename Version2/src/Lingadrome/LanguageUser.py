@@ -20,7 +20,10 @@ class LanguageUser(AgentMind2):
 
     def selectAction(self): # overriding
         self.states["locomotionType"] = "Stop"
-        if self.input.has_key("mostSalientAgent"):
+        self.lu_Utter.action(self.input, self.states, self.actionParameters)
+        if self.states.has_key("utteranceType") and self.states["utteranceType"]=="approaching":
+            self.states["locomotionType"] = "Approach"
+        elif self.input.has_key("mostSalientAgent"):
             msa = self.input["mostSalientAgent"]
             if msa!=None and msa.has_key("direction"):
                 self.states["locomotionType"] = "Turn"
@@ -28,4 +31,3 @@ class LanguageUser(AgentMind2):
                     self.actionParameters["turnDirection"] = "L"
                 else:
                     self.actionParameters["turnDirection"] = "R"
-        self.lu_Utter.action(self.input, self.states, self.actionParameters)

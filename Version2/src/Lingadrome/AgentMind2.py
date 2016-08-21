@@ -80,4 +80,3 @@ class AgentMind2(object):
                 if item["name"] == name:
                     return item
         return None
-

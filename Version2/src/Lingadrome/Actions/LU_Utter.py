@@ -125,10 +125,13 @@ class LU_Utter(object):
                 if input.has_key("MSAisInConfrontingDistance") and not input["MSAisInConfrontingDistance"]:
                     choices.append("approaching")
                 choices.append("resting")
+                choices.append("turning")
                 if len(choices) > 0:
                     states["utteranceType"] = random.choice(choices)
                     if states["utteranceType"] == "approaching":
                         states["target"]=msa["name"]
+                    elif states["utteranceType"] == "turning":
+                        parameters["announceTurnOrientation"] = random.choice(["dextra", "sinistra", ""])
                     states["utterance"] = self.choice2announce(input, states["utteranceType"], parameters)
                     self.startTime = datetime.datetime.now()
                     states["illocution"] = "announce"
@@ -136,8 +139,10 @@ class LU_Utter(object):
     def choice2announce(self, input, choice, parameters):
         if choice == "approaching":
             return "Io veni."
-        if choice == "resting":
-            return "Io resta."
+        elif choice == "resting":
+            return random.choice(["Io resta.","Io te reguarda."])
+        elif choice == "turning":
+            return "Io gira " + parameters["announceTurnOrientation"] +"!"
 
     def judgment(self, suppressed, input, states, parameters):
         sanction = 0

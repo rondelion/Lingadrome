@@ -32,8 +32,8 @@ class LanguageUser(AgentMind2):
                         self.actionParameters["turnDirection"] = "L"
                     elif self.actionParameters["announceTurnOrientation"]=="dextra":
                         self.actionParameters["turnDirection"] = "R"
-                    else:
-                        self.actionParameters["turnDirection"] = random.choice(["L","R"])
+            elif self.states["utteranceType"]=="approaching2item":
+                self.states["locomotionType"] = "Approach"
             else:
                 self.defaultTracking()
         else:
@@ -42,9 +42,11 @@ class LanguageUser(AgentMind2):
     def defaultTracking(self):
         if self.input.has_key("mostSalientAgent"):
             msa = self.input["mostSalientAgent"]
+            self.states["locomotionType"] = "Turn"
             if msa != None and msa.has_key("direction"):
-                self.states["locomotionType"] = "Turn"
                 if msa["direction"] > 0:
                     self.actionParameters["turnDirection"] = "L"
                 else:
                     self.actionParameters["turnDirection"] = "R"
+            else:
+                self.actionParameters["turnDirection"] = "L"

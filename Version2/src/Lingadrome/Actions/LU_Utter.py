@@ -21,6 +21,7 @@ class LU_Utter(object):
     __approachMargin=0.1    # approaching distance to be praised
     __pauseMargin=0.05      # motion limit when instructed to pause
     __rotationMargin=0.1    # rotation to be praised when instructed to turn
+    __directionDiffLimit=0.2    # to prevent LU to approach an item in LL's direction
 
     def __init__(self):
         '''
@@ -40,7 +41,7 @@ class LU_Utter(object):
                     self.startTime = self.judgment(suppressed, input, states, parameters)   # may return None
         if self.startTime == None:
             if self.endTime == None or suppressed.seconds > self.__suppressDuration:
-                choices = ["instruction", "announce"]
+                choices = ["instruction", "instruction", "announce"]
                 choice = random.choice(choices)
                 if choice=="instruction":
                     self.instruction(input, states, parameters)
@@ -113,36 +114,64 @@ class LU_Utter(object):
                 elif item["color"] == "pink":
                     color = "rosate"
                 if choice == "go2Item":
-                    return LU_Utter.__name[input["name"]] + ", vade al illo " + color + "!"
+                    return LU_Utter.__name[input["name"]] + ", vade a illo " + color + "!"
                 elif choice == "come2Item":
-                    return LU_Utter.__name[input["name"]] + ", veni al illo " + color + "!"
+                    return LU_Utter.__name[input["name"]] + ", veni a illo " + color + "!"
 
     def announce(self, input, states, parameters):
+        choices = ["resting", "resting"]
         msa = input["mostSalientAgent"]
-        choices = []
         if input.has_key("MSAisInCenterFOV") and input["MSAisInCenterFOV"]:
-            if input.has_key("MSAisConfronting") and not input["MSAisConfronting"]:
-                if input.has_key("MSAisInConfrontingDistance") and not input["MSAisInConfrontingDistance"]:
-                    choices.append("approaching")
-                choices.append("resting")
-                choices.append("turning")
-                if len(choices) > 0:
-                    states["utteranceType"] = random.choice(choices)
-                    if states["utteranceType"] == "approaching":
-                        states["target"]=msa["name"]
-                    elif states["utteranceType"] == "turning":
-                        parameters["announceTurnOrientation"] = random.choice(["dextra", "sinistra", ""])
-                    states["utterance"] = self.choice2announce(input, states["utteranceType"], parameters)
-                    self.startTime = datetime.datetime.now()
-                    states["illocution"] = "announce"
+            choices.append("watching")
+            if input.has_key("MSAisInConfrontingDistance") and not input["MSAisInConfrontingDistance"]:
+                choices.append("approaching")
+        choices.append("turning")
+        item = self.item2approach(input)
+        if item != None:
+            if msa==None or math.fabs(item["direction"]-msa["direction"])>self.__directionDiffLimit:
+                choices.append("approaching2item")
+        if len(choices) > 0:
+            states["utteranceType"] = random.choice(choices)
+            if states["utteranceType"] == "approaching":
+                states["target"]=msa["name"]
+            elif states["utteranceType"] == "turning":
+                parameters["announceTurnOrientation"] = random.choice(["dextra", "sinistra"])
+            elif states["utteranceType"] == "approaching2item":
+                states["target"] = item["name"]
+                states["targetColor"] = item["color"]
+            states["utterance"] = self.choice2announce(input, states, parameters)
+            self.startTime = datetime.datetime.now()
+            states["illocution"] = "announce"
 
-    def choice2announce(self, input, choice, parameters):
+    def item2approach(self, input):
+        items=[]
+        if input.has_key("perceivedItems"):
+            for item in input["perceivedItems"]:
+                if not item.has_key("orientation"):  # Not an agent but an Item
+                    if item["score"] >= LU_Utter.__minimumSalience:
+                        if item["distance"] > LU_Utter.__itemAgentDistance2Approach:
+                            items.append(item)
+            if len(items)>0:
+                return random.choice(items) # pick one item
+            else:
+                return None
+
+    def choice2announce(self, input, states, parameters):
+        choice = states["utteranceType"]
         if choice == "approaching":
             return "Io veni."
         elif choice == "resting":
-            return random.choice(["Io resta.","Io te reguarda."])
+            return "Io resta."
+        elif choice == "watching":
+            return "Io te reguarda."
         elif choice == "turning":
             return "Io gira " + parameters["announceTurnOrientation"] +"!"
+        elif choice == "approaching2item":
+            if states["targetColor"] == "blue":
+                color = "blau"
+            elif states["targetColor"]  == "pink":
+                color = "rosate"
+            return "Io vade a illo " + color + "!"
 
     def judgment(self, suppressed, input, states, parameters):
         sanction = 0

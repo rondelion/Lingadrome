@@ -1,0 +1,3231 @@
+2	A		come	0
+3	S	command	S3	0
+3	V	command	V3	0
+4	S	command	S2	0
+4	V	command	V2	0
+5	S	react	S1	0
+5	V	react	V3	0
+6	S	command	S1	0
+6	V	command	V2	0
+7	S	act	S4	0
+7	V	act	V1	0
+9	A		come	1
+10	S	act	S1	0
+10	V	act	V2	0
+10	A		come	0
+12	S	react	S2	0
+12	V	react	V2	0
+13	S	react	S4	1
+13	V	react	V2	1
+14	S	act	S1	0
+14	V	act	V2	0
+16	S	react	S4	0
+16	V	react	V1	0
+17	S	react	S4	0
+17	V	react	V2	0
+18	S	react	S3	0
+18	V	react	V1	0
+20	S	act	S1	0
+20	V	act	V3	0
+22	S	react	S4	0
+22	V	react	V3	0
+23	S	react	S3	0
+23	V	react	V3	0
+24	S	command	S2	0
+24	V	command	V1	0
+25	S	react	S1	0
+25	V	react	V1	0
+26	S	command	S3	0
+26	V	command	V1	0
+27	S	command	S4	1
+27	V	command	V1	1
+28	S	react	S4	1
+28	V	react	V1	1
+30	S	command	S3	0
+30	V	command	V1	0
+31	S	act	S4	0
+31	V	act	V3	0
+33	S	react	S2	1
+33	V	react	V2	1
+35	S	command	S1	0
+35	V	command	V2	0
+36	S	act	S2	0
+36	V	act	V1	0
+38	S	react	S2	1
+38	V	react	V2	1
+39	S	command	S2	0
+39	V	command	V1	0
+40	S	react	S2	0
+40	V	react	V2	0
+41	S	react	S3	0
+41	V	react	V2	0
+42	S	act	S2	0
+42	V	act	V3	0
+44	A		turn	1
+47	A		turn	0
+48	S	command	S4	1
+48	V	command	V2	1
+49	S	react	S1	0
+49	V	react	V2	0
+51	S	command	S2	0
+51	V	command	V2	0
+52	S	react	S1	0
+52	V	react	V2	0
+53	S	act	S3	0
+53	V	act	V3	0
+55	A		come	0
+57	S	command	S3	0
+57	V	command	V2	0
+58	S	command	S2	0
+58	V	command	V3	0
+59	S	react	S2	1
+59	V	react	V3	1
+61	S	react	S2	1
+61	V	react	V3	1
+62	S	command	S3	0
+62	V	command	V1	0
+63	S	act	S1	0
+63	V	act	V1	0
+65	S	react	S1	0
+65	V	react	V3	0
+66	S	command	S4	1
+66	V	command	V1	1
+67	S	react	S4	0
+67	V	react	V2	0
+68	S	react	S4	0
+68	V	react	V3	0
+69	S	react	S1	0
+69	V	react	V3	0
+71	A		turn	1
+72	S	command	S2	0
+72	V	command	V2	0
+73	S	react	S2	1
+73	V	react	V2	1
+74	S	act	S1	0
+74	V	act	V3	0
+77	A		turn	0
+79	S	act	S2	0
+79	V	act	V3	0
+81	A		go_away	0
+82	S	act	S1	0
+82	V	act	V2	0
+82	A		go_away	0
+84	S	react	S2	0
+84	V	react	V1	0
+85	S	react	S1	0
+85	V	react	V3	0
+86	S	command	S4	0
+86	V	command	V2	0
+87	S	react	S1	0
+87	V	react	V2	0
+88	S	command	S4	1
+88	V	command	V3	1
+89	S	react	S4	1
+89	V	react	V3	1
+91	S	command	S2	1
+91	V	command	V3	1
+92	S	react	S3	0
+92	V	react	V3	0
+93	S	act	S3	0
+93	V	act	V2	0
+95	S	command	S4	0
+95	V	command	V2	0
+96	S	react	S2	1
+96	V	react	V2	1
+97	S	act	S3	0
+97	V	act	V3	0
+100	S	react	S2	0
+100	V	react	V3	0
+101	S	react	S2	1
+101	V	react	V3	1
+102	S	command	S1	0
+102	V	command	V1	0
+103	S	act	S3	0
+103	V	act	V1	0
+105	A		go_away	0
+106	S	act	S4	0
+106	V	act	V2	0
+106	A		go_away	0
+108	A		come	0
+111	A		go_away	1
+112	S	act	S2	0
+112	V	act	V2	0
+112	A		go_away	0
+114	S	react	S4	1
+114	V	react	V1	1
+115	S	act	S2	0
+115	V	act	V1	0
+118	A		turn	1
+119	S	command	S3	0
+119	V	command	V1	0
+120	S	act	S2	0
+120	V	act	V3	0
+122	S	react	S2	1
+122	V	react	V3	1
+123	S	act	S4	0
+123	V	act	V3	0
+125	A		come	1
+127	S	react	S2	1
+127	V	react	V2	1
+129	A		go_away	0
+130	S	command	S4	1
+130	V	command	V1	1
+131	S	react	S4	0
+131	V	react	V2	0
+132	S	react	S2	1
+132	V	react	V2	1
+134	S	react	S3	0
+134	V	react	V2	0
+135	S	act	S4	0
+135	V	act	V2	0
+139	S	react	S2	1
+139	V	react	V1	1
+141	A		come	0
+142	S	act	S1	0
+142	V	act	V2	0
+142	A		come	0
+144	S	react	S3	0
+144	V	react	V1	0
+146	S	react	S2	1
+146	V	react	V1	1
+147	S	command	S4	1
+147	V	command	V1	1
+148	S	react	S2	1
+148	V	react	V1	1
+149	S	act	S4	0
+149	V	act	V1	0
+151	S	act	S2	0
+151	V	act	V3	0
+153	S	react	S2	1
+153	V	react	V1	1
+155	S	react	S2	1
+155	V	react	V3	1
+156	S	act	S3	0
+156	V	act	V2	0
+158	A		turn	0
+161	S	react	S3	0
+161	V	react	V2	0
+162	S	act	S3	0
+162	V	act	V1	0
+164	S	react	S1	0
+164	V	react	V2	0
+165	S	command	S3	0
+165	V	command	V3	0
+167	S	react	S1	0
+167	V	react	V2	0
+168	S	command	S4	0
+168	V	command	V2	0
+169	S	react	S2	1
+169	V	react	V2	1
+170	S	command	S4	0
+170	V	command	V2	0
+171	S	react	S1	0
+171	V	react	V2	0
+173	S	react	S2	1
+173	V	react	V1	1
+174	S	command	S1	0
+174	V	command	V3	0
+175	S	act	S2	0
+175	V	act	V2	0
+177	S	act	S1	0
+177	V	act	V2	0
+179	S	react	S2	1
+179	V	react	V2	1
+180	S	command	S4	1
+180	V	command	V1	1
+181	S	react	S2	1
+181	V	react	V1	1
+182	S	command	S1	0
+182	V	command	V1	0
+183	S	act	S3	0
+183	V	act	V3	0
+185	S	command	S4	1
+185	V	command	V3	1
+186	S	react	S2	0
+186	V	react	V1	0
+187	S	react	S3	0
+187	V	react	V3	0
+188	S	act	S1	0
+188	V	act	V3	0
+190	A		go_away	1
+192	S	react	S2	1
+192	V	react	V2	1
+193	S	act	S4	0
+193	V	act	V2	0
+195	S	command	S4	1
+195	V	command	V3	1
+196	S	react	S2	0
+196	V	react	V1	0
+197	S	react	S2	1
+197	V	react	V1	1
+198	S	command	S3	0
+198	V	command	V3	0
+200	S	react	S2	0
+200	V	react	V1	0
+201	S	react	S2	0
+201	V	react	V3	0
+202	S	react	S2	0
+202	V	react	V1	0
+203	S	react	S2	1
+203	V	react	V1	1
+204	S	act	S1	0
+204	V	act	V3	0
+206	S	react	S1	0
+206	V	react	V2	0
+208	S	react	S2	0
+208	V	react	V1	0
+209	S	react	S2	1
+209	V	react	V1	1
+210	S	command	S3	0
+210	V	command	V3	0
+212	S	command	S1	0
+212	V	command	V2	0
+214	S	react	S2	1
+214	V	react	V1	1
+216	A		come	0
+217	S	command	S1	0
+217	V	command	V3	0
+218	S	act	S3	0
+218	V	act	V2	0
+221	S	command	S3	0
+221	V	command	V1	0
+222	S	command	S4	1
+222	V	command	V3	1
+223	S	react	S4	1
+223	V	react	V3	1
+224	S	act	S1	1
+224	V	act	V2	1
+226	S	act	S4	0
+226	V	act	V3	0
+228	A		turn	1
+229	S	command	S3	0
+229	V	command	V2	0
+230	S	act	S1	0
+230	V	act	V2	0
+232	S	react	S2	1
+232	V	react	V1	1
+234	A		turn	1
+235	S	act	S1	0
+235	V	act	V1	0
+235	A		turn	0
+237	S	react	S3	0
+237	V	react	V3	0
+239	S	react	S2	1
+239	V	react	V1	1
+240	S	command	S4	0
+240	V	command	V2	0
+241	S	react	S3	0
+241	V	react	V2	0
+243	S	react	S2	1
+243	V	react	V1	1
+245	S	react	S2	1
+245	V	react	V1	1
+247	A		go_away	0
+248	S	command	S4	1
+248	V	command	V1	1
+249	S	react	S2	1
+249	V	react	V1	1
+250	S	command	S1	0
+250	V	command	V3	0
+251	S	act	S3	1
+251	V	act	V2	1
+253	S	react	S2	1
+253	V	react	V2	1
+254	S	act	S3	1
+254	V	act	V2	1
+257	A		go_away	1
+258	S	command	S4	1
+258	V	command	V3	1
+259	S	react	S2	1
+259	V	react	V3	1
+260	S	command	S4	1
+260	V	command	V3	1
+261	S	react	S2	1
+261	V	react	V3	1
+262	S	command	S4	1
+262	V	command	V3	1
+263	S	react	S4	1
+263	V	react	V3	1
+265	S	react	S2	1
+265	V	react	V2	1
+267	S	react	S3	0
+267	V	react	V1	0
+268	S	command	S4	1
+268	V	command	V1	1
+269	S	react	S2	1
+269	V	react	V1	1
+271	A		go_away	1
+274	S	react	S2	1
+274	V	react	V2	1
+275	S	act	S1	0
+275	V	act	V3	0
+277	S	react	S3	0
+277	V	react	V2	0
+278	S	act	S1	1
+278	V	act	V2	1
+280	S	react	S2	1
+280	V	react	V1	1
+281	S	act	S2	0
+281	V	act	V2	0
+283	A		go_away	1
+284	S	command	S4	1
+284	V	command	V3	1
+285	S	react	S2	0
+285	V	react	V2	0
+286	S	react	S2	1
+286	V	react	V2	1
+288	S	react	S2	1
+288	V	react	V1	1
+289	S	act	S2	0
+289	V	act	V3	0
+292	S	react	S2	1
+292	V	react	V3	1
+294	A		come	1
+295	S	act	S4	0
+295	V	act	V1	0
+295	A		come	0
+297	S	react	S2	1
+297	V	react	V1	1
+298	S	command	S4	1
+298	V	command	V3	1
+299	S	react	S3	0
+299	V	react	V3	0
+300	S	command	S4	1
+300	V	command	V3	1
+301	S	react	S2	0
+301	V	react	V2	0
+302	S	react	S2	1
+302	V	react	V2	1
+303	S	act	S3	0
+303	V	act	V1	0
+305	A		go_away	0
+306	S	act	S1	0
+306	V	act	V3	0
+306	A		go_away	0
+308	A		go_away	1
+310	A		turn	1
+311	S	command	S1	0
+311	V	command	V1	0
+314	A		turn	0
+316	A		come	1
+317	S	command	S4	1
+317	V	command	V1	1
+318	S	react	S4	1
+318	V	react	V1	1
+320	S	react	S2	1
+320	V	react	V3	1
+322	A		turn	1
+323	S	command	S2	1
+323	V	command	V2	1
+324	S	react	S2	1
+324	V	react	V2	1
+325	S	command	S3	0
+325	V	command	V2	0
+327	A		turn	0
+328	S	command	S4	1
+328	V	command	V3	1
+329	S	react	S2	1
+329	V	react	V3	1
+330	S	act	S2	0
+330	V	act	V1	0
+332	S	react	S2	1
+332	V	react	V2	1
+333	S	act	S1	0
+333	V	act	V2	0
+335	S	act	S2	0
+335	V	act	V1	0
+337	A		come	0
+338	S	command	S4	0
+338	V	command	V3	0
+339	S	react	S2	1
+339	V	react	V3	1
+341	S	command	S3	0
+341	V	command	V1	0
+342	S	command	S1	0
+342	V	command	V1	0
+343	S	command	S1	0
+343	V	command	V2	0
+345	S	react	S2	0
+345	V	react	V1	0
+346	S	react	S2	1
+346	V	react	V1	1
+348	S	act	S3	0
+348	V	act	V3	0
+350	A		come	1
+351	S	command	S4	0
+351	V	command	V2	0
+352	S	react	S2	1
+352	V	react	V2	1
+354	S	react	S2	1
+354	V	react	V2	1
+355	S	command	S4	1
+355	V	command	V1	1
+356	S	react	S2	1
+356	V	react	V1	1
+357	S	command	S4	1
+357	V	command	V3	1
+358	S	react	S2	1
+358	V	react	V3	1
+360	S	react	S2	0
+360	V	react	V3	0
+361	S	react	S2	1
+361	V	react	V3	1
+363	S	react	S2	1
+363	V	react	V3	1
+364	S	act	S1	0
+364	V	act	V2	0
+366	S	act	S3	0
+366	V	act	V2	0
+368	S	react	S2	1
+368	V	react	V2	1
+369	S	command	S4	1
+369	V	command	V3	1
+370	S	react	S2	1
+370	V	react	V3	1
+372	S	react	S2	1
+372	V	react	V3	1
+374	A		turn	1
+376	S	react	S2	1
+376	V	react	V3	1
+377	S	command	S1	0
+377	V	command	V3	0
+378	S	act	S3	0
+378	V	act	V3	0
+380	S	act	S2	0
+380	V	act	V1	0
+382	S	act	S4	0
+382	V	act	V2	0
+384	S	react	S2	1
+384	V	react	V3	1
+385	S	command	S4	1
+385	V	command	V1	1
+386	S	react	S2	1
+386	V	react	V1	1
+387	S	command	S4	1
+387	V	command	V1	1
+388	S	react	S2	1
+388	V	react	V1	1
+390	A		come	1
+392	S	react	S2	1
+392	V	react	V3	1
+394	S	react	S2	1
+394	V	react	V1	1
+396	S	command	S4	1
+396	V	command	V2	1
+397	S	react	S2	0
+397	V	react	V3	0
+398	S	react	S2	1
+398	V	react	V3	1
+399	S	command	S1	0
+399	V	command	V1	0
+400	S	command	S4	1
+400	V	command	V2	1
+401	S	react	S2	1
+401	V	react	V2	1
+402	S	command	S4	1
+402	V	command	V2	1
+403	S	react	S2	1
+403	V	react	V2	1
+404	S	command	S1	0
+404	V	command	V1	0
+405	S	command	S1	0
+405	V	command	V1	0
+406	S	act	S3	0
+406	V	act	V2	0
+408	S	react	S2	1
+408	V	react	V3	1
+410	S	react	S2	1
+410	V	react	V3	1
+411	S	act	S3	0
+411	V	act	V1	0
+414	S	react	S2	1
+414	V	react	V3	1
+415	S	act	S3	0
+415	V	act	V3	0
+417	A		go_away	1
+419	S	command	S4	1
+419	V	command	V3	1
+420	S	react	S3	0
+420	V	react	V3	0
+423	S	command	S4	1
+423	V	command	V1	1
+424	S	react	S2	1
+424	V	react	V1	1
+426	S	react	S2	0
+426	V	react	V2	0
+427	S	react	S2	1
+427	V	react	V2	1
+428	S	act	S3	1
+428	V	act	V2	1
+430	S	react	S2	1
+430	V	react	V1	1
+431	S	act	S1	0
+431	V	act	V1	0
+434	S	react	S2	1
+434	V	react	V2	1
+436	S	react	S2	1
+436	V	react	V3	1
+437	S	command	S1	0
+437	V	command	V2	0
+438	S	act	S1	0
+438	V	act	V2	0
+440	S	react	S2	1
+440	V	react	V1	1
+441	S	command	S4	0
+441	V	command	V1	0
+442	S	react	S2	1
+442	V	react	V1	1
+444	S	act	S3	0
+444	V	act	V3	0
+446	S	react	S2	1
+446	V	react	V2	1
+447	S	act	S2	0
+447	V	act	V3	0
+449	A		turn	0
+450	S	command	S4	1
+450	V	command	V1	1
+451	S	react	S2	0
+451	V	react	V3	0
+452	S	react	S2	1
+452	V	react	V3	1
+453	S	command	S4	1
+453	V	command	V1	1
+454	S	react	S2	1
+454	V	react	V1	1
+455	S	command	S4	1
+455	V	command	V1	1
+456	S	react	S2	1
+456	V	react	V1	1
+457	S	command	S4	1
+457	V	command	V3	1
+458	S	react	S2	1
+458	V	react	V3	1
+459	S	command	S4	1
+459	V	command	V1	1
+460	S	react	S2	1
+460	V	react	V1	1
+462	S	react	S4	1
+462	V	react	V3	1
+463	S	command	S1	0
+463	V	command	V2	0
+464	S	act	S2	0
+464	V	act	V2	0
+467	S	react	S2	1
+467	V	react	V2	1
+469	S	act	S1	1
+469	V	act	V1	1
+471	S	react	S2	1
+471	V	react	V2	1
+473	S	act	S1	1
+473	V	act	V1	1
+475	S	command	S4	1
+475	V	command	V3	1
+476	S	react	S2	1
+476	V	react	V3	1
+477	S	command	S4	1
+477	V	command	V1	1
+478	S	react	S2	1
+478	V	react	V1	1
+480	A		turn	1
+481	S	command	S4	1
+481	V	command	V3	1
+482	S	react	S2	1
+482	V	react	V3	1
+485	A		come	1
+486	S	act	S3	1
+486	V	act	V3	1
+486	A		come	1
+488	A		go_away	1
+490	S	command	S4	0
+490	V	command	V3	0
+491	S	react	S4	1
+491	V	react	V3	1
+493	A		go_away	0
+494	S	command	S3	0
+494	V	command	V1	0
+495	S	act	S2	0
+495	V	act	V1	0
+497	S	react	S2	1
+497	V	react	V1	1
+498	S	act	S3	0
+498	V	act	V1	0
+500	S	command	S3	0
+500	V	command	V1	0
+501	S	act	S4	0
+501	V	act	V2	0
+503	S	react	S2	0
+503	V	react	V3	0
+504	S	react	S2	0
+504	V	react	V2	0
+505	S	react	S1	0
+505	V	react	V2	0
+507	A		turn	1
+508	S	act	S1	1
+508	V	act	V3	1
+508	A		turn	1
+510	A		go_away	1
+512	A		go_away	1
+515	A		come	1
+516	S	act	S1	0
+516	V	act	V1	0
+516	A		come	0
+518	A		turn	1
+519	S	command	S4	1
+519	V	command	V1	1
+520	S	react	S2	1
+520	V	react	V1	1
+521	S	command	S2	1
+521	V	command	V2	1
+522	S	react	S2	1
+522	V	react	V2	1
+523	S	act	S4	0
+523	V	act	V2	0
+525	S	react	S2	1
+525	V	react	V3	1
+527	S	react	S2	1
+527	V	react	V3	1
+528	S	command	S4	1
+528	V	command	V2	1
+529	S	react	S2	1
+529	V	react	V2	1
+530	S	act	S3	1
+530	V	act	V3	1
+532	S	react	S2	1
+532	V	react	V2	1
+534	S	react	S2	1
+534	V	react	V1	1
+535	S	command	S4	1
+535	V	command	V2	1
+536	S	react	S2	1
+536	V	react	V2	1
+537	S	act	S3	0
+537	V	act	V2	0
+539	A		come	1
+540	S	act	S3	1
+540	V	act	V3	1
+540	A		come	1
+542	S	command	S4	1
+542	V	command	V3	1
+543	S	react	S2	1
+543	V	react	V3	1
+544	S	act	S2	0
+544	V	act	V3	0
+547	A		turn	1
+549	S	act	S3	1
+549	V	act	V2	1
+551	A		come	1
+552	S	command	S4	1
+552	V	command	V3	1
+553	S	react	S2	1
+553	V	react	V3	1
+555	S	react	S2	1
+555	V	react	V2	1
+558	A		turn	1
+559	S	command	S4	1
+559	V	command	V1	1
+560	S	react	S2	1
+560	V	react	V1	1
+561	S	act	S1	0
+561	V	act	V3	0
+563	S	command	S4	0
+563	V	command	V3	0
+564	S	react	S2	1
+564	V	react	V3	1
+565	S	command	S4	1
+565	V	command	V2	1
+566	S	react	S2	1
+566	V	react	V2	1
+567	S	command	S4	1
+567	V	command	V3	1
+568	S	react	S2	1
+568	V	react	V3	1
+569	S	act	S2	0
+569	V	act	V3	0
+571	A		come	1
+572	S	command	S1	0
+572	V	command	V3	0
+573	S	act	S1	0
+573	V	act	V2	0
+575	S	react	S2	1
+575	V	react	V3	1
+576	S	act	S4	0
+576	V	act	V3	0
+579	S	command	S4	1
+579	V	command	V1	1
+580	S	react	S1	0
+580	V	react	V1	0
+581	S	act	S4	0
+581	V	act	V3	0
+583	S	react	S2	1
+583	V	react	V2	1
+584	S	act	S1	0
+584	V	act	V2	0
+586	S	react	S2	1
+586	V	react	V1	1
+587	S	command	S4	1
+587	V	command	V1	1
+588	S	react	S2	1
+588	V	react	V1	1
+589	S	act	S1	0
+589	V	act	V2	0
+591	A		go_away	1
+592	S	command	S4	1
+592	V	command	V2	1
+593	S	react	S2	1
+593	V	react	V2	1
+595	S	react	S2	1
+595	V	react	V3	1
+596	S	act	S1	1
+596	V	act	V1	1
+598	A		come	1
+599	S	act	S3	1
+599	V	act	V2	1
+599	A		come	1
+601	S	react	S2	1
+601	V	react	V3	1
+602	S	act	S4	0
+602	V	act	V2	0
+604	S	react	S2	1
+604	V	react	V1	1
+605	S	command	S4	1
+605	V	command	V1	1
+606	S	react	S2	1
+606	V	react	V1	1
+608	S	react	S2	1
+608	V	react	V2	1
+610	S	command	S4	1
+610	V	command	V3	1
+611	S	react	S2	1
+611	V	react	V3	1
+612	S	act	S1	1
+612	V	act	V2	1
+614	S	react	S2	1
+614	V	react	V2	1
+615	S	act	S2	0
+615	V	act	V2	0
+617	S	react	S2	1
+617	V	react	V2	1
+619	S	act	S1	1
+619	V	act	V1	1
+621	S	command	S4	1
+621	V	command	V2	1
+622	S	react	S2	1
+622	V	react	V2	1
+624	A		come	1
+625	S	command	S4	1
+625	V	command	V2	1
+626	S	react	S2	1
+626	V	react	V2	1
+628	S	react	S2	1
+628	V	react	V3	1
+629	S	command	S4	1
+629	V	command	V2	1
+630	S	react	S2	1
+630	V	react	V2	1
+631	S	command	S2	1
+631	V	command	V3	1
+632	S	react	S2	1
+632	V	react	V3	1
+633	S	act	S2	0
+633	V	act	V1	0
+635	S	react	S2	1
+635	V	react	V1	1
+637	S	act	S3	1
+637	V	act	V3	1
+639	S	react	S2	1
+639	V	react	V3	1
+642	S	react	S2	1
+642	V	react	V3	1
+643	S	act	S1	1
+643	V	act	V2	1
+645	S	react	S2	1
+645	V	react	V2	1
+646	S	command	S4	1
+646	V	command	V1	1
+647	S	react	S2	1
+647	V	react	V1	1
+649	S	react	S3	0
+649	V	react	V2	0
+650	S	command	S4	1
+650	V	command	V3	1
+651	S	react	S2	1
+651	V	react	V3	1
+652	S	act	S1	1
+652	V	act	V1	1
+655	S	react	S2	1
+655	V	react	V3	1
+656	S	command	S2	1
+656	V	command	V2	1
+657	S	react	S2	1
+657	V	react	V2	1
+658	S	act	S2	0
+658	V	act	V1	0
+660	S	command	S4	1
+660	V	command	V1	1
+661	S	react	S2	1
+661	V	react	V1	1
+663	S	react	S2	1
+663	V	react	V3	1
+664	S	command	S4	1
+664	V	command	V3	1
+665	S	react	S4	1
+665	V	react	V3	1
+666	S	act	S3	1
+666	V	act	V3	1
+668	A		come	1
+670	A		go_away	1
+672	S	react	S2	1
+672	V	react	V1	1
+673	S	command	S4	0
+673	V	command	V2	0
+674	S	react	S2	1
+674	V	react	V2	1
+675	S	act	S3	1
+675	V	act	V2	1
+677	S	command	S4	1
+677	V	command	V2	1
+678	S	react	S2	1
+678	V	react	V2	1
+680	S	react	S2	1
+680	V	react	V1	1
+681	S	act	S4	0
+681	V	act	V2	0
+683	S	react	S2	1
+683	V	react	V2	1
+684	S	command	S1	0
+684	V	command	V1	0
+685	S	act	S3	1
+685	V	act	V2	1
+687	A		go_away	1
+688	S	act	S1	1
+688	V	act	V2	1
+688	A		go_away	1
+690	A		come	1
+692	A		go_away	1
+694	S	command	S4	1
+694	V	command	V1	1
+695	S	react	S2	0
+695	V	react	V2	0
+696	S	react	S2	1
+696	V	react	V2	1
+698	S	react	S2	1
+698	V	react	V1	1
+699	S	act	S4	0
+699	V	act	V3	0
+701	A		turn	1
+703	S	react	S2	1
+703	V	react	V3	1
+704	S	act	S3	1
+704	V	act	V2	1
+706	A		come	1
+707	S	act	S3	0
+707	V	act	V3	0
+707	A		come	0
+709	S	react	S2	1
+709	V	react	V2	1
+711	S	react	S2	1
+711	V	react	V1	1
+712	S	act	S1	1
+712	V	act	V1	1
+714	S	command	S4	1
+714	V	command	V2	1
+715	S	react	S2	1
+715	V	react	V2	1
+717	A		come	1
+718	S	command	S4	1
+718	V	command	V3	1
+719	S	react	S2	1
+719	V	react	V3	1
+720	S	command	S4	1
+720	V	command	V2	1
+721	S	react	S2	1
+721	V	react	V2	1
+722	S	command	S4	1
+722	V	command	V3	1
+723	S	react	S2	1
+723	V	react	V3	1
+725	A		come	1
+726	S	act	S3	1
+726	V	act	V3	1
+726	A		come	1
+728	S	command	S4	1
+728	V	command	V2	1
+729	S	react	S2	1
+729	V	react	V2	1
+730	S	act	S3	1
+730	V	act	V3	1
+732	A		go_away	0
+733	S	act	S3	1
+733	V	act	V3	1
+733	A		go_away	1
+735	S	react	S2	1
+735	V	react	V3	1
+736	S	command	S4	1
+736	V	command	V2	1
+737	S	react	S4	1
+737	V	react	V2	1
+738	S	act	S1	0
+738	V	act	V3	0
+740	S	command	S4	1
+740	V	command	V3	1
+741	S	react	S2	1
+741	V	react	V3	1
+742	S	act	S3	1
+742	V	act	V2	1
+744	S	command	S4	1
+744	V	command	V3	1
+745	S	react	S2	0
+745	V	react	V1	0
+746	S	react	S2	1
+746	V	react	V1	1
+747	S	act	S3	1
+747	V	act	V2	1
+749	A		go_away	1
+750	S	command	S4	1
+750	V	command	V2	1
+751	S	react	S2	1
+751	V	react	V2	1
+752	S	act	S3	1
+752	V	act	V2	1
+754	S	react	S2	1
+754	V	react	V3	1
+755	S	command	S4	1
+755	V	command	V2	1
+756	S	react	S2	1
+756	V	react	V2	1
+757	S	command	S4	1
+757	V	command	V1	1
+758	S	react	S2	1
+758	V	react	V1	1
+760	S	react	S2	1
+760	V	react	V1	1
+761	S	command	S4	1
+761	V	command	V2	1
+762	S	react	S2	1
+762	V	react	V2	1
+763	S	command	S4	1
+763	V	command	V3	1
+764	S	react	S2	1
+764	V	react	V3	1
+766	S	command	S4	1
+766	V	command	V3	1
+767	S	react	S2	1
+767	V	react	V3	1
+769	S	command	S4	1
+769	V	command	V2	1
+770	S	react	S2	1
+770	V	react	V2	1
+772	S	act	S3	1
+772	V	act	V2	1
+774	A		turn	1
+775	S	act	S3	1
+775	V	act	V2	1
+775	A		turn	1
+777	A		turn	1
+779	A		come	1
+783	S	react	S2	1
+783	V	react	V1	1
+785	S	react	S2	1
+785	V	react	V1	1
+786	S	act	S3	1
+786	V	act	V3	1
+788	S	act	S1	1
+788	V	act	V2	1
+791	S	react	S2	1
+791	V	react	V1	1
+792	S	act	S3	1
+792	V	act	V3	1
+794	S	react	S2	1
+794	V	react	V1	1
+795	S	command	S4	1
+795	V	command	V3	1
+796	S	react	S2	1
+796	V	react	V3	1
+797	S	act	S2	0
+797	V	act	V1	0
+799	S	react	S2	0
+799	V	react	V1	0
+800	S	react	S2	1
+800	V	react	V1	1
+801	S	command	S4	1
+801	V	command	V2	1
+802	S	react	S2	1
+802	V	react	V2	1
+804	A		turn	1
+805	S	command	S4	1
+805	V	command	V1	1
+806	S	react	S2	1
+806	V	react	V1	1
+807	S	command	S4	1
+807	V	command	V2	1
+808	S	react	S2	1
+808	V	react	V2	1
+809	S	act	S3	1
+809	V	act	V3	1
+811	S	act	S3	1
+811	V	act	V3	1
+814	A		turn	1
+815	S	command	S4	0
+815	V	command	V3	0
+816	S	react	S2	1
+816	V	react	V3	1
+818	A		come	1
+819	S	act	S3	1
+819	V	act	V2	1
+819	A		come	1
+821	S	react	S2	1
+821	V	react	V3	1
+823	S	command	S4	1
+823	V	command	V1	1
+824	S	react	S2	1
+824	V	react	V1	1
+825	S	command	S4	1
+825	V	command	V3	1
+826	S	react	S2	1
+826	V	react	V3	1
+828	S	command	S4	1
+828	V	command	V3	1
+829	S	react	S2	1
+829	V	react	V3	1
+830	S	act	S3	1
+830	V	act	V2	1
+834	A		come	1
+835	S	command	S4	1
+835	V	command	V2	1
+836	S	react	S2	1
+836	V	react	V2	1
+837	S	command	S4	1
+837	V	command	V2	1
+838	S	react	S2	1
+838	V	react	V2	1
+840	S	command	S4	1
+840	V	command	V2	1
+841	S	react	S2	1
+841	V	react	V2	1
+843	S	act	S3	1
+843	V	act	V3	1
+845	S	react	S2	1
+845	V	react	V2	1
+846	S	command	S4	1
+846	V	command	V2	1
+847	S	react	S2	1
+847	V	react	V2	1
+849	A		come	1
+850	S	command	S4	1
+850	V	command	V3	1
+851	S	react	S2	1
+851	V	react	V3	1
+853	S	act	S1	1
+853	V	act	V1	1
+855	A		come	1
+856	S	act	S1	1
+856	V	act	V1	1
+856	A		come	1
+858	A		come	1
+859	S	act	S2	0
+859	V	act	V2	0
+859	A		come	0
+862	S	react	S2	1
+862	V	react	V2	1
+865	S	command	S4	1
+865	V	command	V3	1
+866	S	react	S2	1
+866	V	react	V3	1
+868	S	act	S2	0
+868	V	act	V2	0
+870	A		come	1
+871	S	act	S3	1
+871	V	act	V2	1
+871	A		come	1
+873	S	act	S1	1
+873	V	act	V2	1
+875	A		come	1
+876	S	command	S4	1
+876	V	command	V2	1
+877	S	react	S2	1
+877	V	react	V2	1
+878	S	act	S3	1
+878	V	act	V3	1
+880	S	react	S2	1
+880	V	react	V2	1
+881	S	act	S3	1
+881	V	act	V3	1
+883	S	react	S2	1
+883	V	react	V3	1
+885	S	act	S1	0
+885	V	act	V2	0
+887	S	react	S2	1
+887	V	react	V2	1
+888	S	command	S4	1
+888	V	command	V2	1
+889	S	react	S2	1
+889	V	react	V2	1
+890	S	command	S4	1
+890	V	command	V1	1
+891	S	react	S2	1
+891	V	react	V1	1
+892	S	command	S4	1
+892	V	command	V3	1
+893	S	react	S2	1
+893	V	react	V3	1
+894	S	command	S4	0
+894	V	command	V1	0
+895	S	react	S2	1
+895	V	react	V1	1
+898	S	react	S2	1
+898	V	react	V2	1
+899	S	command	S4	1
+899	V	command	V1	1
+900	S	react	S2	1
+900	V	react	V1	1
+902	A		go_away	1
+903	S	command	S4	1
+903	V	command	V3	1
+904	S	react	S2	1
+904	V	react	V3	1
+907	S	react	S2	1
+907	V	react	V3	1
+908	S	act	S1	0
+908	V	act	V2	0
+911	S	react	S2	1
+911	V	react	V2	1
+912	S	act	S3	1
+912	V	act	V2	1
+914	S	react	S2	1
+914	V	react	V3	1
+915	S	act	S3	1
+915	V	act	V3	1
+917	S	react	S2	1
+917	V	react	V2	1
+918	S	act	S1	1
+918	V	act	V2	1
+920	S	react	S2	1
+920	V	react	V3	1
+921	S	act	S1	1
+921	V	act	V1	1
+923	A		come	1
+924	S	act	S1	1
+924	V	act	V1	1
+924	A		come	1
+926	S	react	S2	1
+926	V	react	V3	1
+928	A		come	1
+931	S	react	S2	1
+931	V	react	V3	1
+932	S	act	S1	1
+932	V	act	V1	1
+934	S	react	S2	1
+934	V	react	V3	1
+936	S	command	S4	1
+936	V	command	V1	1
+937	S	react	S2	1
+937	V	react	V1	1
+939	A		come	0
+940	S	act	S3	0
+940	V	act	V2	0
+940	A		come	0
+942	A		turn	1
+944	S	react	S2	1
+944	V	react	V3	1
+945	S	command	S4	1
+945	V	command	V3	1
+946	S	react	S2	1
+946	V	react	V3	1
+948	A		turn	1
+949	S	command	S4	1
+949	V	command	V2	1
+950	S	react	S2	1
+950	V	react	V2	1
+951	S	act	S1	1
+951	V	act	V2	1
+953	A		come	1
+955	S	act	S2	0
+955	V	act	V1	0
+957	S	react	S2	1
+957	V	react	V1	1
+958	S	command	S4	1
+958	V	command	V2	1
+959	S	react	S2	1
+959	V	react	V2	1
+962	S	react	S2	1
+962	V	react	V2	1
+964	S	command	S4	1
+964	V	command	V1	1
+965	S	react	S2	1
+965	V	react	V1	1
+966	S	command	S4	1
+966	V	command	V1	1
+967	S	react	S2	1
+967	V	react	V1	1
+968	S	command	S4	1
+968	V	command	V1	1
+969	S	react	S2	1
+969	V	react	V1	1
+971	S	react	S2	1
+971	V	react	V1	1
+972	S	command	S4	1
+972	V	command	V1	1
+973	S	react	S2	1
+973	V	react	V1	1
+974	S	act	S1	1
+974	V	act	V1	1
+976	A		go_away	1
+979	A		come	1
+981	S	react	S2	1
+981	V	react	V3	1
+983	A		come	1
+984	S	act	S1	1
+984	V	act	V1	1
+984	A		come	1
+986	A		turn	1
+987	S	command	S4	1
+987	V	command	V3	1
+988	S	react	S2	1
+988	V	react	V3	1
+990	A		turn	1
+992	A		turn	1
+993	S	act	S3	0
+993	V	act	V1	0
+993	A		turn	0
+995	A		come	1
+996	S	command	S4	1
+996	V	command	V1	1
+997	S	react	S2	1
+997	V	react	V1	1
+998	S	command	S4	1
+998	V	command	V2	1
+999	S	react	S2	1
+999	V	react	V2	1
+1000	S	act	S3	1
+1000	V	act	V3	1
+1002	A		come	1
+1003	S	act	S3	1
+1003	V	act	V3	1
+1003	A		come	1
+1005	S	react	S2	1
+1005	V	react	V1	1
+1006	S	act	S1	1
+1006	V	act	V1	1
+1008	S	react	S2	1
+1008	V	react	V1	1
+1010	S	react	S2	1
+1010	V	react	V1	1
+1011	S	act	S3	1
+1011	V	act	V2	1
+1013	A		turn	1
+1014	S	command	S4	1
+1014	V	command	V1	1
+1015	S	react	S2	1
+1015	V	react	V1	1
+1018	S	react	S2	1
+1018	V	react	V1	1
+1019	S	act	S1	1
+1019	V	act	V2	1
+1021	S	react	S2	1
+1021	V	react	V1	1
+1022	S	act	S1	1
+1022	V	act	V1	1
+1024	S	command	S4	1
+1024	V	command	V1	1
+1025	S	react	S1	0
+1025	V	react	V1	0
+1027	A		come	1
+1028	S	act	S4	0
+1028	V	act	V2	0
+1028	A		come	0
+1030	S	command	S4	1
+1030	V	command	V3	1
+1031	S	react	S2	1
+1031	V	react	V3	1
+1032	S	act	S3	0
+1032	V	act	V1	0
+1034	S	react	S1	0
+1034	V	react	V3	0
+1035	S	command	S4	1
+1035	V	command	V2	1
+1036	S	react	S2	1
+1036	V	react	V2	1
+1038	S	react	S2	1
+1038	V	react	V2	1
+1039	S	command	S4	1
+1039	V	command	V3	1
+1040	S	react	S2	1
+1040	V	react	V3	1
+1041	S	command	S3	0
+1041	V	command	V3	0
+1042	S	command	S4	1
+1042	V	command	V1	1
+1043	S	react	S2	1
+1043	V	react	V1	1
+1045	S	react	S2	1
+1045	V	react	V2	1
+1046	S	act	S1	1
+1046	V	act	V2	1
+1048	S	react	S2	1
+1048	V	react	V3	1
+1049	S	act	S3	1
+1049	V	act	V3	1
+1051	S	command	S4	1
+1051	V	command	V3	1
+1052	S	react	S2	1
+1052	V	react	V3	1
+1053	S	act	S1	1
+1053	V	act	V1	1
+1055	S	react	S2	1
+1055	V	react	V3	1
+1056	S	act	S1	1
+1056	V	act	V1	1
+1058	A		go_away	1
+1059	S	command	S4	1
+1059	V	command	V3	1
+1060	S	react	S2	1
+1060	V	react	V3	1
+1062	A		go_away	1
+1063	S	command	S1	0
+1063	V	command	V3	0
+1064	S	act	S3	1
+1064	V	act	V3	1
+1066	S	command	S4	1
+1066	V	command	V2	1
+1067	S	react	S2	1
+1067	V	react	V2	1
+1069	S	act	S1	1
+1069	V	act	V1	1
+1071	S	act	S3	1
+1071	V	act	V2	1
+1073	S	act	S3	1
+1073	V	act	V3	1
+1075	S	react	S2	1
+1075	V	react	V2	1
+1077	S	react	S2	1
+1077	V	react	V1	1
+1078	S	command	S4	1
+1078	V	command	V3	1
+1079	S	react	S2	1
+1079	V	react	V3	1
+1080	S	act	S3	1
+1080	V	act	V3	1
+1082	S	react	S2	1
+1082	V	react	V3	1
+1084	S	react	S2	1
+1084	V	react	V3	1
+1085	S	command	S4	1
+1085	V	command	V1	1
+1086	S	react	S2	1
+1086	V	react	V1	1
+1088	A		turn	1
+1089	S	command	S4	1
+1089	V	command	V2	1
+1090	S	react	S2	1
+1090	V	react	V2	1
+1091	S	act	S2	0
+1091	V	act	V1	0
+1093	S	react	S2	1
+1093	V	react	V1	1
+1095	S	command	S4	1
+1095	V	command	V3	1
+1096	S	react	S2	1
+1096	V	react	V3	1
+1097	S	act	S3	1
+1097	V	act	V2	1
+1099	A		go_away	1
+1100	S	act	S3	1
+1100	V	act	V3	1
+1100	A		go_away	1
+1102	A		go_away	1
+1103	S	command	S4	0
+1103	V	command	V1	0
+1104	S	react	S2	1
+1104	V	react	V1	1
+1106	S	react	S2	1
+1106	V	react	V1	1
+1107	S	act	S2	0
+1107	V	act	V3	0
+1109	A		go_away	1
+1110	S	act	S3	1
+1110	V	act	V2	1
+1110	A		go_away	1
+1112	A		come	1
+1113	S	act	S3	1
+1113	V	act	V2	1
+1113	A		come	1
+1115	S	react	S2	1
+1115	V	react	V3	1
+1117	A		go_away	1
+1120	S	react	S2	1
+1120	V	react	V2	1
+1121	S	command	S4	1
+1121	V	command	V1	1
+1122	S	react	S2	1
+1122	V	react	V1	1
+1124	S	react	S2	1
+1124	V	react	V2	1
+1125	S	command	S4	1
+1125	V	command	V3	1
+1126	S	react	S2	1
+1126	V	react	V3	1
+1128	A		go_away	1
+1129	S	act	S3	1
+1129	V	act	V2	1
+1129	A		go_away	1
+1131	S	react	S2	1
+1131	V	react	V3	1
+1132	S	command	S4	1
+1132	V	command	V1	1
+1133	S	react	S2	1
+1133	V	react	V1	1
+1134	S	act	S3	1
+1134	V	act	V2	1
+1136	S	react	S2	1
+1136	V	react	V2	1
+1137	S	act	S3	1
+1137	V	act	V2	1
+1139	A		go_away	1
+1141	S	react	S2	1
+1141	V	react	V1	1
+1143	S	act	S1	1
+1143	V	act	V1	1
+1145	S	react	S2	1
+1145	V	react	V3	1
+1146	S	act	S1	1
+1146	V	act	V1	1
+1148	S	react	S2	1
+1148	V	react	V1	1
+1149	S	act	S3	1
+1149	V	act	V3	1
+1151	S	react	S2	1
+1151	V	react	V2	1
+1152	S	act	S1	1
+1152	V	act	V1	1
+1154	S	react	S2	1
+1154	V	react	V2	1
+1155	S	act	S3	1
+1155	V	act	V1	1
+1157	A		go_away	1
+1162	A		turn	1
+1164	A		come	1
+1166	S	react	S2	1
+1166	V	react	V3	1
+1168	S	react	S2	1
+1168	V	react	V3	1
+1169	S	command	S4	1
+1169	V	command	V3	1
+1170	S	react	S2	1
+1170	V	react	V3	1
+1171	S	command	S4	1
+1171	V	command	V3	1
+1172	S	react	S2	1
+1172	V	react	V3	1
+1173	S	command	S4	1
+1173	V	command	V1	1
+1174	S	react	S2	1
+1174	V	react	V1	1
+1175	S	act	S3	0
+1175	V	act	V2	0
+1178	A		go_away	1
+1180	S	act	S1	1
+1180	V	act	V1	1
+1182	A		go_away	1
+1183	S	command	S4	1
+1183	V	command	V1	1
+1184	S	react	S2	1
+1184	V	react	V1	1
+1185	S	command	S4	1
+1185	V	command	V2	1
+1186	S	react	S2	1
+1186	V	react	V2	1
+1187	S	command	S4	1
+1187	V	command	V1	1
+1188	S	react	S2	1
+1188	V	react	V1	1
+1190	S	act	S1	1
+1190	V	act	V1	1
+1192	A		come	1
+1193	S	command	S4	1
+1193	V	command	V2	1
+1194	S	react	S2	1
+1194	V	react	V2	1
+1195	S	command	S4	1
+1195	V	command	V2	1
+1196	S	react	S2	1
+1196	V	react	V2	1
+1197	S	act	S3	1
+1197	V	act	V2	1
+1199	S	react	S2	1
+1199	V	react	V2	1
+1201	S	command	S4	1
+1201	V	command	V2	1
+1202	S	react	S2	1
+1202	V	react	V2	1
+1204	A		come	1
+1206	A		go_away	1
+1208	A		go_away	1
+1210	S	act	S1	1
+1210	V	act	V1	1
+1212	S	command	S4	1
+1212	V	command	V3	1
+1213	S	react	S2	1
+1213	V	react	V3	1
+1215	S	react	S2	1
+1215	V	react	V1	1
+1216	S	command	S4	0
+1216	V	command	V1	0
+1217	S	react	S2	1
+1217	V	react	V1	1
+1218	S	command	S4	1
+1218	V	command	V1	1
+1219	S	react	S2	1
+1219	V	react	V1	1
+1221	A		come	1
+1223	A		turn	1
+1225	S	command	S4	1
+1225	V	command	V2	1
+1226	S	react	S2	1
+1226	V	react	V2	1
+1227	S	act	S1	1
+1227	V	act	V2	1
+1230	S	act	S1	1
+1230	V	act	V2	1
+1233	A		go_away	1
+1234	S	command	S4	1
+1234	V	command	V3	1
+1235	S	react	S2	1
+1235	V	react	V3	1
+1236	S	command	S4	1
+1236	V	command	V2	1
+1237	S	react	S2	0
+1237	V	react	V3	0
+1238	S	react	S3	0
+1238	V	react	V3	0
+1239	S	act	S1	1
+1239	V	act	V1	1
+1241	S	command	S4	0
+1241	V	command	V3	0
+1242	S	react	S2	1
+1242	V	react	V3	1
+1244	A		come	1
+1245	S	command	S4	1
+1245	V	command	V2	1
+1246	S	react	S2	1
+1246	V	react	V2	1
+1247	S	act	S4	0
+1247	V	act	V1	0
+1249	S	command	S4	1
+1249	V	command	V2	1
+1250	S	react	S2	1
+1250	V	react	V2	1
+1251	S	command	S4	1
+1251	V	command	V1	1
+1252	S	react	S2	1
+1252	V	react	V1	1
+1253	S	act	S1	1
+1253	V	act	V1	1
+1255	A		go_away	1
+1256	S	act	S3	1
+1256	V	act	V3	1
+1256	A		go_away	1
+1258	S	react	S2	1
+1258	V	react	V3	1
+1259	S	command	S4	1
+1259	V	command	V1	1
+1260	S	react	S2	1
+1260	V	react	V1	1
+1261	S	act	S3	1
+1261	V	act	V3	1
+1263	A		come	1
+1264	S	command	S4	1
+1264	V	command	V2	1
+1265	S	react	S2	1
+1265	V	react	V2	1
+1266	S	command	S4	1
+1266	V	command	V1	1
+1267	S	react	S2	1
+1267	V	react	V1	1
+1268	S	command	S4	1
+1268	V	command	V2	1
+1269	S	react	S2	1
+1269	V	react	V2	1
+1270	S	act	S3	1
+1270	V	act	V2	1
+1274	S	react	S2	1
+1274	V	react	V2	1
+1275	S	act	S3	1
+1275	V	act	V2	1
+1277	S	act	S1	1
+1277	V	act	V1	1
+1279	A		come	1
+1281	A		go_away	1
+1282	S	act	S1	1
+1282	V	act	V1	1
+1282	A		go_away	1
+1284	S	act	S1	1
+1284	V	act	V1	1
+1286	S	react	S2	1
+1286	V	react	V2	1
+1287	S	command	S4	1
+1287	V	command	V1	1
+1288	S	react	S2	1
+1288	V	react	V1	1
+1289	S	command	S4	1
+1289	V	command	V2	1
+1290	S	react	S2	1
+1290	V	react	V2	1
+1291	S	command	S4	0
+1291	V	command	V2	0
+1292	S	react	S2	1
+1292	V	react	V2	1
+1294	A		turn	1
+1295	S	command	S4	1
+1295	V	command	V1	1
+1296	S	react	S2	1
+1296	V	react	V1	1
+1297	S	command	S4	1
+1297	V	command	V3	1
+1298	S	react	S2	0
+1298	V	react	V1	0
+1299	S	react	S2	1
+1299	V	react	V1	1
+1301	A		go_away	1
+1302	S	act	S1	1
+1302	V	act	V2	1
+1302	A		go_away	1
+1304	A		turn	1
+1305	S	act	S1	1
+1305	V	act	V1	1
+1305	A		turn	1
+1307	A		turn	1
+1308	S	command	S2	1
+1308	V	command	V3	1
+1309	S	react	S2	1
+1309	V	react	V3	1
+1310	S	command	S4	1
+1310	V	command	V3	1
+1311	S	react	S2	1
+1311	V	react	V3	1
+1312	S	command	S4	1
+1312	V	command	V2	1
+1313	S	react	S2	1
+1313	V	react	V2	1
+1314	S	act	S3	1
+1314	V	act	V3	1
+1316	S	react	S2	1
+1316	V	react	V3	1
+1317	S	command	S4	1
+1317	V	command	V1	1
+1318	S	react	S2	1
+1318	V	react	V1	1
+1319	S	act	S1	1
+1319	V	act	V2	1
+1321	A		come	1
+1323	S	react	S2	1
+1323	V	react	V1	1
+1324	S	command	S4	1
+1324	V	command	V1	1
+1325	S	react	S2	1
+1325	V	react	V1	1
+1326	S	command	S4	1
+1326	V	command	V1	1
+1327	S	react	S2	1
+1327	V	react	V1	1
+1328	S	act	S1	1
+1328	V	act	V2	1
+1331	S	react	S2	1
+1331	V	react	V1	1
+1332	S	command	S4	1
+1332	V	command	V1	1
+1333	S	react	S2	1
+1333	V	react	V1	1
+1334	S	command	S4	1
+1334	V	command	V2	1
+1335	S	react	S2	1
+1335	V	react	V2	1
+1337	A		come	1
+1339	S	react	S2	1
+1339	V	react	V1	1
+1340	S	act	S1	1
+1340	V	act	V2	1
+1342	A		go_away	1
+1343	S	command	S4	1
+1343	V	command	V3	1
+1344	S	react	S2	1
+1344	V	react	V3	1
+1345	S	command	S3	0
+1345	V	command	V1	0
+1346	S	command	S4	1
+1346	V	command	V3	1
+1347	S	react	S2	1
+1347	V	react	V3	1
+1348	S	act	S3	1
+1348	V	act	V2	1
+1350	S	command	S4	1
+1350	V	command	V3	1
+1351	S	react	S2	1
+1351	V	react	V3	1
+1352	S	command	S4	1
+1352	V	command	V3	1
+1353	S	react	S2	1
+1353	V	react	V3	1
+1354	S	act	S1	1
+1354	V	act	V1	1
+1356	S	react	S2	1
+1356	V	react	V2	1
+1358	A		turn	1
+1359	S	command	S4	1
+1359	V	command	V2	1
+1360	S	react	S2	1
+1360	V	react	V2	1
+1361	S	act	S1	1
+1361	V	act	V1	1
+1363	A		go_away	1
+1365	S	react	S2	1
+1365	V	react	V2	1
+1366	S	command	S4	1
+1366	V	command	V3	1
+1367	S	react	S2	1
+1367	V	react	V3	1
+1368	S	command	S4	1
+1368	V	command	V2	1
+1369	S	react	S2	1
+1369	V	react	V2	1
+1371	S	command	S4	0
+1371	V	command	V1	0
+1372	S	react	S2	1
+1372	V	react	V1	1
+1373	S	command	S4	1
+1373	V	command	V3	1
+1374	S	react	S2	1
+1374	V	react	V3	1
+1375	S	act	S2	0
+1375	V	act	V3	0
+1377	A		go_away	1
+1379	S	react	S2	1
+1379	V	react	V3	1
+1381	A		come	1
+1382	S	act	S1	1
+1382	V	act	V2	1
+1382	A		come	1
+1384	A		come	1
+1385	S	command	S4	1
+1385	V	command	V2	1
+1386	S	react	S2	1
+1386	V	react	V2	1
+1387	S	command	S4	1
+1387	V	command	V2	1
+1388	S	react	S2	1
+1388	V	react	V2	1
+1389	S	act	S3	1
+1389	V	act	V2	1
+1391	S	react	S2	1
+1391	V	react	V1	1
+1392	S	act	S3	1
+1392	V	act	V2	1
+1394	A		turn	1
+1395	S	command	S4	1
+1395	V	command	V3	1
+1396	S	react	S3	0
+1396	V	react	V3	0
+1397	S	act	S1	1
+1397	V	act	V1	1
+1399	S	command	S4	1
+1399	V	command	V1	1
+1400	S	react	S2	1
+1400	V	react	V1	1
+1401	S	act	S3	1
+1401	V	act	V2	1
+1403	S	react	S2	1
+1403	V	react	V2	1
+1404	S	act	S3	1
+1404	V	act	V3	1
+1406	A		turn	1
+1407	S	act	S3	1
+1407	V	act	V2	1
+1407	A		turn	1
+1409	A		go_away	1
+1410	S	command	S4	1
+1410	V	command	V3	1
+1411	S	react	S2	1
+1411	V	react	V3	1
+1413	S	act	S3	1
+1413	V	act	V2	1
+1416	S	react	S2	1
+1416	V	react	V2	1
+1417	S	command	S4	1
+1417	V	command	V3	1
+1418	S	react	S2	1
+1418	V	react	V3	1
+1419	S	command	S4	1
+1419	V	command	V1	1
+1420	S	react	S2	1
+1420	V	react	V1	1
+1422	S	react	S2	1
+1422	V	react	V1	1
+1424	S	act	S1	1
+1424	V	act	V2	1
+1426	S	react	S2	1
+1426	V	react	V3	1
+1428	A		go_away	1
+1429	S	act	S1	1
+1429	V	act	V1	1
+1429	A		go_away	1
+1431	S	react	S2	1
+1431	V	react	V3	1
+1432	S	act	S3	1
+1432	V	act	V3	1
+1434	S	react	S2	1
+1434	V	react	V1	1
+1435	S	command	S4	1
+1435	V	command	V1	1
+1436	S	react	S2	1
+1436	V	react	V1	1
+1438	A		turn	1
+1440	S	react	S2	1
+1440	V	react	V3	1
+1441	S	act	S1	1
+1441	V	act	V1	1
+1443	A		go_away	1
+1446	S	react	S2	0
+1446	V	react	V3	0
+1447	S	react	S2	1
+1447	V	react	V3	1
+1449	S	react	S2	1
+1449	V	react	V1	1
+1450	S	act	S3	1
+1450	V	act	V2	1
+1453	A		go_away	1
+1455	S	react	S2	1
+1455	V	react	V2	1
+1456	S	command	S4	1
+1456	V	command	V3	1
+1457	S	react	S2	1
+1457	V	react	V3	1
+1458	S	act	S3	1
+1458	V	act	V3	1
+1460	S	react	S2	1
+1460	V	react	V2	1
+1462	S	command	S4	0
+1462	V	command	V2	0
+1463	S	react	S2	1
+1463	V	react	V2	1
+1465	S	act	S3	1
+1465	V	act	V2	1
+1467	S	react	S2	1
+1467	V	react	V1	1
+1468	S	command	S4	1
+1468	V	command	V2	1
+1469	S	react	S2	1
+1469	V	react	V2	1
+1471	S	react	S2	1
+1471	V	react	V2	1
+1472	S	act	S3	1
+1472	V	act	V3	1
+1474	A		turn	1
+1476	S	react	S2	1
+1476	V	react	V3	1
+1477	S	command	S3	0
+1477	V	command	V2	0
+1478	S	act	S1	1
+1478	V	act	V1	1
+1480	S	command	S4	1
+1480	V	command	V3	1
+1481	S	react	S2	1
+1481	V	react	V3	1
+1482	S	command	S4	1
+1482	V	command	V1	1
+1483	S	react	S2	1
+1483	V	react	V1	1
+1484	S	act	S1	1
+1484	V	act	V1	1
+1486	S	command	S4	1
+1486	V	command	V2	1
+1487	S	react	S2	1
+1487	V	react	V2	1
+1488	S	act	S1	1
+1488	V	act	V2	1
+1490	S	react	S2	1
+1490	V	react	V1	1
+1492	S	react	S2	1
+1492	V	react	V2	1
+1493	S	act	S3	1
+1493	V	act	V2	1
+1495	S	react	S2	1
+1495	V	react	V2	1
+1496	S	command	S4	1
+1496	V	command	V1	1
+1497	S	react	S2	1
+1497	V	react	V1	1
+1498	S	act	S3	1
+1498	V	act	V3	1
+1500	S	react	S2	1
+1500	V	react	V2	1
+1501	S	command	S4	1
+1501	V	command	V3	1
+1502	S	react	S2	1
+1502	V	react	V3	1
+1503	S	act	S3	1
+1503	V	act	V3	1
+1505	S	act	S1	1
+1505	V	act	V1	1
+1507	A		come	1
+1508	S	command	S4	1
+1508	V	command	V2	1
+1509	S	react	S2	1
+1509	V	react	V2	1
+1510	S	command	S4	1
+1510	V	command	V3	1
+1511	S	react	S2	1
+1511	V	react	V3	1
+1513	A		go_away	1
+1514	S	act	S3	1
+1514	V	act	V3	1
+1514	A		go_away	1
+1516	A		turn	1
+1517	S	act	S1	1
+1517	V	act	V1	1
+1517	A		turn	1
+1519	A		go_away	1
+1520	S	act	S3	1
+1520	V	act	V3	1
+1520	A		go_away	1
+1522	S	act	S1	1
+1522	V	act	V1	1
+1524	S	react	S2	1
+1524	V	react	V3	1
+1525	S	command	S2	1
+1525	V	command	V2	1
+1526	S	react	S2	1
+1526	V	react	V2	1
+1527	S	command	S4	1
+1527	V	command	V3	1
+1528	S	react	S2	1
+1528	V	react	V3	1
+1530	A		come	1
+1531	S	command	S4	1
+1531	V	command	V1	1
+1532	S	react	S2	1
+1532	V	react	V1	1
+1534	S	command	S4	1
+1534	V	command	V3	1
+1535	S	react	S2	1
+1535	V	react	V3	1
+1536	S	act	S1	1
+1536	V	act	V2	1
+1538	S	react	S2	1
+1538	V	react	V2	1
+1540	S	act	S2	0
+1540	V	act	V3	0
+1542	A		turn	1
+1543	S	act	S2	0
+1543	V	act	V1	0
+1543	A		turn	0
+1545	S	react	S2	1
+1545	V	react	V2	1
+1547	S	react	S2	1
+1547	V	react	V3	1
+1548	S	command	S4	1
+1548	V	command	V1	1
+1549	S	react	S2	1
+1549	V	react	V1	1
+1550	S	act	S1	1
+1550	V	act	V1	1
+1552	A		go_away	1
+1553	S	act	S3	1
+1553	V	act	V2	1
+1553	A		go_away	1
+1555	A		come	1
+1557	S	react	S2	1
+1557	V	react	V2	1
+1558	S	command	S4	1
+1558	V	command	V1	1
+1559	S	react	S2	1
+1559	V	react	V1	1
+1560	S	command	S4	1
+1560	V	command	V3	1
+1561	S	react	S2	1
+1561	V	react	V3	1
+1563	A		turn	1
+1564	S	command	S4	1
+1564	V	command	V1	1
+1565	S	react	S2	1
+1565	V	react	V1	1
+1567	S	command	S4	1
+1567	V	command	V2	1
+1568	S	react	S2	1
+1568	V	react	V2	1
+1570	A		go_away	1
+1571	S	command	S4	1
+1571	V	command	V3	1
+1572	S	react	S2	1
+1572	V	react	V3	1
+1573	S	act	S1	1
+1573	V	act	V1	1
+1575	S	react	S2	1
+1575	V	react	V1	1
+1576	S	act	S3	1
+1576	V	act	V2	1
+1578	A		come	1
+1579	S	act	S1	1
+1579	V	act	V1	1
+1579	A		come	1
+1582	S	command	S4	1
+1582	V	command	V2	1
+1583	S	react	S2	1
+1583	V	react	V2	1
+1584	S	act	S1	1
+1584	V	act	V1	1
+1586	S	command	S4	1
+1586	V	command	V2	1
+1587	S	react	S2	1
+1587	V	react	V2	1
+1588	S	command	S4	1
+1588	V	command	V3	1
+1589	S	react	S2	1
+1589	V	react	V3	1
+1590	S	command	S4	1
+1590	V	command	V3	1
+1591	S	react	S2	1
+1591	V	react	V3	1
+1593	S	react	S2	1
+1593	V	react	V3	1
+1594	S	command	S4	1
+1594	V	command	V3	1
+1595	S	react	S2	1
+1595	V	react	V3	1
+1596	S	command	S4	1
+1596	V	command	V1	1
+1597	S	react	S2	1
+1597	V	react	V1	1
+1600	A		turn	1
+1601	S	act	S1	1
+1601	V	act	V2	1
+1601	A		turn	1
+1604	A		turn	1
+1605	S	command	S4	1
+1605	V	command	V1	1
+1606	S	react	S2	1
+1606	V	react	V1	1
+1607	S	command	S4	1
+1607	V	command	V2	1
+1608	S	react	S2	1
+1608	V	react	V2	1
+1609	S	command	S4	1
+1609	V	command	V3	1
+1610	S	react	S2	1
+1610	V	react	V3	1
+1611	S	command	S4	1
+1611	V	command	V1	1
+1612	S	react	S2	1
+1612	V	react	V1	1
+1613	S	act	S3	1
+1613	V	act	V2	1
+1615	A		come	1
+1617	S	react	S2	1
+1617	V	react	V3	1
+1618	S	command	S4	1
+1618	V	command	V3	1
+1619	S	react	S2	1
+1619	V	react	V3	1
+1620	S	act	S1	1
+1620	V	act	V1	1
+1622	S	act	S1	1
+1622	V	act	V2	1
+1624	S	react	S2	1
+1624	V	react	V1	1
+1625	S	command	S4	1
+1625	V	command	V2	1
+1626	S	react	S2	1
+1626	V	react	V2	1
+1628	S	act	S3	1
+1628	V	act	V2	1
+1630	S	react	S2	1
+1630	V	react	V2	1
+1631	S	act	S3	1
+1631	V	act	V3	1
+1633	S	react	S2	1
+1633	V	react	V3	1
+1634	S	act	S3	1
+1634	V	act	V2	1
+1636	S	react	S2	1
+1636	V	react	V3	1
+1638	S	react	S2	1
+1638	V	react	V3	1
+1639	S	act	S3	1
+1639	V	act	V2	1
+1641	A		come	1
+1642	S	command	S4	1
+1642	V	command	V2	1
+1643	S	react	S2	1
+1643	V	react	V2	1
+1644	S	command	S4	1
+1644	V	command	V2	1
+1645	S	react	S3	0
+1645	V	react	V2	0
+1647	A		turn	1
+1648	S	act	S3	1
+1648	V	act	V3	1
+1648	A		turn	1
+1652	A		come	1
+1653	S	act	S1	1
+1653	V	act	V2	1
+1653	A		come	1
+1655	S	react	S2	1
+1655	V	react	V3	1
+1656	S	command	S4	1
+1656	V	command	V2	1
+1657	S	react	S2	1
+1657	V	react	V2	1
+1659	S	react	S2	1
+1659	V	react	V3	1
+1660	S	command	S4	1
+1660	V	command	V1	1
+1661	S	react	S2	1
+1661	V	react	V1	1
+1663	S	command	S4	1
+1663	V	command	V1	1
+1664	S	react	S2	1
+1664	V	react	V1	1
+1665	S	act	S3	1
+1665	V	act	V3	1
+1667	S	react	S2	1
+1667	V	react	V1	1
+1669	S	react	S2	1
+1669	V	react	V3	1
+1670	S	act	S1	1
+1670	V	act	V1	1
+1672	S	act	S1	1
+1672	V	act	V1	1
+1674	S	react	S2	1
+1674	V	react	V1	1
+1676	S	react	S2	1
+1676	V	react	V2	1
+1677	S	command	S4	1
+1677	V	command	V1	1
+1678	S	react	S1	0
+1678	V	react	V1	0
+1679	S	command	S4	1
+1679	V	command	V3	1
+1680	S	react	S2	1
+1680	V	react	V3	1
+1681	S	act	S3	1
+1681	V	act	V3	1
+1683	A		turn	1
+1685	S	command	S4	1
+1685	V	command	V3	1
+1686	S	react	S2	1
+1686	V	react	V3	1
+1687	S	act	S3	1
+1687	V	act	V2	1
+1689	S	act	S3	1
+1689	V	act	V3	1
+1691	A		come	1
+1692	S	act	S3	1
+1692	V	act	V3	1
+1692	A		come	1
+1694	S	command	S4	1
+1694	V	command	V3	1
+1695	S	react	S2	1
+1695	V	react	V3	1
+1697	A		turn	1
+1699	S	react	S2	1
+1699	V	react	V2	1
+1701	S	act	S3	1
+1701	V	act	V3	1
+1703	S	react	S2	1
+1703	V	react	V1	1
+1704	S	act	S1	1
+1704	V	act	V1	1
+1706	S	act	S3	1
+1706	V	act	V2	1
+1708	A		turn	1
+1710	S	react	S2	1
+1710	V	react	V1	1
+1711	S	act	S3	1
+1711	V	act	V2	1
+1713	S	act	S3	1
+1713	V	act	V3	1
+1715	S	act	S3	1
+1715	V	act	V3	1
+1717	S	react	S2	1
+1717	V	react	V3	1
+1718	S	act	S3	1
+1718	V	act	V2	1
+1721	S	command	S4	1
+1721	V	command	V1	1
+1722	S	react	S2	1
+1722	V	react	V1	1
+1723	S	act	S3	1
+1723	V	act	V3	1
+1725	S	react	S2	1
+1725	V	react	V3	1
+1726	S	act	S1	1
+1726	V	act	V3	1
+1728	S	react	S2	1
+1728	V	react	V1	1
+1731	S	react	S2	1
+1731	V	react	V3	1
+1732	S	act	S3	1
+1732	V	act	V2	1
+1734	S	react	S2	1
+1734	V	react	V1	1
+1736	S	react	S2	1
+1736	V	react	V2	1
+1738	S	act	S3	1
+1738	V	act	V3	1
+1740	S	react	S4	1
+1740	V	react	V1	1
+1741	S	command	S4	1
+1741	V	command	V3	1
+1742	S	react	S2	1
+1742	V	react	V3	1
+1743	S	act	S1	1
+1743	V	act	V3	1
+1745	S	react	S2	1
+1745	V	react	V2	1
+1747	S	react	S2	1
+1747	V	react	V2	1
+1750	S	react	S2	1
+1750	V	react	V2	1
+1752	S	act	S3	1
+1752	V	act	V3	1
+1755	S	react	S2	1
+1755	V	react	V1	1
+1756	S	act	S1	1
+1756	V	act	V1	1
+1758	S	react	S2	1
+1758	V	react	V2	1
+1759	S	act	S3	1
+1759	V	act	V3	1
+1761	S	react	S2	1
+1761	V	react	V2	1
+1762	S	act	S3	1
+1762	V	act	V3	1
+1764	A		go_away	1
+1767	A		go_away	1
+1768	S	command	S4	1
+1768	V	command	V1	1
+1769	S	react	S2	1
+1769	V	react	V1	1
+1771	A		go_away	1
+1772	S	act	S1	1
+1772	V	act	V1	1
+1772	A		go_away	1
+1774	S	act	S3	1
+1774	V	act	V3	1
+1776	S	react	S2	1
+1776	V	react	V3	1
+1777	S	command	S4	1
+1777	V	command	V3	1
+1778	S	react	S2	1
+1778	V	react	V3	1
+1779	S	command	S4	1
+1779	V	command	V1	1
+1780	S	react	S2	1
+1780	V	react	V1	1
+1782	S	react	S2	1
+1782	V	react	V1	1
+1783	S	command	S4	0
+1783	V	command	V3	0
+1784	S	react	S2	1
+1784	V	react	V3	1
+1785	S	command	S4	1
+1785	V	command	V3	1
+1786	S	react	S2	1
+1786	V	react	V3	1
+1787	S	act	S1	1
+1787	V	act	V1	1
+1789	A		come	1
+1791	S	react	S2	1
+1791	V	react	V2	1
+1792	S	act	S3	1
+1792	V	act	V3	1
+1794	A		come	1
+1795	S	act	S3	1
+1795	V	act	V3	1
+1795	A		come	1
+1797	S	command	S4	1
+1797	V	command	V3	1
+1798	S	react	S2	1
+1798	V	react	V3	1
+1799	S	command	S4	1
+1799	V	command	V2	1
+1800	S	react	S2	1
+1800	V	react	V2	1
+1801	S	command	S4	1
+1801	V	command	V3	1
+1802	S	react	S2	1
+1802	V	react	V3	1
+1803	S	act	S1	1
+1803	V	act	V2	1
+1805	S	react	S2	1
+1805	V	react	V2	1
+1808	S	command	S4	1
+1808	V	command	V3	1
+1809	S	react	S2	1
+1809	V	react	V3	1
+1810	S	command	S4	1
+1810	V	command	V2	1
+1811	S	react	S2	1
+1811	V	react	V2	1
+1814	S	react	S2	1
+1814	V	react	V2	1
+1815	S	act	S1	1
+1815	V	act	V3	1
+1817	S	react	S2	1
+1817	V	react	V1	1
+1819	S	react	S2	1
+1819	V	react	V1	1
+1820	S	command	S4	1
+1820	V	command	V3	1
+1821	S	react	S2	1
+1821	V	react	V3	1
+1823	S	command	S4	1
+1823	V	command	V3	1
+1824	S	react	S2	1
+1824	V	react	V3	1
+1826	S	react	S2	1
+1826	V	react	V3	1
+1827	S	command	S4	1
+1827	V	command	V2	1
+1828	S	react	S2	1
+1828	V	react	V2	1
+1829	S	command	S4	1
+1829	V	command	V1	1
+1830	S	react	S2	1
+1830	V	react	V1	1
+1832	S	command	S4	1
+1832	V	command	V1	1
+1833	S	react	S2	1
+1833	V	react	V1	1
+1834	S	command	S4	1
+1834	V	command	V1	1
+1835	S	react	S2	1
+1835	V	react	V1	1
+1837	S	act	S3	1
+1837	V	act	V3	1
+1840	A		come	1
+1842	A		go_away	1
+1843	S	act	S1	1
+1843	V	act	V1	1
+1843	A		go_away	1
+1845	S	command	S4	1
+1845	V	command	V1	1
+1846	S	react	S2	1
+1846	V	react	V1	1
+1847	S	act	S3	1
+1847	V	act	V3	1
+1849	A		come	1
+1851	A		go_away	0
+1852	S	command	S4	1
+1852	V	command	V1	1
+1853	S	react	S2	1
+1853	V	react	V1	1
+1854	S	command	S4	1
+1854	V	command	V2	1
+1855	S	react	S2	1
+1855	V	react	V2	1
+1856	S	command	S4	1
+1856	V	command	V2	1
+1857	S	react	S2	1
+1857	V	react	V2	1
+1858	S	act	S1	1
+1858	V	act	V2	1
+1860	S	react	S2	1
+1860	V	react	V3	1
+1862	A		go_away	1
+1863	S	act	S1	1
+1863	V	act	V1	1
+1863	A		go_away	1
+1865	A		come	0
+1866	S	command	S4	1
+1866	V	command	V3	1
+1867	S	react	S2	1
+1867	V	react	V3	1
+1868	S	command	S4	1
+1868	V	command	V1	1
+1869	S	react	S2	1
+1869	V	react	V1	1
+1870	S	act	S1	1
+1870	V	act	V1	1
+1872	A		turn	1
+1874	S	act	S1	1
+1874	V	act	V1	1
+1876	S	act	S3	1
+1876	V	act	V3	1
+1878	A		come	1
+1879	S	command	S4	1
+1879	V	command	V3	1
+1880	S	react	S1	0
+1880	V	react	V3	0
+1881	S	command	S4	1
+1881	V	command	V2	1
+1882	S	react	S2	1
+1882	V	react	V2	1
+1884	A		come	1
+1885	S	command	S4	1
+1885	V	command	V3	1
+1886	S	react	S2	1
+1886	V	react	V3	1
+1888	S	react	S2	1
+1888	V	react	V1	1
+1889	S	act	S1	1
+1889	V	act	V1	1
+1891	S	react	S2	1
+1891	V	react	V2	1
+1892	S	act	S3	1
+1892	V	act	V2	1
+1895	S	react	S3	0
+1895	V	react	V1	0
+1896	S	act	S1	1
+1896	V	act	V1	1
+1898	S	react	S2	1
+1898	V	react	V3	1
+1900	S	react	S2	1
+1900	V	react	V3	1
+1902	S	act	S1	1
+1902	V	act	V2	1
+1904	S	react	S2	1
+1904	V	react	V1	1
+1905	S	act	S3	1
+1905	V	act	V2	1
+1907	S	command	S4	1
+1907	V	command	V1	1
+1908	S	react	S2	1
+1908	V	react	V1	1
+1909	S	command	S4	1
+1909	V	command	V2	1
+1910	S	react	S2	1
+1910	V	react	V2	1
+1913	S	react	S2	1
+1913	V	react	V1	1
+1914	S	act	S3	1
+1914	V	act	V3	1
+1916	A		come	1
+1918	A		go_away	1
+1919	S	command	S4	1
+1919	V	command	V1	1
+1920	S	react	S2	1
+1920	V	react	V1	1
+1923	A		go_away	1
+1924	S	command	S4	1
+1924	V	command	V3	1
+1925	S	react	S2	1
+1925	V	react	V3	1
+1926	S	act	S3	1
+1926	V	act	V3	1
+1928	S	react	S2	1
+1928	V	react	V3	1
+1929	S	act	S3	1
+1929	V	act	V3	1
+1931	S	react	S2	1
+1931	V	react	V1	1
+1933	S	command	S4	1
+1933	V	command	V1	1
+1934	S	react	S2	1
+1934	V	react	V1	1
+1935	S	act	S1	1
+1935	V	act	V2	1
+1937	A		come	1
+1938	S	act	S3	1
+1938	V	act	V3	1
+1938	A		come	1
+1940	S	react	S2	1
+1940	V	react	V3	1
+1941	S	act	S3	1
+1941	V	act	V2	1
+1943	S	react	S2	1
+1943	V	react	V3	1
+1946	A		go_away	1
+1947	S	act	S3	1
+1947	V	act	V2	1
+1947	A		go_away	1
+1949	S	react	S2	1
+1949	V	react	V1	1
+1951	A		go_away	1
+1952	S	command	S4	1
+1952	V	command	V3	1
+1953	S	react	S2	1
+1953	V	react	V3	1
+1954	S	act	S3	1
+1954	V	act	V2	1
+1956	S	react	S2	1
+1956	V	react	V3	1
+1957	S	act	S3	1
+1957	V	act	V2	1
+1959	A		turn	1
+1960	S	command	S3	0
+1960	V	command	V3	0
+1961	S	command	S4	1
+1961	V	command	V1	1
+1962	S	react	S2	1
+1962	V	react	V1	1
+1963	S	act	S1	1
+1963	V	act	V1	1
+1965	S	command	S4	1
+1965	V	command	V3	1
+1966	S	react	S2	1
+1966	V	react	V3	1
+1967	S	command	S3	0
+1967	V	command	V3	0
+1969	S	react	S2	1
+1969	V	react	V2	1
+1971	S	command	S4	1
+1971	V	command	V2	1
+1972	S	react	S3	0
+1972	V	react	V2	0
+1973	S	act	S3	1
+1973	V	act	V2	1
+1975	A		turn	1
+1976	S	act	S3	1
+1976	V	act	V2	1
+1976	A		turn	1
+1978	S	react	S2	1
+1978	V	react	V3	1
+1979	S	act	S1	1
+1979	V	act	V1	1
+1981	A		go_away	1
+1983	S	act	S1	1
+1983	V	act	V2	1
+1985	A		come	1
+1986	S	command	S4	1
+1986	V	command	V1	1
+1987	S	react	S2	1
+1987	V	react	V1	1
+1988	S	command	S4	1
+1988	V	command	V3	1
+1989	S	react	S2	1
+1989	V	react	V3	1
+1990	S	act	S1	1
+1990	V	act	V1	1
+1992	S	react	S2	1
+1992	V	react	V2	1
+1993	S	act	S3	1
+1993	V	act	V3	1
+1996	S	react	S2	1
+1996	V	react	V1	1
+1998	A		go_away	1
+1999	S	command	S4	0
+1999	V	command	V1	0
+2000	S	react	S2	1
+2000	V	react	V1	1
+2001	S	act	S3	1
+2001	V	act	V3	1
+2003	S	act	S1	1
+2003	V	act	V1	1
+2005	S	act	S1	1
+2005	V	act	V1	1
+2007	S	command	S4	1
+2007	V	command	V3	1
+2008	S	react	S2	1
+2008	V	react	V3	1
+2009	S	command	S4	1
+2009	V	command	V1	1
+2010	S	react	S2	1
+2010	V	react	V1	1
+2011	S	act	S1	1
+2011	V	act	V1	1
+2013	S	react	S2	1
+2013	V	react	V3	1
+2014	S	act	S3	1
+2014	V	act	V3	1
+2016	S	react	S2	1
+2016	V	react	V2	1
+2017	S	command	S4	1
+2017	V	command	V3	1
+2018	S	react	S3	0
+2018	V	react	V3	0
+2019	S	act	S1	1
+2019	V	act	V1	1
+2021	A		go_away	1
+2022	S	act	S1	1
+2022	V	act	V1	1
+2022	A		go_away	1
+2024	S	react	S2	1
+2024	V	react	V1	1
+2025	S	act	S3	1
+2025	V	act	V3	1
+2027	A		turn	1
+2031	A		go_away	1
+2032	S	act	S3	1
+2032	V	act	V2	1
+2032	A		go_away	1
+2034	S	react	S2	1
+2034	V	react	V3	1
+2035	S	act	S1	1
+2035	V	act	V1	1
+2037	S	react	S2	1
+2037	V	react	V1	1
+2038	S	command	S4	1
+2038	V	command	V3	1
+2039	S	react	S2	1
+2039	V	react	V3	1
+2040	S	act	S3	1
+2040	V	act	V2	1
+2042	S	act	S3	1
+2042	V	act	V3	1
+2044	S	command	S4	1
+2044	V	command	V1	1
+2045	S	react	S2	1
+2045	V	react	V1	1
+2046	S	act	S3	1
+2046	V	act	V3	1
+2048	S	act	S3	1
+2048	V	act	V2	1
+2050	A		come	1
+2052	S	act	S3	1
+2052	V	act	V2	1
+2054	A		turn	1
+2056	S	command	S4	1
+2056	V	command	V3	1
+2057	S	react	S2	1
+2057	V	react	V3	1
+2059	S	react	S2	1
+2059	V	react	V2	1
+2060	S	command	S4	1
+2060	V	command	V2	1
+2061	S	react	S2	1
+2061	V	react	V2	1
+2063	S	react	S2	1
+2063	V	react	V1	1
+2064	S	command	S4	1
+2064	V	command	V3	1
+2065	S	react	S2	1
+2065	V	react	V3	1
+2067	A		come	1
+2069	S	act	S1	1
+2069	V	act	V1	1
+2071	A		come	1
+2072	S	act	S3	1
+2072	V	act	V3	1
+2072	A		come	1
+2074	S	act	S3	1
+2074	V	act	V3	1
+2076	A		go_away	1
+2077	S	command	S4	1
+2077	V	command	V2	1
+2078	S	react	S2	1
+2078	V	react	V2	1
+2079	S	command	S4	1
+2079	V	command	V3	1
+2080	S	react	S2	1
+2080	V	react	V3	1
+2081	S	act	S3	1
+2081	V	act	V3	1
+2083	A		turn	1
+2084	S	act	S3	1
+2084	V	act	V3	1
+2084	A		turn	1
+2086	S	react	S2	1
+2086	V	react	V1	1
+2088	S	command	S4	1
+2088	V	command	V2	1
+2089	S	react	S2	1
+2089	V	react	V2	1
+2091	A		go_away	1
+2092	S	command	S4	1
+2092	V	command	V3	1
+2093	S	react	S2	1
+2093	V	react	V3	1
+2095	A		turn	1
+2096	S	act	S1	1
+2096	V	act	V1	1
+2096	A		turn	1
+2099	S	react	S2	1
+2099	V	react	V2	1
+2100	S	command	S4	1
+2100	V	command	V3	1
+2101	S	react	S2	1
+2101	V	react	V3	1
+2102	S	command	S4	1
+2102	V	command	V2	1
+2103	S	react	S2	1
+2103	V	react	V2	1
+2104	S	act	S3	0
+2104	V	act	V3	0
+2106	S	react	S2	1
+2106	V	react	V3	1
+2107	S	act	S3	1
+2107	V	act	V2	1
+2109	A		come	1
+2110	S	command	S4	1
+2110	V	command	V1	1
+2111	S	react	S2	1
+2111	V	react	V1	1
+2112	S	act	S3	1
+2112	V	act	V2	1
+2114	A		come	1
+2115	S	command	S4	1
+2115	V	command	V1	1
+2116	S	react	S2	1
+2116	V	react	V1	1
+2118	A		go_away	1
+2119	S	command	S4	1
+2119	V	command	V3	1
+2120	S	react	S2	1
+2120	V	react	V3	1
+2122	S	react	S2	1
+2122	V	react	V3	1
+2124	S	react	S2	1
+2124	V	react	V3	1
+2125	S	act	S3	1
+2125	V	act	V2	1
+2127	S	command	S4	1
+2127	V	command	V3	1
+2128	S	react	S2	1
+2128	V	react	V3	1
+2130	S	command	S4	1
+2130	V	command	V2	1
+2131	S	react	S2	1
+2131	V	react	V2	1
+2132	S	command	S4	1
+2132	V	command	V1	1
+2133	S	react	S2	1
+2133	V	react	V1	1
+2135	S	react	S2	1
+2135	V	react	V3	1
+2136	S	command	S4	1
+2136	V	command	V1	1
+2137	S	react	S2	1
+2137	V	react	V1	1
+2138	S	command	S4	1
+2138	V	command	V1	1
+2139	S	react	S2	1
+2139	V	react	V1	1
+2140	S	command	S4	1
+2140	V	command	V1	1
+2141	S	react	S2	1
+2141	V	react	V1	1
+2142	S	command	S4	1
+2142	V	command	V2	1
+2143	S	react	S2	1
+2143	V	react	V2	1
+2145	S	react	S2	1
+2145	V	react	V3	1
+2147	S	act	S1	1
+2147	V	act	V2	1
+2150	A		come	1
+2151	S	act	S1	1
+2151	V	act	V1	1
+2151	A		come	1
+2153	A		go_away	1
+2154	S	command	S4	1
+2154	V	command	V3	1
+2155	S	react	S2	1
+2155	V	react	V3	1
+2156	S	act	S3	1
+2156	V	act	V3	1
+2158	S	command	S4	1
+2158	V	command	V3	1
+2159	S	react	S2	1
+2159	V	react	V3	1
+2161	S	act	S3	1
+2161	V	act	V3	1
+2163	A		come	1
+2164	S	command	S4	1
+2164	V	command	V3	1
+2165	S	react	S2	1
+2165	V	react	V3	1
+2166	S	act	S1	1
+2166	V	act	V1	1
+2168	S	react	S2	1
+2168	V	react	V1	1
+2169	S	act	S1	1
+2169	V	act	V1	1
+2172	A		turn	1
+2173	S	act	S1	1
+2173	V	act	V1	1
+2173	A		turn	1
+2175	S	react	S2	1
+2175	V	react	V2	1
+2176	S	command	S4	1
+2176	V	command	V3	1
+2177	S	react	S2	1
+2177	V	react	V3	1
+2178	S	command	S4	1
+2178	V	command	V3	1
+2179	S	react	S2	1
+2179	V	react	V3	1
+2180	S	act	S3	1
+2180	V	act	V2	1
+2182	S	react	S2	1
+2182	V	react	V1	1
+2184	S	react	S2	1
+2184	V	react	V2	1
+2185	S	act	S1	1
+2185	V	act	V3	1
+2187	S	react	S2	1
+2187	V	react	V2	1
+2189	A		go_away	1
+2190	S	command	S4	1
+2190	V	command	V3	1
+2191	S	react	S2	1
+2191	V	react	V3	1
+2193	A		come	1
+2194	S	act	S3	0
+2194	V	act	V1	0
+2194	A		come	0
+2196	S	command	S4	1
+2196	V	command	V1	1
+2197	S	react	S2	0
+2197	V	react	V3	0
+2198	S	react	S2	1
+2198	V	react	V3	1
+2200	S	act	S1	1
+2200	V	act	V1	1
+2203	A		go_away	1
+2205	S	act	S3	1
+2205	V	act	V3	1
+2207	S	react	S2	1
+2207	V	react	V1	1
+2209	S	react	S2	1
+2209	V	react	V2	1
+2210	S	command	S4	1
+2210	V	command	V2	1
+2211	S	react	S3	0
+2211	V	react	V2	0
+2213	A		go_away	1
+2214	S	command	S4	1
+2214	V	command	V2	1
+2215	S	react	S2	0
+2215	V	react	V1	0
+2216	S	react	S2	1
+2216	V	react	V1	1
+2217	S	command	S4	1
+2217	V	command	V2	1
+2218	S	react	S2	1
+2218	V	react	V2	1
+2220	S	act	S1	1
+2220	V	act	V1	1
+2223	A		come	1
+2224	S	command	S4	0
+2224	V	command	V3	0
+2225	S	react	S2	1
+2225	V	react	V3	1
+2226	S	act	S3	1
+2226	V	act	V3	1
+2228	S	react	S2	1
+2228	V	react	V3	1
+2230	S	react	S2	1
+2230	V	react	V3	1
+2232	S	react	S2	1
+2232	V	react	V1	1
+2233	S	act	S1	1
+2233	V	act	V1	1
+2235	S	command	S4	0
+2235	V	command	V3	0
+2236	S	react	S2	1
+2236	V	react	V3	1
+2237	S	command	S4	1
+2237	V	command	V1	1
+2238	S	react	S2	1
+2238	V	react	V1	1
+2239	S	command	S4	1
+2239	V	command	V1	1
+2240	S	react	S2	1
+2240	V	react	V1	1
+2241	S	act	S3	1
+2241	V	act	V1	1
+2243	S	command	S4	1
+2243	V	command	V2	1
+2244	S	react	S2	1
+2244	V	react	V2	1
+2245	S	act	S3	1
+2245	V	act	V3	1
+2247	S	react	S2	1
+2247	V	react	V3	1
+2249	S	act	S3	1
+2249	V	act	V3	1
+2251	S	react	S2	1
+2251	V	react	V3	1
+2253	S	command	S4	1
+2253	V	command	V3	1
+2254	S	react	S2	1
+2254	V	react	V3	1
+2255	S	command	S4	1
+2255	V	command	V2	1
+2256	S	react	S2	1
+2256	V	react	V2	1
+2258	S	command	S4	1
+2258	V	command	V3	1
+2259	S	react	S2	1
+2259	V	react	V3	1
+2260	S	command	S4	1
+2260	V	command	V2	1
+2261	S	react	S2	1
+2261	V	react	V2	1
+2262	S	command	S4	1
+2262	V	command	V2	1
+2263	S	react	S2	1
+2263	V	react	V2	1
+2264	S	command	S4	1
+2264	V	command	V1	1
+2265	S	react	S2	1
+2265	V	react	V1	1
+2266	S	act	S1	1
+2266	V	act	V1	1
+2268	A		go_away	1
+2269	S	act	S3	1
+2269	V	act	V3	1
+2269	A		go_away	1
+2271	S	command	S4	1
+2271	V	command	V2	1
+2272	S	react	S2	1
+2272	V	react	V2	1
+2274	S	react	S2	1
+2274	V	react	V2	1
+2276	S	react	S2	1
+2276	V	react	V2	1
+2278	S	react	S2	1
+2278	V	react	V2	1
+2281	S	react	S2	1
+2281	V	react	V1	1
+2283	S	react	S4	1
+2283	V	react	V2	1
+2285	A		go_away	1
+2287	S	react	S2	1
+2287	V	react	V2	1
+2289	S	command	S4	1
+2289	V	command	V3	1
+2290	S	react	S2	1
+2290	V	react	V3	1
+2291	S	command	S4	1
+2291	V	command	V2	1
+2292	S	react	S2	1
+2292	V	react	V2	1
+2294	S	react	S2	1
+2294	V	react	V3	1
+2296	S	command	S4	1
+2296	V	command	V3	1
+2297	S	react	S2	1
+2297	V	react	V3	1
+2298	S	act	S1	1
+2298	V	act	V3	1
+2301	S	command	S4	1
+2301	V	command	V2	1
+2302	S	react	S2	1
+2302	V	react	V2	1
+2304	A		go_away	1
+2306	S	react	S2	1
+2306	V	react	V2	1
+2308	S	act	S1	1
+2308	V	act	V3	1
+2310	A		go_away	1
+2311	S	act	S3	1
+2311	V	act	V2	1
+2311	A		go_away	1
+2313	S	react	S2	1
+2313	V	react	V1	1
+2315	A		turn	1
+2316	S	act	S3	1
+2316	V	act	V3	1
+2316	A		turn	1
+2318	A		go_away	1
+2320	A		go_away	1
+2321	S	act	S3	1
+2321	V	act	V3	1
+2321	A		go_away	1
+2323	A		come	1
+2325	A		go_away	1
+2326	S	act	S1	1
+2326	V	act	V2	1
+2326	A		go_away	1
+2328	S	react	S2	0
+2328	V	react	V3	0
+2329	S	react	S2	1
+2329	V	react	V3	1
+2331	A		turn	1
+2332	S	command	S4	1
+2332	V	command	V2	1
+2333	S	react	S2	1
+2333	V	react	V2	1
+2334	S	act	S3	1
+2334	V	act	V3	1
+2336	S	act	S3	1
+2336	V	act	V2	1
+2338	A		come	1
+2339	S	act	S1	1
+2339	V	act	V1	1
+2339	A		come	1
+2341	A		go_away	1
+2343	A		come	1
+2344	S	command	S4	1
+2344	V	command	V1	1
+2345	S	react	S2	1
+2345	V	react	V1	1
+2346	S	act	S1	1
+2346	V	act	V1	1
+2348	S	react	S2	1
+2348	V	react	V3	1
+2350	A		turn	1
+2352	A		turn	1
+2353	S	act	S1	1
+2353	V	act	V2	1
+2353	A		turn	1
+2355	A		go_away	1
+2356	S	command	S4	1
+2356	V	command	V3	1
+2357	S	react	S2	1
+2357	V	react	V3	1
+2358	S	act	S3	1
+2358	V	act	V3	1
+2360	S	command	S4	1
+2360	V	command	V3	1
+2361	S	react	S2	1
+2361	V	react	V3	1
+2363	A		go_away	1
+2364	S	act	S3	1
+2364	V	act	V2	1
+2364	A		go_away	1
+2366	A		go_away	1
+2367	S	command	S4	1
+2367	V	command	V1	1
+2368	S	react	S2	1
+2368	V	react	V1	1
+2370	S	react	S2	1
+2370	V	react	V1	1
+2371	S	act	S1	1
+2371	V	act	V1	1
+2373	S	command	S4	1
+2373	V	command	V3	1
+2374	S	react	S2	1
+2374	V	react	V3	1
+2376	A		turn	1
+2377	S	act	S1	1
+2377	V	act	V1	1
+2377	A		turn	1
+2379	A		go_away	1
+2381	S	act	S1	1
+2381	V	act	V1	1
+2383	A		go_away	1
+2385	S	react	S2	1
+2385	V	react	V3	1
+2386	S	act	S1	1
+2386	V	act	V1	1
+2388	S	react	S2	1
+2388	V	react	V1	1
+2389	S	command	S4	1
+2389	V	command	V1	1
+2390	S	react	S2	1
+2390	V	react	V1	1
+2392	S	react	S2	1
+2392	V	react	V2	1
+2393	S	act	S3	1
+2393	V	act	V2	1
+2395	S	react	S2	1
+2395	V	react	V3	1
+2396	S	act	S3	1
+2396	V	act	V3	1
+2398	S	react	S2	1
+2398	V	react	V2	1
+2399	S	act	S1	1
+2399	V	act	V3	1
+2401	S	react	S2	1
+2401	V	react	V3	1
+2402	S	command	S2	1
+2402	V	command	V1	1
+2403	S	react	S2	1
+2403	V	react	V1	1
+2405	S	react	S2	1
+2405	V	react	V2	1
+2406	S	act	S3	1
+2406	V	act	V3	1
+2408	A		turn	1
+2409	S	act	S3	1
+2409	V	act	V3	1
+2409	A		turn	1
+2412	S	act	S3	1
+2412	V	act	V3	1
+2415	A		come	0
+2416	S	act	S1	1
+2416	V	act	V1	1
+2416	A		come	1
+2418	A		turn	1
+2420	S	react	S2	1
+2420	V	react	V1	1
+2422	S	react	S2	1
+2422	V	react	V1	1
+2423	S	command	S4	1
+2423	V	command	V3	1
+2424	S	react	S2	1
+2424	V	react	V3	1
+2426	S	act	S3	1
+2426	V	act	V2	1
+2428	A		go_away	1
+2429	S	act	S1	1
+2429	V	act	V1	1
+2429	A		go_away	1
+2431	A		go_away	1
+2434	S	react	S2	1
+2434	V	react	V1	1
+2435	S	command	S4	1
+2435	V	command	V2	1
+2436	S	react	S2	1
+2436	V	react	V2	1
+2437	S	command	S4	1
+2437	V	command	V2	1
+2438	S	react	S2	1
+2438	V	react	V2	1
+2441	S	act	S3	1
+2441	V	act	V3	1
+2443	S	act	S1	1
+2443	V	act	V3	1
+2445	S	react	S2	1
+2445	V	react	V1	1
+2447	S	react	S2	1
+2447	V	react	V2	1
+2450	A		go_away	1
+2451	S	act	S3	1
+2451	V	act	V3	1
+2451	A		go_away	1
+2453	S	react	S2	1
+2453	V	react	V1	1
+2454	S	act	S1	1
+2454	V	act	V1	1
+2456	S	react	S2	1
+2456	V	react	V1	1
+2457	S	act	S1	1
+2457	V	act	V2	1
+2459	S	react	S2	1
+2459	V	react	V3	1
+2460	S	act	S1	1
+2460	V	act	V1	1
+2462	A		come	1
+2464	S	react	S2	1
+2464	V	react	V2	1
+2465	S	act	S1	1
+2465	V	act	V1	1
+2467	A		turn	1
+2468	S	act	S1	1
+2468	V	act	V1	1
+2468	A		turn	1
+2470	S	react	S2	1
+2470	V	react	V3	1
+2471	S	act	S1	1
+2471	V	act	V1	1
+2475	S	act	S1	1
+2475	V	act	V3	1
+2477	S	act	S3	1
+2477	V	act	V2	1
+2479	S	react	S2	1
+2479	V	react	V1	1
+2480	S	act	S3	1
+2480	V	act	V3	1
+2482	S	react	S2	1
+2482	V	react	V2	1
+2484	S	react	S2	1
+2484	V	react	V3	1
+2485	S	act	S1	1
+2485	V	act	V2	1
+2488	S	react	S2	1
+2488	V	react	V2	1
+2490	A		turn	1
+2491	S	act	S1	1
+2491	V	act	V1	1
+2491	A		turn	1
+2493	A		come	1
+2494	S	act	S3	1
+2494	V	act	V3	1
+2494	A		come	1
+2496	A		go_away	1
+2497	S	command	S4	1
+2497	V	command	V2	1
+2498	S	react	S2	1
+2498	V	react	V2	1

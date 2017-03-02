@@ -1,0 +1,7 @@
+python ../../../Eval/Evaluator.py rlog.txt eval20_200_S_react.txt 20 200 S react '*'
+python ../../../Eval/Evaluator.py rlog.txt eval20_200_S_act.txt 20 200 S act '*'
+python ../../../Eval/Evaluator.py rlog.txt eval20_200_S_command.txt 20 200 S command '*'
+python ../../../Eval/Evaluator.py rlog.txt eval20_200_V_react.txt 20 200 V react '*'
+python ../../../Eval/Evaluator.py rlog.txt eval20_200_V_act.txt 20 200 V act '*'
+python ../../../Eval/Evaluator.py rlog.txt eval20_200_V_command.txt 20 200 V command '*'
+python ../../../Eval/Evaluator.py rlog.txt eval20_200_A.txt 20 200 A '*' '*'

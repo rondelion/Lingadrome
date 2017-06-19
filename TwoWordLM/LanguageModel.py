@@ -206,6 +206,8 @@ def main():
     parser.set_defaults(test=False)
     parser.add_argument('--unit', '-u', type=int, default=650,
                         help='Number of LSTM units in each layer')
+    parser.add_argument('--model', '-m', default='model.npz',
+                        help='Model file name to serialize')
     args = parser.parse_args()
 
     # Load the dataset
@@ -276,9 +278,12 @@ def main():
     result = evaluator()
     print('test perplexity:', np.exp(float(result['main/loss'])))
 
-    # Generate sentnces
+    # Generate sentences
     gen = Generator(eval_model, vocab, id2vocab)
     gen.generate(10)
+
+    # Serialize the evaluation model
+    chainer.serializers.save_npz(args.model, eval_model)
 
 if __name__ == '__main__':
     main()
